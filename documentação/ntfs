@@ -1,0 +1,17 @@
+ 
+Montar partição ntfs como utilizador comum
+==========================================
+
+$ yaourt ntfs-3g-fuse
+$ sudo groupadd ntfsuser
+$ sudo usermod -aG ntfsuser,disk $USER 
+$ sudo chown root:ntfsuser $(which ntfs-3g)
+$ sudo chmod 4750 $(which ntfs-3g)
+$ sudo umount /media/dados
+$ sudo chown -R $USER:$USER /media/dados
+
+Adicionar users to /etc/fstab
+
+UUID=3D6CD33E0E0B752D    /media/dados    ntfs-3g   rw,users,defaults    0  1
+
+Reiniciar a sessão

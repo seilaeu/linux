@@ -1,0 +1,48 @@
+<<<<<<< HEAD
+Teclado português
+=================
+
+$ sudo nano /etc/X11/xorg.conf.d/00-keyboard.conf 
+
+Section "InputClass"
+    Identifier "keyboard"
+    Option "XkbLayout" "pt"
+    Option "XkbModel" "pc105"
+EndSection
+
+
+Imagem de fundo
+===============
+
+editar /etc/lightdm/lightdm-gtk-greeter.conf
+
+[greeter]
+background=/usr/share/backgrounds/xfce/518079-background-hd.jpg 
+
+
+Numlock
+========
+
+sudo sh -c 'echo "greeter-setup-script=/usr/bin/numlockx on" >  /etc/lightdm/lightdm.conf'
+
+
+Mostar lista de utilizadores
+============================
+
+$ sudo nano /etc/lightdm/lightdm.conf
+
+[Seat:*]
+
+greeter-hide-users=false
+
+$ sudo killall lightdm
+=======
+$ sudo nano /etc/lightdm/lightdm.conf 
+[Seat:*]
+display-setup-script=setxkbmap pt
+greeter-setup-script=/usr/bin/numlockx on
+
+$ sudo nano /etc/lightdm/lightdm-gtk-greeter.conf
+[greeter]
+theme-name=Adwaita-dark
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2

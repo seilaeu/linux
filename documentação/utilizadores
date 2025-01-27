@@ -1,0 +1,31 @@
+ 
+atribuir um nome real a um utilizador já criado
+===============================================
+
+$ sudo usermod -c "nome" utilizador"
+
+
+mudar nome do utilizador
+========================
+
+$ sudo usermod -l <novo nome> <antigo nome>
+
+mudar o nome de um grupo
+========================
+
+$ sudo groupmod --new-name <novo nome do grupo> <antigo nome do grupo>
+
+
+mudar a directoria /home de um utilizador
+=========================================
+
+$ sudo usermod -m -d /caminho/para/a/nova/directoria/home <nome do utilizador>
+
+
+Criar utilizador 
+================
+$ useradd -m -g users -G storage,power,optical,audio,video -s /bin/bash <nome do utilizador>
+
+Atribuir palavra passe vazia (não atribuir palavra passe)
+
+$ password -d <nome do utilizador>

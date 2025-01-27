@@ -1,0 +1,5 @@
+Compiz
+======
+# wget -q http://download.tuxfamily.org/compiz/apt/key.pub -O- | apt-key add - && echo "deb http://download.tuxfamily.org/compiz/debian $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/compiz-debian.list && apt-get update
+
+# apt-get install compiz fusion-icon compiz-mate compiz-fusion-plugins-extra compiz-fusion-plugins-unsupported emerald emerald-themes

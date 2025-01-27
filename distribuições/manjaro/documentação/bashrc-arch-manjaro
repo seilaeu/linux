@@ -1,0 +1,107 @@
+# Prompt da bash
+PS1='${debian_chroot:+($debian_chroot)}\[\033[00;32m\]\u\[\033[0;00m\]@\[\033[00;32m\]\h\[\033[01;34m\] \w\[\033[0;00m\] \$ '
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+
+# Completar os comandos na bash
+complete -cf sudo
+
+
+# Controlo remoto
+
+# Manjaro
+alias mãe-acesso-terminal-manjaro="ssh -vv -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-manjaro="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch
+alias mãe-acesso-terminal-manjaro="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-manjaro="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Mint
+alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch, Mint e Manjaro
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+
+alias casa='du -sh ~'
+alias raiz='df -h / '
+alias sistema='df -h'
+alias linux='df -h /dev/pclvm/linux'
+alias audio='df -h /dev/pclvm/audio'
+alias pessoal='df -h /dev/pclvm/pessoal'
+
+alias volumes='sudo lvdisplay'
+
+# Pacman
+alias orfãos='sudo pacman -Rns $(pacman -Qqdt)'
+alias cache='sudo pacman -Scc'
+alias desinstalar='sudo pacman -Rsn'
+alias desinstalar-simples='sudo pacman -R'
+alias desinstalar-forçado='sudo pacman -Rdd'
+alias sincronizar='sudo yaourt -Syy'
+alias actualizar='yaourt -Syua'
+alias refrescar='sudo reflector --verbose -p https -a1 --sort rate --save /etc/pacman.d/mirrorlist'
+alias procurar='yaourt'
+alias instalar='yaourt -S'
+alias questionar='pacman -Qq|grep'
+alias desbloquear='sudo rm /var/lib/pacman/db.lck'
+
+alias mirrors='sudo pacman-mirrors -g'
+alias edisources='ediroot /etc/pacman.d/mirrorlist'
+alias edifstab='ediroot /etc/fstab'
+
+# Montagens de dispositivos
+
+alias montar_dados="sudo mount /mnt/dados" 
+alias desmontar_dados="sudo umount -l /mnt/dados"
+ 
+alias montar_debian='sudo mount /dev/sda3 /mnt/debian'
+alias desmontar_debian='sudo umount -l /mnt/debian'
+alias montar_gentoo='sudo mount /dev/sda5 /mnt/gentoo'
+alias desmontar_gentoo='sudo umount -l /mnt/gentoo'
+alias montar_funtoo='sudo mount /dev/sda6 /mnt/funtoo'
+alias desmontar_funtoo='sudo umount -l /mnt/funtoo'
+alias montar_kubuntu='sudo mount /dev/sda7 /mnt/kubuntu'
+alias desmontar_kubuntu='sudo umount -l /mnt/kubuntu'
+alias montar_manjaro='sudo mount /dev/sda9 /mnt/manjaro' 
+alias desmontar_manjaro='sudo umount -l /mnt/manjaro'
+
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
+
+# USB Drive
+alias formatusb='bash /mnt/dados/linux/scripts/formatusb'
+alias burnusb='bash /mnt/dados/linux/scripts/burnusb'
+
+# Grub
+alias grub-instalar='sudo /usr/sbin/grub-install --target=i386-pc /dev/sda9'
+alias grub-actualizar='sudo /usr/sbin/grub-mkconfig -o /boot/grub/grub.conf'
+
+
+# KDE
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
+
+alias edibash='$EDITOR ~/.bashrc'
+alias ediroot='SUDO_EDITOR=$EDITOR sudoedit'
+
+export PATH=$PATH:/usr/sbin
+
+neofetch
+

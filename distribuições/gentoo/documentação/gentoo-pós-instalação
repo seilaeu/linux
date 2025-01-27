@@ -1,0 +1,215 @@
+emerge -av partitionmanager filelight k3b kmymoney okular gwenview
+ktorrent digikam oxygen-gtk kdeplasma-addons
+
+emerge -av ntfs3g genlop libreoffice-bin gentoolkit ristretto
+   
+ttf-bitstream-vera dejavu sudo
+
+
+Compiz Fusion
+=========
+
+sudo nano /etc/portage/package.use/compiz 
+x11-wm/compiz-fusion emerald
+
+
+sudo emerge -av fusion-icon ccsm compiz-fusion compiz-plugins-unsupported   
+
+
+vlc spideroak-bin x11-themes/qtcurve layman 
+ os-prober kmix kalarm 
+
+sudo emerge -av  oracle-jre-bin pyrenamer
+
+
+sudo emerge -av media-fonts/arphicfonts media-fonts/bitstream-cyberbit \
+media-fonts/droid media-fonts/ipamonafont media-fonts/ja-ipafonts \
+media-fonts/takao-fonts media-fonts/wqy-microhei media-fonts/wqy-zenhei \
+gimp-resynthesizer 
+
+
+Executar comandos de root sem palavra-passe e sem o comando sudo:
+
+Editar o ficheiro /etc/sudoers:
+jribeiro ALL = NOPASSWD: /usr/bin/emerge, /usr/bin/revdep-rebuild, glsa-check
+
+Editar o ficheiro ~/.bashrc
+alias emerge="sudo /usr/bin/emerge"
+alias revdep-rebuild="sudo /usr/bin/revdep-rebuild"
+
+#######################
+# Acelerar o arranque #
+#######################
+
+rc-update del xdm
+rc-update add xdm boot
+
+Editar o ficheiro /etc/rc.conf:
+RC_PARALLEL_STARTUP="yes"
+
+########
+# JAVA #
+########
+
+
+Editar o ficheiro /etc/portage/package.use/programas-essenciais.use
+dev-java/oracle-jre-bin nsplugin
+
+emerge -av dev-java/oracle-jre-bin
+Entrar na página http://www.oracle.com/technetwork/java/javase/downloads/jre7-downloads-1880261.html
+Transferir o ficheiro necessário
+sudo cp ~/jre-7u51-linux-x64.tar.gz /usr/portage/distfiles/
+emerge -av dev-java/oracle-jre-bin
+sudo java-config --list-available-vms
+sudo java-config java-config --set-system-vm oracle-jre-bin-1.7
+sudo java-config --list-available-vms
+
+
+############
+# Plymouth #
+############
+
+Configurar o Kernel:
+ 
+Device Drivers  --->
+    <*> Connector - unified userspace <-> kernelspace linker  --->
+    Graphics support  --->
+        [*] Support for frame buffer devices  --->
+            [*]   Enable firmware EDID
+            <*>   Userspace VESA VGA graphics support
+            
+Recompilar o kernel e reiniciar o computador.
+
+emerge --ask --oneshot klibc
+emerge --ask v86d
+
+Configuração do kernel: 
+
+General setup  --->
+    [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
+    (/usr/share/v86d/initramfs) Initramfs source file(s)
+    
+Acrescentar video=uvesafb:1900x1080-32,mtrr:3,ywrap ao ficheiro /etc/default/grub na linha GRUB_CMDLINE_LINUX_DEFAULT. 
+
+sudo grub2-mkconfig -o /boot/grub/grub.cfg
+
+Editar o ficheiro /etc/portage/make.conf:
+DRACUT_MODULES="plymouth"
+
+emerge -av sys-kernel/dracut  (o pacote plymouth deverá ser instalado também)
+
+
+sudo plymouth-set-default-theme --list
+sudo plymouth-set-default-theme solar
+
+sudo dracut -H
+
+Editar o ficheiro /etc/default/grub:
+Acrescentar quiet splash à linha GRUB_CMDLINE_LINUX_DEFAULT
+
+Acrescentar ou modificar estas linhas no ficheiro /etc/default/grub:
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_VIDEO_BACKEND="vbe"
+GRUB_TERMINAL_OUTPUT="gfxterm"
+GRUB_GFXMODE="1900x1080x32"
+sudo grub2-mkconfig -o /boot/grub/grub.cfg
+
+Verificar se o ficheiro /boot/initramfs-$KV onde $KV é a versão do kernel em execução (uname -r) está na linha initrd do ficheiro /boot/grub/grub.cfg
+
+#############
+# Bluetooth #
+#############
+
+Configurar o kernel:
+
+[*] Networking support  --->
+    <*> Bluetooth subsystem support  --->
+        
+        Select options for Bluetooth applications, see table below:
+        <*>   ...
+
+            Bluetooth device drivers  --->
+
+               Select a Bluetooth HCI driver, e.g.:
+               <*> HCI USB driver (btusb)
+               
+Bluetooth applications  
+Option                      Driver         Description
+RFCOMM protocol support     rfcomm      RFCOMM is a requirement of the OBEX-file transfer, dialup connections and more bluetooth applications.
+RFCOMM TTY support             -        Enables terminal emulator connections over RFCOMM.
+BNEP protocol support         bnep      Enables network support, e.g. for the PAN profile.
+Multicast filter support       -        Enables multicast filter support.
+Protocol filter support        -        Enables protocol filter support.
+HIDP protocol support         hidp      Enables input device support. See the Bluetooth Input devices article. 
+
+Activar a USE flag bluetooth automaticamente puxa o necessário pacote net-wireless/bluez. 
+
+/etc/portage/make.conf
+USE="... bluetooth ..."
+
+emerge --ask --changed-use --deep @world
+
+/etc/init.d/bluetooth start
+rc-update add bluetooth default (Opcional)
+gpasswd -a larry plugdev
+
+hcitool dev
+
+Integração no Ambiente de Trabalho:
+emerge -av net-wireless/bluedevil for KDE 
+
+
+Personalizar a "bash"
+=====================
+
+$ nano  ~/.bashrc
+
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+# Prompt da bash
+PS1='[\u@\h \w]\$ '
+
+alias ls='ls --color=auto'
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+export HISTCONTROL=ignoreboth:erasedups 
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+export HISTSIZE=1000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+
+# Editor do sistema
+export EDITOR=nano
+
+# Completar os comandos na bash
+complete -cf sudo
+y
+
+Registar o uptime no desligamento e reinício e do sistema
+=========================================================
+
+$ sudo nano /etc/local.d/uptime.stop 
+#!/bin/bash
+echo "$(hostname) : $(date "+%d %B %Y : %T") : Uptime: $(uptime | sed s/^.*up// | awk -F, '{ if ( $3 ~ /user/ ) { print $1 $2 } else { print $1 }}' | sed -e 's/:/\h\ /' -e 's/ min//' -e 's/$/\m/' | sed 's/^ *//')" >> /media/dados/linux/registo_de_uptime
+
+$ sudo chmod +x /etc/local.d/uptime.stop 
+
+
+Mensagem de erro no arranque
+============================
+
+"Failed to insert module 'autofs4'"
+
+Solução: Recompilar o kernel com a definição CONFIG_AUTOFS4_FS=m
+
+make menuconfig
+File Systems => <M> Kernel automounter version 4 support (also supports v3) 

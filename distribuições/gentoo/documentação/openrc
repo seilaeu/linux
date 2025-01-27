@@ -1,0 +1,36 @@
+
+OpenRC
+
+Iniciar um serviço
+==========
+
+# /etc/init.d/nome_do_serviço start
+
+Parar um serviço
+==========
+
+# /etc/init.d/nome_do_serviço stop
+
+Reinicar um serviço
+===========
+
+# /etc/init.d/nome_do_serviço restart
+
+Descrever um serviço
+=============
+
+# /etc/init.d/nome_do_serviço describe
+
+Adicionar um serviço
+
+# rc-update add alsasound boot
+
+Remover um serviço
+============
+
+# rc-update del consolekit default
+
+Mostrar os serviços
+===========
+
+# rc-update -v show 

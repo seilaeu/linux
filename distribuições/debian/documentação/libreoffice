@@ -1,0 +1,7 @@
+$ instalar libreoffice-calc libreoffice-writer libreoffice-l10n-pt \
+hunspell-pt-pt hyphen-pt-pt mythes-pt-pt && instalar libreoffice-kde --no-install-recommends && 
+purgar libreoffice-java-common libreoffice-math libreoffice-base libreoffice-help-pt libreoffice-style-tango
+
+
+
+

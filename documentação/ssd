@@ -1,0 +1,15 @@
+To verify TRIM support, run:
+
+$ lsblk --discard
+
+And check the values of DISC-GRAN (discard granularity) and DISC-MAX (discard max bytes) columns. Non-zero values indicate TRIM support. 
+
+Alternatively, install hdparm package and run:
+
+# hdparm -I /dev/sda | grep TRIM
+
+        *    Data Set Management TRIM supported (limit 1 block)
+
+The util-linux package provides fstrim.service and fstrim.timer systemd unit files. Enabling the timer will activate the service weekly:
+
+$ systemctl enable fstrim.timer

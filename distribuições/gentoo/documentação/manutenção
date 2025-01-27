@@ -1,0 +1,36 @@
+
+1. sync portage tree
+
+# eix-sync
+
+2. upgrade whole system
+
+# emerge -uDNav --with-bdeps y @world
+
+
+3. make configuration file(s) up to date
+
+# dispatch-conf
+
+
+4. fix static library
+
+# lafilefixer --justfixit | grep -v skipping
+
+
+5. uninstall useless packages
+	
+# emerge -pv --depclean
+
+
+6. Reverse dynamic library Dependency
+	
+# revdep-rebuild -pv
+
+7. uninstall useless packages again
+
+# emerge -pv --depclean	
+
+8. clean source code of the old packages
+
+# eclean -pd distfiles

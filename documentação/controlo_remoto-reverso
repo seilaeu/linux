@@ -1,0 +1,85 @@
+1) Criar uma conta para a minha mãe no meu computador: 
+
+root@meu_computador# useradd -m kika && passwd kika
+
+jkosta@meu_computador$ su - kika
+
+2) Criar um par de chaves publica/privada  através do comando ssh-keygen para ela poder entrar remotamente no meu computador:
+kika@meu_computador$ ssh-keygen -t rsa -b 4096
+
+Guardar a chave privada como kika_rsa e a pública como kika_rsa.pub.
+
+3) Adicionar a chave pública ao seu ficheiro authorized_keys em /home/momma/.ssh/
+
+kika@meu_computador$ cd  ~/.ssh && cat kika_rsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
+
+4) Configurar a firewall do meu router e do meu computador de modo a permitir a passagem do SSH.
+Activar o encaminhamento da porta 22022 no meu router para a porta 22. 
+Editar o ficheiro /etc/ssh/sshd_config. 
+Ajustar a firewall do router e do computador conformemente.
+
+5) Transferir a chave privada da kika kika_rsa para uma USB ou CD. Não deixá-la no meu computador. Em nenhuma circuntância deve ser enviada por correio electrónico ou através de rede. 
+Levar a USB para casa da minha mão. Transferir o ficheiro kika_rsa da USB para ~/.ssh. 
+Tentar entrar na conta kika no meu computador a partir do computador dela, usando a chave privada:
+
+
+kika@computador_da_mãe$ chmod 0400 ~/.ssh/kika_rsa
+
+kika@computador_da_mãe$ ssh -vv -p 22022 -i ~/.ssh/kika_rsa kika@meu_endereço_público
+
+
+6) Definir um servidor VNC, não um cliente, no computador da minha mãe. Eu sempre tive sucesso com o TightVNC.
+
+7) Criar um script no computador da miha mãe:
+
+
+#!/bin/sh
+
+# script name: controlo_remoto.sh
+
+ssh -R 55901:localhost:5901 kika@meu_endereço_público -p 22022
+
+######################################
+#
+# -R creates a reverse SSH tunnel
+#
+# 55901 is the port on slackware01 she will open when she runs this
+# script
+#
+# 5901 is the port on slackware02 that the TightVNC server will be
+# listening on
+#
+# 22022 is the port sshd is listening on at slackware01; there is no
+# need for a SSH server on slackware02
+#
+# slackware01-ip-address is your own IP address; it might be easier
+# for your mother if you just set up dynamic DNS if your public IP
+# address is not static
+#
+#####################################
+
+8) Tornar o script executável:
+
+kika@computador_da_mãe$ chmod +x support.sh
+8) Now when you return home this is what your mother has to do:
+
+open a terminal and start the VNC server; no need for 24 or 32 bit colour.
+
+Code:
+kika@computador_da_mãe$ vncserver -kill :1 && vncserver -depth 15 ou se der erro vncserver:1
+  
+Isto mata qualquer sessão duradoura do vncserver em :1 e cria uma nova sessão em :1 (port 5901)
+
+Depois ela executa o script controlo_remoto.sh 
+
+
+kika@computador_da_mãe$ ./support.sh
+
+This will create a SSH tunnel to your computer and open port 55901 there. You can then open a VNC client at your end and connect to this port on localhost. The reverse SSH tunnel created by your mother means you will be routed to the VNC server listening on port 5901 at your mother's end.
+
+
+jribeiro@meu_computador$ vncviewer -compresslevel 0 -quality 0 -depth 15 127.0.0.1:55901
+
+It looks complicated but take it one step at a time and it will work for you. 
+The beauty of this method is that the person at the remote end doesn't need to know anything about port forwarding or firewall configuration. 
+Just find a way of getting the private key to them securely, set up the scripts on their PC and you handle all the awkward port forwarding and firewall stuff at your end.

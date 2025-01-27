@@ -1,0 +1,29 @@
+
+$ zgrep CONFIG_LSM= /proc/config.gz
+$ sudo nano /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT="... lsm=landlock,lockdown,yama,apparmor,bpf audit=1"
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+$ sudo sudo pacman -S apparmor audit --needed
+$ sudo systemctl enable --now apparmor.service
+$ sudo systemctl enable --now auditd.service
+$ aa-enabled
+$ sudo aa-status
+$ sudo groupadd -r audit
+$ sudo gpasswd -a $USER audit
+$ nano ~/.config/autostart/apparmor-notify.desktop
+
+[Desktop Entry]
+Type=Application
+Name=AppArmor Notify
+Comment=Receive on screen notifications of AppArmor denials
+TryExec=aa-notify
+Exec=aa-notify -p -s 1 -w 60 -f /var/log/audit/audit.log
+StartupNotify=false
+NoDisplay=true
+
+$ sudo pacman -S python-notify2
+
+$ sudo nano /etc/apparmor/parser.conf
+
+## Turn creating/updating of the cache on by default
+write-cache

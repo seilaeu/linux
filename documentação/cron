@@ -1,0 +1,69 @@
+$ crontab -l 
+# crontab -l
+
+$ crontab -e 
+# crontab -e
+
+
+- Com redirecionamento apenas de erros
+- Verificado a cada 15 minutos e executado a cada hora, aos minutos 0 e 30, 5 e 35, e 10 e 40
+
+00,30  * * * *  ID=sincronização FREQ=1h/15m sudo eix-sync 2> /var/log/cronie/sincronização 
+05,35  * * * *  ID=mandb FREQ=1h/15m /usr/bin/mkdir -p /var/cache/man 2> /var/log/cronie/mandb && /usr/bin/mandb 2> /var/log/cronie/mandb
+10,40  * * * *  ID=updatedb FREQ=1h/15m /usr/bin/updatedb -v 2> /var/log/cronie/updatedb 
+
+- Com redirecionamento de todo o output
+- Verificado a cada 15 minutos e executado a cada duas horas, aos minutos 0 e 30
+
+00,30  * * * *  ID=mandb FREQ=2h/15m /usr/bin/mkdir -p /var/cache/man >> /var/log/cronie/mandb 2>&1 && /usr/bin/mandb >> /var/log/cronie/mandb 2>&1
+
+É executado a cada 15 minutos:
+
+#*/15 * * * *  ID=rclone FREQ=1h/15m rclone -v sync /home/jribeiro/nuvem/computador/ Nuvem:computador >> /var/log/cronie/rclone 2>&1
+
+$ crontab -l
+
+$ sudo systemctl start cronie
+$ sudo systemctl enable cronie
+
+
+Leitura mais aprofundada:
+
+Modo Sleep 
+
+Now dcron lets you give an ID to a cron job which acts as a reference to that job. 
+The point of having a reference is that the job no longer disappears into thin air if its activation time 
+has passed while the machine was asleep.
+The FREQ keyword specifies how often you want cron to check if the job ID has run in order to reschedule 
+it if it has not. In the case of my weather script, the crontab entry looks like this, with the original entry first and the improved entry second (in case it is not obvious, I deleted the first entry in the real crontab):
+
+
+10  7  * * *   /home/user/bin/forecast
+10,40  7-11 * * *  ID=weather FREQ=4h/30m   /home/user/bin/forecast
+The first entry runs the forecast script at 7:10am. If the machine is asleep, it is not activated.
+With the second entry and ignoring the ID and FREQ keywords for the moment, the script runs every 10 past and 40 past the hour for the hours of 7, 8, 9, 10 and 11 o'clock. Obviously I do not want it to run at each of those times and this is where the FREQ keyword comes in. The FREQ entry says to run the job only if it has been at least 4 hours since it last ran, and to check on this every 30 minutes.
+
+Take this morning as an example. I opened the laptop at 10:15am. The last time this entry ran was yesterday morning. Upon wakeup, dcron checks this entry and notices that job ID of weather last ran more than 4 hours ago, so it is good to go. At 10:40 (the next available slot), the job ran. Since then, it has not run again because before 14:40 it is less than 4 hours since it last ran, and after 14:40 it is outside its scheduled times of 7-11.
+
+Most of my personal crontab entries now use this method.
+
+You can see why this type of crontab entry needs an ID, because dcron needs some way of tracking how recently a particular job ran. Rather than use an internally-generated ID, it gives you the ability to specify your own. A side benefit is that the cron emails use the ID in their subject header (which is why I use meaningful words rather than a number).
+
+Scheduling
+
+A few points on scheduling. You need to allow sufficient range in your times so that the job can run. Note the weather script previously had only 7am specified, now it has a range of 7-11 to allow a wide time period for the script to run (presumably I am not interested in getting the forecast after 11am). And, the FREQ range needs to be long enough so that the job will not run again until the next time period, but short enough so that it can run again. Confused? An example.
+If I want a job to run every day, I should not specify FREQ=1d. Say I had a range of 7-11 hours, and the job ran at 11:40. The next day I open the laptop early and, at 7:10am, the job would not run because it had not been 24 hours since the last run. This is not what I want. If I specify FREQ=12h, the job would run at 7:10am.
+
+Conversely, I should not specify FREQ=2h because then the job would run at, for example, 7:10am, 9:10am and 11:10am if my laptop was open early, again not what I want.
+
+The FREQ should be long enough so that the job cannot run again within the same time period, but short enough so that if it last ran at the latest time it can next run at the earliest time.
+
+Other Features
+
+There are some other features in the new dcron too.
+FREQ can re-run a job if it did not exit cleanly (use exit 11 to signal this).
+A job can depend on another job(s) such as "run job2 only if job1 (and job0 and … ) has already run". Use the keyword AFTER.
+You can now use the keywords of @hourly, @daily, @weekly, @monthly and @yearly, which users of other crons have missed in dcron.
+Summary
+
+The new cron daemon introduces some features that let cron jobs that are missed while a machine is in sleep mode run once the machine is wakened. This provides some of the features of anacron. It also gives extra flexibility with jobs that can depend on other jobs, and with new keywords.

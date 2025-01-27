@@ -1,0 +1,47 @@
+XBPS - Coleção de pacotes fonte
+-------------------------------
+
+$ git clone https://github.com/void-linux/void-packages.git
+$ cd void-packages
+$ echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf
+$ ./xbps-src binary-bootstrap
+
+Compilar um pacote
+------------------
+
+$ cd void-packages
+$ ./xbps-src pkg <pacote>
+
+$ sudo xi <pacote> ou $ xbps-install -R hostdir/binpkgs <pacote>
+
+
+Mostrar opções de compilação de um pacote
+-----------------------------------------
+
+$ ./xbps-src show-options <pacote>
+
+
+Activar opções de compilação de um pacote
+-----------------------------------------
+
+$ ./xbps-src -o option,opção1 pkg <pacote>
+
+
+
+Desactivar opções de compilação de um pacote
+
+$ ./xbps-src -o ~option,~opção1 pkg <pacote>
+
+
+
+Desactivar múltiplas opções simultaneamente
+-------------------------------------------
+
+$ ./xbps-src -o option,~option1,~option2 pkg <pacote>
+
+
+
+As opções de compilação também podem ser usadas para pacotes binários
+---------------------------------------------------------------------
+
+$ xbps-query -R --property=build-options <pacote>

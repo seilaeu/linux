@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+=======
+Instalar o plugin resynthesizer
+
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+Cortar um objecto:
+
+Camada > Transparência > Adicionar canal alfa
+Ferramentas > Ferramentas de seleção: Escolher a ferramenta e selecionar o objecto em questão
+Selecionar > Inverter
+Premir "Ctrl + X" para remover o fundo
+Exportar a imagem com a extensão png, para preservar a tranparência.

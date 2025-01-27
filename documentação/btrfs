@@ -1,0 +1,126 @@
+Criar o sistema de ficheiros
+============================
+
+# mkfs.btrfs -L mylabel /dev/sdaX
+
+
+Compressão
+==========
+
+# btrfs filesystem defragment -r -v -clzo /
+
+Criar um subvolume
+==================
+
+# btrfs subvolume create /path/to/subvolume
+
+
+Listar subvolumes
+=================
+
+
+# btrfs subvolume list -p path
+
+
+Apagar um subvolume
+===================
+
+# btrfs subvolume delete /path/to/subvolume
+
+
+Mudar o subvolume padrão
+========================
+
+The default sub-volume is mounted if no subvol= mount option is provided. To change the default subvolume, do:
+
+
+# btrfs subvolume set-default subvolume-id /
+
+FSTAB
+=====
+
+. 
+
+LABEL=arch64 / btrfs rw,suid,dev,exec,auto,nouser,async,relatime,compress=lzo 0 0
+
+Snapshots
+=========
+
+"A snapshot is simply a subvolume that shares its data (and metadata) with some other subvolume, using btrfs's COW capabilities." See Btrfs Wiki SysadminGuide#Snapshots for details.
+
+To create a snapshot:
+
+# mount -t btrfs -o subvolid=0 /dev/sdaX /mnt/
+
+# btrfs subvolume snapshot source [dest/]name
+
+To create a readonly snapshot add the -r flag. To create writable version of a readonly snapshot, simply create a snapshot of it. 
+
+
+
+Mover um subvolume para outra partição do disco rígido
+======================================================
+
+https://www.kubuntuforums.net/forum/general/miscellaneous/btrfs/61623-more-btrfs-fun-moving-a-subvolume-from-one-drive-to-another
+
+Montar a partição fonte:
+
+<<<<<<< HEAD
+# mkdir /media/btrfs-fonte
+# mount -o subvolid=5 /dev/sdaX /media/btrfs-fonte
+
+https://www.kubuntuforums.net/forum/general/miscellaneous/btrfs/61623-more-btrfs-fun-moving-a-subvolume-from-one-drive-to-another
+
+# mkdir /media/btrfs-destino
+# mount -o subvolid=5 /dev/sdaY /media/btrfs-destino
+
+Criar snapshot apenas de leitura do subvolume alvo da partição fonte
+
+# btrfs sub snapshot -r /media/btrfs-fonte/subvolume/alvo /media/btrfs-fonte/reserva/subvolume_alvo-snap-leitura
+=======
+# mkdir /media/fonte
+# mount -o subvolid=5 /dev/sdaX /media/fonte
+
+
+# mkdir /media/destino
+# mount -o subvolid=5 /dev/sdaY /media/destino
+
+Criar snapshot apenas de leitura do subvolume alvo da partição fonte
+
+# btrfs sub snapshot -r /media/fonte/subvolume-alvo /media/fonte/subvolume_alvo-so-leitura
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+
+
+Sincronizar para assegurar que a snapshot está completa (pode até nem ser necessário).
+
+<<<<<<< HEAD
+# btrfs fi sync /media/btrfs-fonte
+
+Enviar 
+
+# btrfs send /media/btrfs-fonte/reserva/subvolume_alvo-snap-leitura | btrfs receive /media/btrfs-destino
+
+Criar um snapshot com propriedade de escrita
+
+# btrfs sub snapshot /media/btrfs-destino/subvolume_alvo-snap-leitura /media/btrfs-destino/subvolume_alvo-snap-escrita
+
+Eliminar a snapshot apenas de leitura
+
+# btrfs sub delete /media/btrfs-fonte/reserva/subvolume_alvo-snap-leitura /media/btrfs-destino/subvolume_alvo-snap-leitura
+=======
+# btrfs fi sync /media/fonte
+
+Enviar 
+
+# btrfs send /media/fonte/reserva/subvolume_alvo-so-leitura | btrfs receive /media/destino
+
+Criar um snapshot com propriedade de escrita
+
+# btrfs sub snapshot /media/destino/subvolume_alvo-so-leitura /media/destino/subvolume_alvo-snap-escrita
+
+Eliminar a snapshot apenas de leitura
+
+# btrfs sub delete /media/fonte/subvolume_alvo-so-leitura /media/destino/subvolume_alvo-snap-leitura
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+
+Resta actualizar o ficheiro /etc/fstab da partição destino com o UUID do novo subvolume 

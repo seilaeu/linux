@@ -1,0 +1,59 @@
+Instalação
+==========
+
+$ instalar snapper snapper-gui-git grub-btrfs snapper-support
+
+
+Configuração
+============
+
+$ desmontar /.snapshots
+
+$ sudo rmdir /.snapshots
+
+$ sudo snapper -c root create-config /
+
+$ ediroot /etc/snapper/configs/root
+
+ALLOW_USERS="seilaeu"
+ALLOW_GROUPS="seilaeu"
+
+$ sudo btrfs sub delete /.snapshots/
+
+$ sudo mkdir /.snapshots
+
+$ sudo chmod a+rx /.snapshots
+
+$ montar /.snapshots
+
+$ sudo systemctl enable --now snapper-timeline.timer
+
+$ sudo systemctl enable --now snapper-cleanup.timer
+
+$ sudo systemctl enable --now grub-btrfs.path
+
+
+Snapshot Inicial
+================
+
+$ snapper -c root create -c timeline --description "Snapshot inicial"
+
+
+Restaurar uma snapshot
+======================
+
+$ montar /dev/sdaX /mnt
+
+$ sudo systemctl stop snapper-timeline.timer
+
+$ sudo systemctl stop snapper-cleanup.timer
+
+$ sudo mv @ @broken
+
+$ sudo btrfs subvolume snapshot /.snapshots/X/snapshot @
+
+$ ediroot /etc/fstab
+
+Mudar o valor de subvolid para o do snapshot restaurado
+
+$ reboot

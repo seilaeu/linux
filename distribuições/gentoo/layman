@@ -1,0 +1,23 @@
+Criar um repositório pessoal
+============================
+
+# mkdir -v /var/lib/layman/jribeiro
+# nano /var/lib/layman/make.conf 
+acrescentar /var/lib/layman/jribeiro
+
+# mkdir -v /var/lib/layman/jribeiro/metadata/
+# nano /var/lib/layman/jribeiro/metadata/layout.conf
+masters = gentoo
+# mkdir -v /var/lib/layman/jribeiro/profiles/
+# echo "jribeiro" > /var/lib/layman/jribeiro/profiles/repo_name
+# cd /usr/portage/distfiles/
+# wget https://launchpad.net/mugshot/0.3/0.3.1/+download/mugshot-0.3.1.tar.gz
+# mkdir -pv /var/lib/layman/jribeiro/x11-misc/mugshot
+# cd /var/lib/layman/jribeiro/x11-misc/mugshot
+# cp /var/lib/layman/y2kbadbug/x11-misc/mugshot/mugshot-0.3.0.ebuild .
+# mv mugshot-0.3.0.ebuild mugshot-0.3.1.ebuild
+# ebuild mugshot-0.3.1.ebuild manifest
+#  emerge -av mugshot
+
+
+

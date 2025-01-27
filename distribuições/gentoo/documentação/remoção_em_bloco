@@ -1,0 +1,60 @@
+Ola 
+
+I have decided to leave xfce desktop and gnome apps behind in favour of ratpoison. 
+
+First thing I am interested in is how to remove all xfce and most gnome stuff? 
+This post has one interesting command: 
+https://forums.gentoo.org/viewtopic-t-804769-highlight-remove+xfce.html 
+so # emerge -pC $(qlist -ICv xfce) and # emerge -pC $(qlist -ICv gnome) is one way to go? 
+
+And than what else to unmerge? 
+consolekit gvfs udisks upower polkit and such stuff? 
+going with ratpoison I also probably won't need slim. 
+
+I will have some more questions on "which apps can replace xy" 
+(perhaps emerge thunar, or will this pull more of xfce back? 
+Also I would need gnome's nm-applet sensors-applet zenity gnome-mplayer gnomebaker, 
+or will this pull too much of gnome?) 
+but to kick off help me get rid of unnecesary stuff. 
+
+Thank you
+_________________
+Kind regards, Goran Mitic 
+
+alive 
+while true 
+kick ass
+
+Editado pela última vez por while true em Seg Fev 21, 2011 6:22 am, num total de 1 vez
+Voltar ao topo	
+Ver o perfil de utilizadores Enviar Mensagem Privada
+
+Bones McCracker
+Veteran
+Veteran
+
+
+Registado em: 14 Mar 2006
+Mensagens: 1581
+Local/Origem: U.S.A.
+MensagemColocada: Sex Fev 18, 2011 1:15 pm    Assunto:	Responder com Citação
+Globally disable all Gnome and XFCE-related USE flags in /etc/make.conf and /etc/portage/package.use 
+
+equery depends gnome <make a note of packages depending on gnome> 
+equery depends xfce <make a note of packages depending on xfce> 
+
+emerge --unmerge gnome 
+emerge --unmerge xfce 
+
+emerge --unmerge <everything depending on gnome or xfce> 
+
+emerge -uavDN world 
+emerge --depclean 
+revdep-rebuild 
+eclean-dist -d 
+
+You will probably find that many of the applcations you installed which don't depend of gnome or xfce depend on parts of it. You will have to decide whether to get rid of them or not. I, for one, have no dependencies on my system for any elements of gnome or kde whatsoever (including gconf), but that's probably rather extreme. I also don't use a file manager.  :P 
+
+Given the tangled mess of dependencies that Gnome is, and given all the cruft it is likely to have left behind, you may be better off rebuilding your system from a minimal base. 
+
+This is just one method, and one opinion. You may want to wait for others before proceeding.

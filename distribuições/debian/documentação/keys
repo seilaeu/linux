@@ -1,0 +1,4 @@
+Chaves em falta
+===============
+
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys <chave em falta>

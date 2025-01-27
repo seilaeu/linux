@@ -1,0 +1,100 @@
+Data e hora
+
+To check the current hardware clock time and system clock time respectively (the hardware clock time is presented in localtime even if 
+the hardware clock set to UTC):
+
+$ timedatectl status
+
+Set clock
+
+To set the system clock directly:
+
+# timedatectl set-time "2013-07-15 18:17:16"
+
+
+Time zone
+
+To check the current zone:
+
+$ timedatectl status
+
+To list available zones:
+
+$ timedatectl list-timezones
+
+To change your time zone:
+
+# timedatectl set-timezone <Zone>/<SubZone>
+
+Example:
+
+# timedatectl set-timezone Europe/Lisbon
+
+Apagar o ficheiro /etc/adjtime e redefinir:
+
+/sbin/hwclock --hctosys --utc --noadjfile
+               ou
+/sbin/hwclock --hctosys --localtime --noadjfile
+
+Problemas com as chaves:
+
+pacman -S archlinux-keyring
+
+
+#################################
+# Cópia de segurança do sistema #
+#################################
+
+Cria cópia:
+
+sudo tar cjvf Manjaro-`date +"%Y.%m.%d"`.tar.bz2 -X /media/dados/linux/distribuições/manjaro/documentação/manjaro.exclusões  /media/manjaro
+
+
+Restaurar cópia:
+
+tar -xjvpf Manjaro*.tar.bz2 -C /directorio/de/destino
+
+Em caso de alteração da partição raíz, editar o ficheiro /etc/fstab e alterar a identidade da mesma.
+
+Restaurar o grub: 
+
+grub2-install --force /dev/sdaX
+grub2-mkconfig -o /boot/grub2/grug.cfg
+
+Terminar session c1 user
+========================
+
+$ sudo nano /etc/rc.local.shutdown
+
+systemctl stop user@$UID.service
+
+$ sudo chmod +x /etc/rc.local.shutdown
+
+$ sudo nano /usr/lib/systemd/system/fechar-sessao-no-desligamento.service
+
+[Unit]
+Description=/etc/rc.local.shutdown Compatibility
+Before=shutdown.target
+[Service]
+ExecStart=/bin/true
+ExecStop=/etc/rc.local.shutdown
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
+
+$ sudo nano /usr/lib/systemd/system/fechar-sessao-no-reiniciamento.service 
+
+[Unit]
+Description=/etc/rc.local.shutdown Compatibility
+Before=reboot.target
+[Service]
+ExecStart=/bin/true
+ExecStop=/etc/rc.local.shutdown
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
+
+$ sudo systemctl enable fechar-sessao-no-desligamento
+$ sudo systemctl enable fechar-sessao-no-reiniciamento
+$ sudo systemctl start fechar-sessao-no-desligamento
+$ sudo systemctl start fechar-sessao-no-reiniciamento

@@ -1,0 +1,30 @@
+Erro ao apagar ficheiros
+========================
+
+$ sudo mkdir /media/dados/.Trash-uid
+$ sudo chown -R utilizador:users /media/dados/.Trash-1000
+
+utilizador: whoami 
+uid: id -u $(whoami) 
+
+
+Não conseguir entrar no sistema como root nas tty
+=================================================
+
+$ sudo nano /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+mensagem de erro no arranque: (sda7): error: couldn't mount because of unsupported optional features (240)
+solução: adicionar o parâmetro rootfstype=ext4 à linha linux do ficheiro /etc/default/grub.
+         # grub-mkconfig -o /boot/grub/grub.cfg
+
+mensagem de erro no na bash: /usr/bin/rm: argument list too long  
+
+solução: find . -type d -print0 | xargs -0 rm -r
+
+mensagem de erro no arranque: usb 3-1: device descriptor read/64, error -62 ou
+                              usb 4-2: device descriptor read/64, error -71 ou
+                              usb 2-3: device descriptor read/64, error -101 ou
+                              usb 2-3: device descriptor read/64, error -110
+                              
+solução: Desligar o computador, desligar todos os cabos. Esperar 1-2 minutos. Voltar a ligar os cabos e ligar o computador. 

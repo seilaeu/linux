@@ -1,0 +1,4 @@
+Desactivar o chaveiro
+=====================
+
+$ google-chrome --password-store=basic --flag-switches-begin --enable-tab-audio-muting --flag-switches-end

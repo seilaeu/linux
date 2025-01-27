@@ -1,0 +1,9 @@
+criar um ficheiro conky.sh com o seguinte conteúdo
+
+sleep 5
+conky -&
+
+chmod +x conky.sh
+
+No KDE Plasma, colocá-lo na pasta ~/.config/autostart 
+

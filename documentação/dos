@@ -1,0 +1,13 @@
+Reparar sistema de ficheiros fat:
+
+$ sudo dosfsck -w -r -l -a -v -t /dev/sdXY
+
+If that command takes too much time for you, avoid -t switch.
+
+    -w means write to disk immediately.
+    -r means to do disk check interactively (ask you what to do to when encountering errors). On newer versions of dosfsck this   the default.
+    -l means to list the filenames processed.
+    -a means automatically fix errors. Do not use it, if You want to have more control over fixing possible errors.
+    -v means verbose mode. Generates slightly more output.
+    -t means mark unreadable clusters as bad.
+

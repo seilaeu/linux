@@ -1,0 +1,8 @@
+emerge -av kdebase-meta
+
+nano -w /etc/conf.d/xdm 
+DISPLAYMANAGER="kdm"
+
+rc-update add xdm default
+
+sudo rc-update add alsasound boot

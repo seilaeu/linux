@@ -1,0 +1,40 @@
+Criar ficheiro de configuração, se inexistente
+----------------------------------------------
+
+$ sudo bash -c "sddm --example-config > /etc/sddm.conf"
+
+
+Teclado português
+=================
+
+$ sudo bash -c "echo 'setxkbmap pt' >> /usr/share/sddm/scripts/Xsetup"
+
+$ ediroot /etc/sddm.conf
+
+[General]
+
+Numlock=on
+
+[Theme]
+
+#Avatar
+EnableAvatars=true
+FacesDir=/usr/share/sddm/faces
+
+# Cu# Current theme namerrent theme name
+Current=
+
+# Cursor theme used in the greeter
+CursorTheme=
+
+
+[X11]
+
+#Aumentar o tamanho da letra
+ServerArguments=-nolisten tcp -dpi 120
+
+# If you prefer the old convention where tty1 through tty6 are reserved for text consoles
+MinimumVT=7
+
+
+/usr/lib/sddm/sddm.conf.d/default.conf

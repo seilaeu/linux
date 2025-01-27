@@ -1,0 +1,26 @@
+Localização
+===========
+
+$ sudo sh -c "echo 'pt_PT.UTF-8 UTF-8' > /etc/locale.gen" 
+
+
+ 
+$ sudo sh -c "echo 'LANG=pt_PT.UTF-8' > /etc/default/locale" 
+
+
+
+$ sudo nano /etc/locale.nopurge 
+
+USE_DPKG
+MANDELETE
+DONTBOTHERNEWLOCALE
+SHOWFREEDSPACE
+
+pt
+pt_PT
+pt_PT.UTF-8
+
+$ sudo locale-gen pt_PT.UTF-8
+$ sudo update-locale
+
+sair e voltar a entrar no ambiente de trabalho

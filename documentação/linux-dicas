@@ -1,0 +1,168 @@
+
+definir a shell a ser utilizada 
+===============================
+
+SHELL=/bin/bash
+
+
+definir o tempo de vida da palavra-passe do comando sudo
+========================================================
+
+defaults:jribeiro timestamp_timeout=15 (em minutos)
+
+
+alterar a variável path
+=======================
+
+para todos os utilizadores edita-se o ficheiro /etc/profile
+para um utilizador específico edita-se o ficheiro ~/.bashrc
+
+
+criar cópias de segurança com o comando tar
+===========================================
+
+directório pessoal:
+tar cjvf pessoal-`date +"%y.%m.%d"`.tar.bz2 -X /mnt/dados/pessoal/pessoal.exclusões /media/dados/pessoal
+
+directório linux:
+tar cjvf linux-`date +"%y.%m.%d"`.tar.bz2 -X /mnt/dados/linux/documentação/linux.exclusões /media/dados/linux
+
+testar a integridade dos arquivos compactados:
+
+bzip2 -tv pessoal-*.tar.bz2
+bzip2 -tv linux-*.tar.bz2
+
+
+transferir um ficheiro torrent do sítio the pirate bay
+====================================================== 
+
+1º método:
+obtém a ligação para o torrent que 
+queres transferir, por exemplo http://thepiratebay.se/torrent/7251952/
+procura o número na ligação do teu torrent, neste caso é 9646973.
+agora, usa este modelo para obteres o ficheiro torrent: "http://torrents.thepiratebay.se/número/nome.torrent". número é o número anotado anteriormente, e nome é nome que atribuis dás ao teu ficheiro torrent.
+neste exemplo fica "http://torrents.thepiratebay.se/9646973/Windows_8.1_Pro_VL_32_bit_English_-_Original.torrent"
+pressiona enter e o ktorrent é chamado a transferir este ficheiro!
+
+
+2º método 
+
+Visitar a página http://magnet2torrent.me/
+Clicar com o lado direiro do rato em "get this torrent" copiar endereço do link e colar em "magnet link"
+Esperar 1 a 2 minutos e fazer o donwload do ficheiro .torrent.
+
+
+montar uma imagem iso
+=====================
+
+# mount -o loop nome_da_imagem.iso /media/loop
+       
+   
+transferir uma directoria recursivamente sem incluir as directorias que a contêm nem as páginas de indíces
+==========================================================================================================
+
+wget -r -nH --cut-dirs=5 --no-parent -erobots=off  --reject="index.html*" http://slackware.mirrors.tds.net/pub/slackware/slackware64-current/extra/java/ 
+    
+--cut-dirs=5, este número corresponde às directorias à esquerda da pasta-alvo.    
+    
+-r,  --recursive          especificar transferência recursiva.
+--nH, --no-host-directories      não criar pastas do servidor.
+  --cut-dirs=NÚMERO          ignorar NÚMERO componentes de pasta remotos.
+-np, --no-parent                 não ascender à pasta anterior.
+  --reject=LISTA              LISTA de extensões rejeitadas.
+       --reject-regex=REGEX        regex matching rejected URLs.
+
+  
+Executar comandos ao encerrar a sessão no kde:
+
+sudo nano /etc/kde/kdm/xreset
+
+introduzir os comandos aqui...
+    
+/etc/kde4/kdm/xreset - executar script como root após sessão terminar 
+
+/etc/kde4/kdm/xsession - executar script como utilizador comum após a sua entrada no sistema 
+
+/etc/kde4/kdm/xsetup - executar script como root antes do aparecimento do ecrã de entrada no sistema
+
+/etc/kde4/kdm/xstartup - executar script como root antes da sessãi iniciar   
+       
+
+# clonagem
+$ sudo dd if=/dev/sdax of=/dev/sday bs=4096 conv=notrunc,noerror,sync
+
+# restaurar o tamanho da partição de destino
+$ sudo e2fsck -f /dev/sdax
+$ sudo resize2fs /dev/sdax
+
+
+gerar um novo uuid para a partição de destino 
+
+Debian
+$ sudo tune2fs -U $(uuid) /dev/pclvm/arch_kde 
+
+Arch
+$ sudo tune2fs -u $(uuidgen) /dev/sdax
+
+etiqueta da partição destino
+sudo e2label /dev/pclvm/arch_kde arch_kde
+
+substituir letra maiúscula por minúscula num ficheiro
+=====================================================
+
+sed 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÉÊÍÓÔÕÚÇ/abcdefghijklmnopqrstuvwxyzàáâãéêíóôõúç/'
+
+
+Comprimir um ficheiro e dividir em vários pequenos ficheiros
+============================================================
+
+Comprimir:
+tar cjvf teste.tar.bz2 /media/dados/teste
+
+Dividir:
+split --bytes=600m teste.tar.bz2 teste.tar.bz2.
+Serão criados os ficheiros teste.tar.bz2.aa, teste.tar.bz2.ab...
+
+Para reuni-los: 
+cat teste.tar.bz2.* > teste.tar.bz2
+
+Copiar apenas um determinado ramo de pastas no github:
+
+https://github.com/seilaeu/linux/distros/arch/scripts
+
+$ svn checkout https://github.com/seilaeu/linux/trunk/distros/arch/ scripts
+
+Listar todos os usuários do sistema
+===================================
+
+$ awk -F':' '{ print $1}' /etc/passwd
+
+
+Calcular o md5sum após a execução do comando find com saída para o ecrã
+=======================================================================
+
+$ find /media/dados/  -type f -iname '*arch*fino*emer*'  -exec md5sum {} \;
+
+
+Calcular o md5sum após a execução do comando find com saída para um ficheiro
+============================================================================
+
+$ find /media/dados/  -type f -iname '*arch*fino*emer*'  -exec md5sum {} \; tee md5sum-limpeza
+
+
+Remover itens encontrados após execução do comando find
+=======================================================
+ 
+$ find /media/dados/DROPBOX/  -type f -iname '*arch*fino*emer*' -exec rm {} \; 
+
+
+Enviar saída do comando pacman para o compressor zip
+====================================================
+
+$ pacman -Qql bash | zip -o bash.zip -@
+
+
+Descobrir ip público ou externo
+===============================
+
+wget -qO - icanhazip.com

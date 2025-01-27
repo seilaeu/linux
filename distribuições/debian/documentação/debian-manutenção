@@ -1,0 +1,15 @@
+Listar pacotes marcados como rc
+===============================
+
+$ dpkg --list |grep "^rc" | cut -d " " -f 3
+
+
+Desinstalar pacotes marcados como rc
+====================================
+
+1ª hipótese:
+$ dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge 
+
+
+2ª hipótese:
+$ sudo dpkg --purge remove $(dpkg --list |grep "^rc" | cut -d " " -f 3)

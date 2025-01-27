@@ -1,0 +1,38 @@
+Verificar estado actual
+======================= 
+
+$ timedatectl status
+
+
+Instalar ntp
+============
+
+$ sudo pacman -S ntp
+
+$ sudo timedatectl set-ntp true
+
+
+Listar fusos-horários
+=====================
+
+$ sudo timedatectl list-timezones
+
+
+Definir fuso-horáriso
+=====================
+
+$ sudo timedatectl set-timezone Europe/Lisbon 
+
+
+Definir hora e data manualmente
+===============================
+
+$ sudo timedatectl set-time "2016-09-20 17:21:48"
+
+
+UTC, o melhor para o Linux quando usado em exclusividade
+========================================================
+
+$ sudo timedatectl set-local-rtc 0
+
+Pode ser verificado na 3ª linha do ficheiro /etc/adjtime

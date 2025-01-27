@@ -1,0 +1,7 @@
+ 
+Erro 71 na pendrive:
+
+$ sudo rmmod uhci-hcd
+$ sudo modprobe uhci-hcd
+
+A usb drive poderá ter de ser formatada.

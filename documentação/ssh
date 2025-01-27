@@ -1,0 +1,30 @@
+SSH
+
+$ nano /etc/ssh/sshd_config
+
+PermitRootLogin no
+PasswordAuthentication No
+AllowUsers utilizador-1 utilizador-2 ... , ou então, DenyUsers utilizador-3 utilizador-4
+AllowGroups sysadmin dba ... , ou então, DenyGroups developers qa
+Port xxx , ou então, deixar a porta 22 e reencaminhar a porta xxx no router para a porta 22.
+LoginGraceTime 1m
+ListenAddress 192.168.10.200 , não se aplica a mim
+ListenAddress 192.168.10.202 , não se aplica a mim
+ClientAliveInterval 600 , estas duas opções combinadas fazem com que a ligação termine após 10 minutos (600 segundos)
+ClientAliveCountMax 0
+
+
+Copiar ficheiros da máquina local para a remota
+===============================================
+
+Comando executado na máquina local:
+
+$ scp  -P XXXXX -i ~/.ssh/filho_rsa /media/dados/DSC0103* filho@ip_da_mãe:/directoria/destino
+
+
+Copiar ficheiros da máquina remota para a local
+===============================================
+
+Comando executado na máquina local:
+
+scp -vv -P XXXXX -i ~/.ssh/filho_rsa filho@ip_da_mãe:/media/dados/pessoal/fotografias/deco-telemóvel-insys/DSC0103*  /directoria/destino

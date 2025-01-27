@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+terminar a sessão
+=======
+Terminar a sessão
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+=================
+
+sudo pkill -kill -u $USER
+
+
+<<<<<<< HEAD
+permitir o encerramento e o reínicio do computador pelo utilizador comum
+=======
+Permitir o encerramento e o reínicio do computador pelo utilizador comum
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+========================================================================
+
+nano -w ~/.bashrc
+alias reboot="sudo /sbin/reboot"
+alias poweroff="sudo /sbin/poweroff"
+alias halt="sudo /sbin/halt"
+
+ou
+
+sudo nano -w /etc/sudoers
+%wheel all=(all) all
+%wheel genkosta =nopasswd: /sbin/reboot,/sbin/poweroff,/sbin/halt

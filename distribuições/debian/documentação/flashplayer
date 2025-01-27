@@ -1,0 +1,17 @@
+Método 1:
+
+$ instalar browser-plugin-freshplayer-pepperflash
+
+Método 2:
+
+1 - Descarregar o ficheiro 
+https://get.adobe.com/flashplayer/
+
+2 - Descompactar e copiar
+
+$ cd /home/jribeiro/Transferências/ && tar xzvf flash_player_ppapi_linux.x86_64.tar.gz && sudo cp  libpepflashplayer.so /usr/lib/mozilla/plugins/ && cd ~
+
+$ if [ ! -d /opt/google/chrome/plugins ]; then sudo mkdir /opt/google/chrome/plugins; fi && cd /home/jribeiro/Transferências/ && sudo cp libpepflashplayer.so /opt/google/chrome/plugins && cd ~
+
+
+sudo mkdir -v /opt/google/chrome/plugins

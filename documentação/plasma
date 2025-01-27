@@ -1,0 +1,65 @@
+<<<<<<< HEAD
+Comando para terminar a sessão
+------------------------------
+
+$ qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout 0 0 0
+
+
+=======
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+Directoria dos temas do plasma
+------------------------------
+
+/usr/share/plasma/desktoptheme/  
+
+
+Directoria dos esquemas de cores
+--------------------------------
+
+/usr/share/color-schemes/
+
+
+Directoria dos temas decoração de janelas
+-----------------------------------------
+
+<<<<<<< HEAD
+/home/jribeiro/.local/share/aurorae/themes/
+=======
+/home/$USER/.local/share/aurorae/themes/
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+
+
+Mouse cursor icons
+------------------
+
+<<<<<<< HEAD
+/home/jribeiro/.icons/
+
+
+=======
+/home/$USER/.icons/
+
+
+Ficheiro que define o wallpaper a ser usado
+-------------------------------------------
+
+/home/$USER/.config/plasma-org.kde.plasma.desktop-appletsrc
+
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+Desactivar o kwallet
+--------------------
+
+$ nano ~/.config/kwalletrc 
+
+[Wallet]
+First Use=false
+Enabled=false
+
+<<<<<<< HEAD
+=======
+
+Forçar as aplicações a abrirem no centro do ecrã
+------------------------------------------------
+
+Clicar com o botão direito do rato na barra superior da jaela da aplicação => Mais acções => Configurar as Regras Especiais de Janelas => Adicionar uma Propriedade: Colocação Inicial, Obrigar, Centrado => Adicionar uma Propriedade: Ignorar a Geometria Pedida, Obrigar, Sim => Aplicar
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2

@@ -1,0 +1,28 @@
+# .bashrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+export EDITOR=vim
+
+alias chroot-arch="sudo mount /dev/sda2 /mnt/arch && sudo mount -t proc none /mnt/arch/proc && sudo mount --rbind /sys /mnt/arch/sys && sudo mount --rbind /dev /mnt/arch/dev && sudo chroot /mnt/arch"
+alias chroot-slackware="sudo mount /dev/sda3 /mnt/slackware/ && sudo mount -t proc none /mnt/slackware/proc && sudo mount --rbind /sys /mnt/slackware/sys && sudo mount --rbind /dev /mnt/slackware/dev && sudo chroot /mnt/slackware"
+alias chroot-gentoo="sudo mount /dev/sda4 /mnt/gentoo/ && sudo mount -t proc none /mnt/gentoo/proc && sudo mount --rbind /sys /mnt/gentoo/sys && sudo mount --rbind /dev /mnt/gentoo/dev && sudo chroot /mnt/gentoo /bin/bash"
+
+alias actualizar="sudo xbps-install -Su"
+alias instalar="sudo xbps-install"
+alias desinstalar="sudo xbps-remove -R"
+alias pacotes-lista-simplificada="xbps-query -l| cut -d' ' -f 2 | rev | cut -f2- -d- | rev"
+alias pacotes-lista-detalhada="xbps-query -l| cut -d' ' -f 2"
+alias pacotes-quantidade="xbps-query -l |cut -d' ' -f1| grep ii|wc -l"
+alias questionar-simplificado="xbps-query -l| cut -d' ' -f 2 | rev | cut -f2- -d- | rev|grep"
+alias questionar-detalhado="xbps-query -l| cut -d' ' -f 2|grep"
+alias orfãos="xbps-query -O"
+alias reconfiguração="xbps-query -l| cut -d' ' -f 1|grep -v ii"
+
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+complete -cf sudo

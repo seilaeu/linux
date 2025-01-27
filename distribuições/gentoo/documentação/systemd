@@ -1,0 +1,143 @@
+Configuração do kernel:
+
+Kernel configuration
+
+1 - Preparação rápida utilizando gentoo-sources
+
+Gentoo Linux --->
+        Support for init systems, system and service managers --->
+                [*] systemd
+                
+2 - Se não utilizarmos o pacote sys-kernel/gentoo-sources 
+
+Mandatory options
+
+General setup  --->
+	[*] Control Group support
+	[ ] Enable deprecated sysfs features to support old userspace tools
+[*] Networking support --->
+Device Drivers  --->
+	Generic Driver Options  --->
+		[*] Maintain a devtmpfs filesystem to mount at /dev
+File systems  --->
+	[*] Inotify support for userspace
+	[*] Filesystem wide access notification
+	
+Recommended options
+
+General setup  --->
+	[*] open by fhandle syscalls
+Processor type and features  --->
+	[*] Enable seccomp to safely compute untrusted bytecode
+Networking support --->
+	Networking options --->
+		<*> The IPv6 protocol
+Device Drivers  --->
+	Generic Driver Options  --->
+		()  path to uevent helper
+Firmware Drivers  --->
+	[*] Export DMI identification via sysfs to userspace
+File systems --->
+	<*> Kernel automounter version 4 support (also supports v3)
+	Pseudo filesystems --->
+		[*] Tmpfs virtual memory file system support (former shm fs)
+		[*]   Tmpfs POSIX Access Control Lists
+		[*]   Tmpfs extended attributes
+
+UEFI support
+
+[*] Enable the block layer  --->
+	Partition Types  --->
+		[*] Advanced partition selection
+		[*]   EFI GUID Partition support
+Processor type and features  --->
+	[*] EFI runtime service support
+Firmware Drivers  --->
+        EFI (Extensible Firmware Interface) Support -->
+	        <*> EFI Variable Support via sysfs
+	     
+Se utilizarmos o BFQ scheduler, é recomendado activar "BFQ hierarchical scheduling support" em "Enable the block layer -> IO Schedulers" 	    
+
+A directoria /etc/mtab
+
+ln -sf /proc/self/mounts /etc/mtab
+
+USE="-systemd" emerge -av sys-apps/dbus (é temporário)
+
+rc-update del consolekit
+
+Activar a USE flag systemd globalmente:
+euse -E systemd
+
+Selecionar o perfil KDE com systemd:
+eselect profile list
+eselect profile set X
+
+emerge -DNav world
+
+systemctl enable kdm
+systemctl enable dhcpcd
+
+Editar o ficheiro /etc/default/grub:
+GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd"
+
+sudo grub2-mkconfig -o /bot/grub/grub.cfg
+
+Reiniciar o computador
+
+Configuração
+
+/usr/lib/systemd/systemd-localed &
+/usr/lib/systemd/systemd-timedated &
+/usr/lib/systemd/systemd-hostnamed &
+
+hostnamectl set-hostname <HOSTNAME>
+
+localectl set-locale LANG=<LOCALE>
+localectl set-keymap pt-latin9
+localectl set-x11-keymap pt pc105 qwerty
+
+Data e hora:
+timedatectl status
+timedatectl set-time "2014-02-20 20:50:58"
+timedatectl set-timezone Europe/Lisbon
+
+Carregamento automático de módulos do kernel:
+Os ficheiros são colocados na directoria /etc/modules-load.d
+/etc/modules-load.d/virtualbox.conf
+vboxdrv
+vboxnetflt
+vboxnetadp
+vboxpci
+
+Os ficheiros de registo do sistema são lidos com o comando journalctl.
+
+Podemos remover os pacotes syslog-ng e logrotate:
+emerge -C syslog-ng logrotate
+
+Mostrar todos os serviços:
+systemctl --all --full
+
+Mostrar os ficheiros de unidade:
+systemctl list-unit-files
+
+Mostrar todos os ficheiros globais de serviços:
+ls /usr/lib/systemd/system
+
+Activar um serviço:
+systemctl enable kdm.service
+
+Desactivar um serviço:
+systemctl disable consolekit.service
+
+Iniciar um serviço:
+systemctl start dhcpcd.service
+
+Parar um serviço:
+systemctl stop upower.service
+
+Verificar unidades que falharama a inicialização:
+systemctl --failed
+
+sudo systemctl mask lvm2-activation-early.service
+systemctl mask lvm2-activation-net.service

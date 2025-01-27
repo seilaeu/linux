@@ -1,0 +1,12 @@
+atribuir permissões exclusivamente a directorias, recursivamente
+================================================================
+
+find /path/to/base/dir -type d -exec chmod 755 {} + 
+
+find /path/to/base/dir -type d -print0 | xargs -0 chmod 755 
+
+
+listar as directorias por tamanho(mb)
+=====================================
+
+$ du -mx | egrep -v "\./.+/" | sort -n

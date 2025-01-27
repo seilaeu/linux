@@ -1,0 +1,15 @@
+Entrada automática
+=================
+
+[base]
+
+# Utilizador
+autologin=zef
+
+numlock=1
+
+# Sessão
+session=/usr/bin/mate
+
+# Fundo
+bg=/usr/share/backgrounds/xfce/bugio.jpg

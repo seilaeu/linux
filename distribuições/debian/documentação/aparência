@@ -1,0 +1,22 @@
+Ícones Numix
+------------
+
+# cd /usr/share/icons 
+# git clone https://github.com/numixproject/numix-icon-theme.git
+# mv numix-icon-theme/Numix* .
+
+
+Ícones Numix Circle
+-------------------
+
+# cd /usr/share/icons 
+# git clone https://github.com/numixproject/numix-icon-theme-circle.git
+# mv  mv numix-icon-theme-circle/Numix-Circle* .
+
+
+Ícones Numix Square
+-------------------
+
+# cd /usr/share/icons 
+# git clone https://github.com/numixproject/numix-icon-theme-square.git
+# mv numix-icon-theme-square/Numix-Square* .

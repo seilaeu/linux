@@ -1,0 +1,13 @@
+ 
+Reconstruir a initramfs
+=======================
+
+$ sudo update-initramfs -c -k <versão_do_kernel>
+
+
+Permitir root login no sddm
+===========================
+
+$ ediroot /etc/pam.d/sddm
+
+#auth    required        pam_succeed_if.so user != root quiet_success

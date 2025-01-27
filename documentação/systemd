@@ -1,0 +1,149 @@
+Systemd 
+=======
+
+Mostrar unidades instaladas: 
+sudo systemctl list-unit-files
+
+Mostrar o estado de uma unidade:
+sudo systemctl status <unidade>
+
+Iniciar uma unidade:
+sudo systemctl start <unidade>
+
+<<<<<<< HEAD
+Verificar se uma unidade está ou não activada:
+=======
+Verificar se uma unidade estÃ¡ ou nÃ£o activada:
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+sudo systemctl is-active <unidade>
+
+Parar uma unidade:
+sudo systemctl stop <unidade>
+
+Reiniciar uma unidade:
+sudo systemctl restart <unidade>
+
+<<<<<<< HEAD
+Activar o iní­­cio de uma unidade no arranque:
+sudo systemctl enable <unidade>
+
+Desactivar o iní­­cio de uma unidade no arranque:
+sudo systemctl disable <unidade>
+
+Verificar se uma unidade inicia ou não no arranque:
+=======
+Activar o inÃ­Â­Â­cio de uma unidade no arranque:
+sudo systemctl enable <unidade>
+
+Desactivar o inÃ­Â­Â­cio de uma unidade no arranque:
+sudo systemctl disable <unidade>
+
+Verificar se uma unidade inicia ou nÃ£o no arranque:
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+sudo systemctl is-enabled <unidade>
+
+
+Desactivar uma unidade:
+sudo systemctl stop <unidade>
+
+<<<<<<< HEAD
+Recarregar a configuração de uma unidade:
+sudo systemctl reload <unidade>
+
+Recarregar a configuração de uma unidade:
+sudo systemctl reload <unidade>
+
+
+
+Mostra a página de ajuda de uma unidade:
+=======
+Recarregar a configuraÃ§Ã£o de uma unidade:
+sudo systemctl reload <unidade>
+
+Recarregar a configuraÃ§Ã£o de uma unidade:
+sudo systemctl reload <unidade>
+
+
+Mostra a pÃ¡gina de ajuda de uma unidade:
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+sudo systemctl help <unidade>
+
+Recarrega o systemd pesquisando por novas ou alteradas unidades:
+sudo systemctl daemon-reload
+
+<<<<<<< HEAD
+Instalação manual:
+ln -s /usr/lib/systemd/system/foo.service /etc/systemd/system/graphical.target.wants/
+
+Nota: Substituir foo pelo nome do serviço.
+=======
+InstalaÃ§Ã£o manual:
+ln -s /usr/lib/systemd/system/foo.service /etc/systemd/system/graphical.target.wants/
+
+Nota: Substituir foo pelo nome do serviÃ§o.
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+
+Reiniciar o sistema:
+
+$ systemctl reboot
+
+Desligar o sistema:
+
+$ systemctl poweroff
+
+Suspender o sistema:
+
+$ systemctl suspend
+
+<<<<<<< HEAD
+Pôr o sistema em hibernação:
+
+$ systemctl hibernate
+
+Pôr o sistema em estado hiybrid-sleep:
+
+$ systemctl hybrid-sleep
+
+Vericiar os tempos de execução das unidades no arranque:
+=======
+PÃ´r o sistema em hibernaÃ§Ã£o:
+
+$ systemctl hibernate
+
+PÃ´r o sistema em estado hiybrid-sleep:
+
+$ systemctl hybrid-sleep
+
+Vericiar os tempos de execuÃ§Ã£o das unidades no arranque:
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2
+
+$ sudo systemd-analyze blame
+
+Ler os registos do systemd:
+journalctl
+<<<<<<< HEAD
+
+Verificar existência de erros:
+sudo systemctl --failed
+
+
+$ sudo mv -v /etc/systemd/system.conf /etc/systemd/system.conf.backup && sudo bash -c 'cat > /etc/systemd/system.conf' << 'EOF' 
+[Manager]
+DefaultTimeoutStopSec=10s
+EOF
+
+
+Core dump
+=========
+
+Utilizam muito espaço no disco rigí­do por esse motivo desactivamo-los
+
+$ sudo nano /etc/systemd/coredump.conf
+Storage=none
+
+$ sudo systemctl daemon-reload
+
+$ sudo nano /etc/security/limits.conf
+* hard core 0
+=======
+>>>>>>> 63a6e86da8196ccbbce0bf96c4ea11e4641bb4d2

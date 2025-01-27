@@ -1,0 +1,7 @@
+Mensagem de erro: 
+
+You (jribeiro) are not allowed to access to (crontab) because of pam configuration.
+
+Solução:
+
+$ ediroot /etc/security/access.conf

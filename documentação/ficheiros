@@ -1,0 +1,43 @@
+atribuir permissões exclusivamente a ficheiros, recursivamente
+==============================================================
+
+find /path/to/base/dir -type f -exec chmod 644 {} + 
+  
+find /path/to/base/dir -type f -print0 | xargs -0 chmod 644  
+
+
+listar os ficheiros por tamanho(mb)
+===================================
+
+(Decrescente)
+$ ls -sh --sort=size
+
+(Crescente)
+$ ls -srh --sort=size
+
+listar os ficheiros com indicação do ano:
+
+$ ls -l --full-time
+
+apagar ficheiros de registo antigos (old log files)
+===================================================
+
+nota: to find files modified more than 5 days use -mtime +5 and files modified less than 5 days use -mtime -5
+
+use -ctime parameter to find out the created time
+
+mostrar ficheiros de registo com mais de 10 dias: 
+
+find /var/log/ -name "*log" -mtime +10 -exec ls -tl {} \;
+
+apagar ficheiros de registo com mais de 10 dias: 
+
+find /var/log/ -name "*log" -mtime +10 -exec rm -f {} \; 
+
+
+criar um ficheiro comprimido, de ficheiros e directorias constantes de um ficheiro de texto
+===========================================================================================
+
+cat ficheiro | zip nome_do_ficheiro_comprimido -@
+
+

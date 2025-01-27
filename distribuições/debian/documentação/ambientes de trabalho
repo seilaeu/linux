@@ -1,0 +1,30 @@
+Remover o ambiente de trabalho GNOME
+====================================
+
+# aptitude purge `dpkg --get-selections | grep gnome | cut -f 1`
+# aptitude -f install
+# aptitude purge `dpkg --get-selections | grep deinstall | cut -f 1`
+# aptitude -f install
+
+Remover o ambiente de trabalho XFCE
+===================================
+
+# apt-get purge $(dpkg -l | awk '/[X,x]fce/{print $2}')
+
+Instalar o ambiente de trabalho XFCE
+====================================
+
+# apt-get install task-xfce-desktop
+
+
+Instalar o ambiente de trabalho KDE
+===================================
+
+# apt-get install aptitude tasksel
+# aptitude install ~t^desktop$ ~t^kde-desktop$
+
+
+Instalar o ambiente de trabalho MATE
+====================================
+
+# apt-get install mate-desktop-environment

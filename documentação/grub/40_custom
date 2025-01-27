@@ -1,0 +1,60 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+#!/bin/sh
+menuentry 'Manjaro KDE'{
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root=(hd0,2)
+        linux /boot/vmlinuz-4.9-x86_64  root=/dev/sda2 resume=/dev/pclvm/swap rw
+        initrd /boot/ initramfs-4.9-x86_64.img
+}
+menuentry 'KDE Neon' {
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root='lvmid/ans5wN-Ld8N-DqiG-foT8-fDrd-NXL8-7nlxIX/Udbs8l-FX0z-0cxM-dFeE-nVRF-ajzt-kD4PsC'
+        linux /boot/vmlinuz-4.8.0-52-generic root=/dev/pclvm/kde_neon resume=/dev/pclvm/swap rw quiet splash
+        initrd /boot/initrd.img-4.8.0-52-generic
+}
+menuentry 'Kubuntu' {
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root='lvmid/ans5wN-Ld8N-DqiG-foT8-fDrd-NXL8-7nlxIX/Udbs8l-FX0z-0cxM-dFeE-nVRF-ajzt-kD4PsC'
+        linux /boot/vmlinuz-4.10.0-22-generic root=/dev/pclvm/kubuntu resume=/dev/pclvm/swap rw quiet splash
+        initrd /boot/initrd.img-4.10.0-22-generic
+}
+menuentry 'Fedora KDE'{
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root='lvmid/ans5wN-Ld8N-DqiG-foT8-fDrd-NXL8-7nlxIX/bDihYZ-QMvT-FX5b-8mm3-1KG6-kMLx-62plmh'
+        linux /boot/vmlinuz-4.11.3-200.fc25.x86_64 root=/dev/pclvm/fedora_kde resume=/dev/pclvm/swap rw
+        initrd /boot/initramfs-4.11.3-200.fc25.x86_64.img
+}
+menuentry 'Manjaro KDE'{
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root='lvmid/ans5wN-Ld8N-DqiG-foT8-fDrd-NXL8-7nlxIX/BP8AjI-lMUd-nc76-b5UN-ErRA-5yCn-Je9Ysh'
+        linux /boot/vmlinuz-4.9-x86_64 root=/dev/pclvm/manjaro_kde resume=/dev/pclvm/swap rw
+        initrd /boot/initramfs-4.9-x86_64.img
+}
+menuentry 'OpenSUSE KDE'{
+        insmod part_msdos
+        insmod lvm
+        insmod ext2
+        set root='lvmid/ans5wN-Ld8N-DqiG-foT8-fDrd-NXL8-7nlxIX/lmcUX9-1Qlw-8Htl-wPcv-wjrB-qUvd-qCJP4h'
+        linux /boot/vmlinuz-4.4.62-18.6-default root=/dev/pclvm/opensuse_kde resume=/dev/pclvm/swap rw quiet splash
+        initrd /boot/initrd-4.4.62-18.6-default
+}
+menuentry 'Desligar' {
+        halt
+}
+menuentry 'Reiniciar' {
+        reboot
+}

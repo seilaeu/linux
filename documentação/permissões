@@ -1,0 +1,23 @@
+permissões 
+==========
+
+há três tipos de utilizadores:
+o dono do ficheiro: u;
+o grupo a que o ficheiro pertence: g;
+outros: o;
+todos: a.
+há três operações básicas com ficheiros e pastas:
+
+leitura: (r) : podemos ler o ficheiro. podemos listar o conteúdo de uma pasta.
+escrita: (w) : podemos escrever no ficheiro e gravá-lo. podemos criar, mudar o nome e apagar ficheiros numa pasta.
+execução (x) : podemos executar um ficheiro se ele for um programa ou script. podemos acessar ficheiros numa pasta.
+  
+número 	leitura (r)	escrita (w)	execução (x)
+0	  não	           não	            não
+1	  não	           não	            sim
+2	  não	           sim	            não
+3	  não	           sim	            sim
+4	  sim	           não	            não
+5	  sim	           não	            sim
+6	  sim	           sim	            não
+7	  sim	           sim	            sim  

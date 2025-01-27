@@ -1,0 +1,264 @@
+1 - Arrancar com o CD de instalação
+
+1.1 links https://wiki.gentoo.org/wiki/Handbook:AMD64
+
+2 - Testar a rede:
+ping -c 3 www.gentoo.org
+
+3 - Configurar a rede:
+dhcpcd eth0 ou net-setup eth0 
+ifconfig eth0 ou iwconfig eth0
+
+4 - Data e hora
+date
+date MMDDhhmmYYYY 
+
+5 - Formatar e  montar a partição alvo da instalação
+mkfs.btrfs -f -L /dev/sdaX /
+mount /dev/sdaX /mnt/gentoo
+
+6 - Criar e montar a partição dados
+mkdir -p /media/dados
+mount /dev/sdbX /media/dados
+
+7 - Descompactar o ficheiro stage3
+tar xvjpf /media/dados/linux/distribuições/gentoo/stage3-*.tar.bz2 -C /mnt/gentoo
+
+8 - Configurar as opções de compilação
+nano -w /mnt/gentoo/etc/portage/make.conf
+
+CHOST="x86_64-pc-linux-gnu"
+CFLAGS="-march=core2 -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+
+USE="${CPU}"
+CPU="mmx mmxext sse sse2 ssse3 sse4_1"
+
+USE="a52 aac cdda cddc -gnome introspection jpeg matroska musepack nls schroedinger theora twolame userlocales x264"
+
+# Intel Core 2 Quad
+MAKEOPTS="-j5" 
+
+L10N="pt pt-PT"
+LINGUAS="pt pt_PT pt_BR"
+VIDEO_CARDS="nvidia"
+#source /var/lib/layman/make.conf
+
+# Standard PC (BIOS)
+#GRUB_PLATFORMS="pc"
+#DRACUT_MODULES="plymouth caps"
+#source /var/lib/layman/make.conf
+
+9 - Instalar o sistema base
+9.1 - Seleccionar os sítios-espelho
+mirrorselect -i -o >> /mnt/gentoo/etc/portage/make.conf
+mirrorselect -i -r -o >> /mnt/gentoo/etc/portage/make.conf
+cat /mnt/gentoo/etc/portage/make.conf
+
+9.2 - Copiar a informação DNS
+cp -L /etc/resolv.conf /mnt/gentoo/etc/
+
+9.3 - Montar os sistemas de ficheiros necessários
+mount -t proc proc /mnt/gentoo/proc
+mount --rbind /sys /mnt/gentoo/sys
+mount --make-rslave /mnt/gentoo/sys 
+mount --rbind /dev /mnt/gentoo/dev
+mount --make-rslave /mnt/gentoo/dev
+
+9.4 - Mudar para o novo ambiente
+chroot /mnt/gentoo /bin/bash
+source /etc/profile
+export PS1="(instalação) $PS1"
+
+9.5 - Instalar o portage
+emerge-webrsync
+emerge --sync
+
+9.6 Ler as notícias
+eselect news list
+eselect news read
+
+9.7 Escolher o perfil apropriado
+eselect profile list
+eselect profile set X
+eselect profile list
+
+9.8 Fuso horário
+ls /usr/share/zoneinfo
+echo "Europe/Lisbon" > /etc/timezone
+emerge --config sys-libs/timezone-data
+
+9.9 Locais
+nano -w /etc/locale.gen
+
+pt_PT.UTF-8 UTF-8
+pt_PT ISO-8859-1
+pt_PT@euro ISO-8859-15
+
+locale-gen
+eselect locale list
+eselect locale set X
+
+Manualmente, podemos fazê-lo através do ficheiro /etc/env.d/02locale:
+LANG="pt_PT.UTF-8"
+LC_COLLATE="C"
+
+env-update && source /etc/profile
+
+10 - Kernel
+10.1 - Instalar o kernel
+emerge gentoo-sources
+
+10.2 - Configurar o kernel
+ls -l /usr/src/linux
+cd /usr/src/linux
+make menuconfig
+
+General setup
+     [*] Kernel .config support
+     [*] Enable access to .config through /proc/config.gz
+
+    
+[*] Enable loadable module support --->
+
+     
+Processor type and features  --->
+     [*] Symmetric multi-processing support
+  
+     Processor family (Generic-x86-64)  --->
+     
+     [*] MTRR (Memory Type Range Register) support
+
+Executable file formats / Emulations  --->
+     [*] IA32 Emulation
+   
+Device Drivers --->
+  Generic Driver Options --->
+    [*] Maintain a devtmpfs filesystem to mount at /dev
+    
+  [*] Network device support  --->
+      [*] Ethernet driver support ---> 
+          <*>     Realtek 8169 gigabit ethernet support
+   
+  <*> Sound card support  --->
+      <*>   Advanced Linux Sound Architecture  --->
+          [*]   PCI sound devices (NEW)  --->
+          <*>   HD Audio  ---> (snd-hda-intel)
+                            [*] Build Realtek HD-audio codec support
+                            [*] ...
+                            [*] Build Silicon Labs 3054 HD-modem codec support
+                            [*] Enable generic HD-audio codec parser
+  [*] Real Time Clock ---> 
+    
+File systems --->
+
+<M> The Extended 4 (ext4) filesystem
+<*> Btrfs filesystem support
+
+<M> FUSE (Filesystem in Userspace) support
+
+DOS/FAT/NT Filesystems  --->
+    <M> NTFS file system support
+    [*]   NTFS write support
+    
+Pseudo Filesystems --->
+    [*] /proc file system support
+    [*] Tmpfs virtual memory file system support (former shm fs)
+
+
+
+Kernel hacking  --->  
+
+  Memory Debugging  --->  
+     Stack utilization instrumentation - Não
+     Check for stack overflows - Não
+
+
+
+NVIDIA
+======
+
+Device Drivers --->
+    Graphics support --->
+        -*- /dev/agpgart (AGP Support) --->
+
+Device Drivers --->
+    Graphics support --->
+        Frame buffer Devices --->
+            <*> Support for frame buffer devices --->
+            < >   nVidia Framebuffer Support
+            < >   nVidia Riva support  
+  
+
+11 - Compilar o kernel
+
+make -j5 
+make modules_install
+make install
+
+emerge genkernel 
+genkernel --install initramfs
+
+12 - Configurar o sistema
+
+12.1 Ficheiro /etc/fstab
+nano -w /etc/fstab
+/dev/sdaX    /               btrfs           defaults,subvol=__activo/RAIZ 0 0
+/dev/sda1   none            swap            sw              0 0
+/dev/sda2  /media/dados     ext4            rw,relatime,data=ordered 0 1
+
+
+12.2 Definindo o nome da máquina
+nano -w /etc/conf.d/hostname
+hostname="genkosta"
+
+12.3 Configurar a rede - Não é necessário quando se utiliza o systemd
+nano -w /etc/conf.d/net
+config_enp3s0="dhcp"
+
+Iniciar a rede no arranque do sistema - Não é necessário quando se utiliza o systemd
+cd /etc/init.d
+ln -s net.lo net.enp3s0
+rc-update add net.enp3s0 default
+
+12.4 - Ficheiro /etc/hosts
+nano -w /etc/hosts
+127.0.0.1     genkosta localhost
+
+12.5 Palavre-passe do root
+passwd
+
+12.6 - Ficheiro /etc/rc.conf - Não é necessário quando se utiliza o systemd
+nano -w /etc/rc.conf
+
+12.7 - Ficheiro /etc/conf.d/keymaps
+nano -w /etc/conf.d/keymaps
+
+12.8 - Ficheiro /etc/conf.d/hwclock
+nano -w /etc/conf.d/hwclock
+
+13 - Instalar as ferramentas do sistema
+emerge syslog-ng logrotate
+rc-update add syslog-ng default
+emerge mlocate
+emerge dhcpcd
+
+14 - GRUB
+14.1 Instalar o GRUB
+emerge sys-boot/grub
+
+14.2 Configurar o GRUB
+grub2-install --force /dev/sdaX
+grub2-mkconfig -o /boot/grub/grub.cfg
+
+15 - Criar conta de utilizador comum
+useradd -m -g users -G wheel,storage,power,optical,audio,video -s /bin/bash jribeiro
+passwd jribeiro
+
+16 - Reiniciar o sistema
+exit
+cd
+umount -l /mnt/gentoo/dev{/shm,/pts,}
+umount -l /mnt/gentoo{/boot,/proc,}
+reboot
+

@@ -1,0 +1,44 @@
+Bashrc
+
+Mirrors
+/media/linux/distribuições/debian/documentação/espelhos
+
+Fstab
+
+Sudo
+----
+
+# apt-get install sudo && gpasswd -a jribeiro sudo
+
+# nano /etc/sudoers
+
+descomentar a linha %sudo ALL=(ALL:ALL) ALL 
+
+$ newgrp sudo
+
+
+Criar uma tecla de atalho para a actualização do sistema
+---------------------------------------------------------
+
+$ ediroot /usr/sbin/actualizar
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+echo
+echo "                                Sistema actualizado!"
+read line
+
+$ sudo groupadd admin && sudo gpasswd -a jribeiro admin
+$ sudo chgrp admin /usr/sbin/actualizar && sudo chmod g+x /usr/sbin/actualizar
+$ newgrp admin
+
+
+Utilizar a tecla Favoritos com o seguinte comando: konsole -e "sh /usr/sbin/actualizar" ou xfce4-terminal -e "sh /usr/sbin/actualizar" 
+
+
+$ actualizar
+                  
+
+
+

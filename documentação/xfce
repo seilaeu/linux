@@ -1,0 +1,67 @@
+Desactivar função de suspender e hibernação
+===========================================
+
+Debian
+------
+ 
+$ xfconf-query -c xfce4-session -np '/shutdown/ShowSuspend' -t 'bool' -s 'false' 
+
+$ xfconf-query -c xfce4-session -np '/shutdown/ShowHibernate' -t 'bool' -s 'false' 
+
+
+
+Arch
+----
+
+$ sudo mousepad /etc/polkit-1/rules.d/10-disable-suspend.rules
+
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.login1.suspend" ||
+        action.id == "org.freedesktop.login1.suspend-multiple-sessions" ||
+        action.id == "org.freedesktop.login1.hibernate" ||
+        action.id == "org.freedesktop.login1.hibernate-multiple-sessions") {
+        return polkit.Result.NO;
+    }
+});
+
+Manjaro
+-------
+
+Podemos utilizar o conteúdo acima e sobrescrever a respectiva secção no ficheiro 99-manjaro.rules.
+
+
+Desbloquear chaveiro do google-chrome
+=====================================
+
+Pacman
+======
+
+$ sudo pacman -R  gnome-keyring
+
+Debian
+======
+
+$ desinstalar gnome-keyring libgnome-keyring-common
+
+
+$ rm ~/.local/share/keyrings/*
+
+Reiniciar o computador
+
+Aplicações KDE com tema gtk
+===========================
+
+Debian
+======
+
+$ instalar qt4-qtconfig
+$ qtconfig
+
+Appearence => GUI Style => Select GUI Style: GTK+
+File: Save
+
+
+Menu distante do painel devido ao compiz
+========================================
+
+Sistema de configuração do compiz => Colocar Janelas  =>  Posicionamento Fixo de Janelas = Janelas com posições fixas => Novo : title=Whisker Menu

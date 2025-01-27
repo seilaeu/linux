@@ -1,0 +1,14 @@
+# Decrease swap usage to a more reasonable level
+
+$ cat /proc/sys/vm/swappiness
+
+$ sudo nano /etc/sysctl.conf
+vm.swappiness=10
+
+Isto significa que a swap só começará a ser usada quando for atingida 90% da RAM. 
+
+# Improve cache management
+vm.vfs_cache_pressure=50
+
+
+

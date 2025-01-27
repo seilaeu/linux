@@ -1,0 +1,4 @@
+
+$ sudo dpkg-reconfigure tzdata
+
+$ sudo dpkg-reconfigure locales

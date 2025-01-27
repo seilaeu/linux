@@ -1,0 +1,230 @@
+Comando que cria um atalho para actualizar o sistema:
+=====================================================
+
+konsole -e bash -c 'yay -Syy && yay; echo; read -p "Prima a tecla Enter..."'
+
+
+Atribuir permissões exclusivamente a directorias, recursivamente
+================================================================
+
+$ find /path/to/base/dir -type d -exec chmod 755 {} +
+
+$ find /path/to/base/dir -type d -print0 | xargs -0 chmod 755
+
+
+Atribuir permissões exclusivamente a ficheiros, recursivamente
+==============================================================
+
+$ find /path/to/base/dir -type f -exec chmod 644 {} +
+  
+$ find /path/to/base/dir -type f -print0 | xargs -0 chmod 644
+
+
+Listar os ficheiros com indicação do ano:
+
+$ ls -l --full-time
+
+
+Apagar ficheiros de registo antigos (old log files)
+===================================================
+
+Para procurar ficheiros modificados há mais de 5 dias: -mtime +5
+
+Para procurar ficheiros modificados há menos de 5 dias: -mtime -5
+
+Usar -ctime parameter para procurar com base na data de criação
+
+mostrar ficheiros de registo com mais de 10 dias: 
+
+$ sudo find /var/log/ -name "*log" -mtime +10 -exec ls -tl {} \;
+
+Apagar ficheiros de registo com mais de 10 dias:
+
+$ find /var/log/ -name "*log" -mtime +10 -exec rm -f {} \;
+
+
+Criar um ficheiro comprimido, de ficheiros e directorias constantes de um ficheiro de texto
+===========================================================================================
+
+cat ficheiro | zip nome_do_ficheiro_comprimido -@
+
+
+Definir o tipo de letra padrão do LibreOffice Calc
+==================================================
+
+Abrir um documento de folha de cálculo novo.
+Estilos => Gerir Estilos => Padrão => Clique em Padrão com o botão do lado direito do rato => Modificar => Tipo de letra => Bitstream Vera Sans => Aceitar
+Ficheiro => Modelos => Guardar como modelo => Os Meus Modelos => Nomear o modelo => Guardar
+Ficheiro => Modelos => Gerir Modelos => Clicar em Bitstream Vera Sans com o botão do lado direito do rato => Definir como padrão
+Reiniciar o libreoffice 
+
+Ferramentas => Opções => LibreOffice => Ver => Suavização de letras: 12 pixeis
+
+
+Definir a shell a ser utilizada 
+===============================
+
+SHELL=/bin/bash
+
+
+Criar cópia de segurança com o comando tar
+==========================================
+
+$ tar cjvf linux-`date +"%y.%m.%d"`.tar.bz2 --exclude={ficheiro,directoria} /media/dados/linux
+
+Testar a integridade do arquivo compactado:
+
+$ bzip2 -tv linux-*.tar.bz2
+
+
+Montar uma imagem iso
+=====================
+
+# mount -o loop nome_da_imagem.iso /media/loop
+       
+   
+Transferir uma directoria recursivamente sem incluir as directorias que a contêm nem as páginas de indíces
+==========================================================================================================
+
+wget -r -nH --cut-dirs=5 --no-parent -erobots=off  --reject="index.html*" http://slackware.mirrors.tds.net/pub/slackware/slackware64-current/extra/java/ 
+    
+--cut-dirs=5, este número corresponde às directorias à esquerda da pasta-alvo.    
+    
+-r,  --recursive          especificar transferência recursiva.
+--nH, --no-host-directories      não criar pastas do servidor.
+  --cut-dirs=NÚMERO          ignorar NÚMERO componentes de pasta remotos.
+-np, --no-parent                 não ascender à pasta anterior.
+  --reject=LISTA              LISTA de extensões rejeitadas.
+       --reject-regex=REGEX        regex matching rejected URLs.
+
+  
+Clonagem
+========
+
+$ sudo dd if=/dev/sdaX of=/dev/sdaY bs=4M conv=fsync oflag=direct status=progress
+
+=> Restaurar o tamanho da partição de destino
+
+$ sudo e2fsck -f /dev/sdax
+
+$ sudo resize2fs /dev/sdax
+
+
+=> Gerar um novo uuid para a partição de destino
+
+$ sudo tune2fs -u $(uuidgen) /dev/sdaX 
+
+=> Etiqueta da partição destino
+
+$ sudo e2label /dev/sdaX arch
+
+
+Substituir letra maiúscula por minúscula num ficheiro
+=====================================================
+
+sed 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÉÊÍÓÔÕÚÇ/abcdefghijklmnopqrstuvwxyzàáâãéêíóôõúç/'
+
+
+Comprimir um ficheiro e dividir em vários pequenos ficheiros
+============================================================
+
+Comprimir:
+
+$ tar cjvf teste.tar.bz2 /media/dados/teste
+
+Dividir:
+
+$ split --bytes=600m teste.tar.bz2 teste.tar.bz2.
+
+Serão criados os ficheiros teste.tar.bz2.aa, teste.tar.bz2.ab...
+
+Para reuni-los: 
+cat teste.tar.bz2.* > teste.tar.bz2
+
+Copiar apenas um determinado ramo de pastas no github
+=====================================================
+
+https://github.com/seilaeu/linux/distros/arch/scripts
+
+$ svn checkout https://github.com/seilaeu/linux/trunk/distros/arch/ scripts
+
+Listar todos os usuários do sistema
+===================================
+
+$ awk -F':' '{ print $1}' /etc/passwd
+
+
+Calcular o md5sum após a execução do comando find com saída para o ecrã
+=======================================================================
+
+$ find /media/dados/  -type f -iname '*arch*fino*emer*'  -exec md5sum {} \;
+
+
+Calcular o md5sum após a execução do comando find com saída para um ficheiro
+============================================================================
+
+$ find /media/dados/  -type f -iname '*arch*fino*emer*'  -exec md5sum {} \; tee md5sum-limpeza
+
+
+Remover itens encontrados após execução do comando find
+=======================================================
+ 
+$ find /media/dados/DROPBOX/  -type f -iname '*arch*fino*emer*' -exec rm {} \; 
+
+
+Enviar saída do comando pacman para o compressor zip
+====================================================
+
+$ pacman -Qql bash | zip -o bash.zip -@
+
+
+Descobrir ip público ou externo
+===============================
+
+wget -qO - icanhazip.com
+
+
+Reinstalar o Arch Linux 
+=======================
+
+=> Obter a listagem dos pacotes instalados explicitamente
+
+$ pacman -Qqe > pacotes-instalados-explicitamente 
+
+=> Reinstalar o sistema
+
+$ pacman -Syy
+
+$ yay -S - < pacotes-instalados-explicitamente
+
+
+Criar cópia de segurança do sistema 
+===================================
+
+Entrar noutro sistema linux ou num live-cd
+
+mount /dev/sdaX /mnt
+
+sudo tar cvpjf arch-`date +"%d.%m.%Y"`.tar.bz2 --exclude={/mnt/dev/*,/mnt/proc/*,/mnt/sys/*,/mnt/tmp/*} /mnt/
+
+bzip2 -tv arch-`date +"%d.%m.%Y"`.tar.bz2
+
+
+Restaurar cópia de segurança do sistema 
+=======================================
+
+$ mount /dev/sdaX /media/arch
+
+$ sudo tar -xjvpf arch*.tar.bz2 -C /media/arch
+
+Em caso de alteração da partição raí­z, editar o ficheiro /etc/fstab e alterar a identidade da mesma.
+
+Restaurar o grub: 
+
+$ mount -t proc none /media/arch/proc
+$ mount --rbind /dev /media/arch/dev
+$ mount --rbind /sys /media/arch/sys
+$ SHELL=/bin/bash
+$ chroot /media/arch
+$ grub-install --target=x86_64-efi --efi-directory=/bin/bash --bootloaderid=GRUB
+$ grub-mkconfig -o /boot/grub/grug.cfg

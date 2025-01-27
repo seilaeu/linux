@@ -1,0 +1,48 @@
+Criar três ficheiros e iniciar e activar um serviço
+---------------------------------------------------
+
+$ ediroot /etc/sistema
+<distribuição> <ambiente de trabalho>
+
+$ sudo bash -c 'cat > /usr/sbin/uptime.sh' << 'EOF'
+
+#!/bin/bash
+echo $(cat /etc/sistema) "|" $(date "+%d %b %H:%M") "|" $(uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print h+0"h",m+0"m"}') | awk '{print tolower($0)}'>> /mnt/linux/registos/uptime
+EOF
+
+$ sudo chmod +x /usr/sbin/uptime.sh 
+
+$ sudo bash -c 'cat > /etc/systemd/system/uptime.service' << "EOF"  
+ 
+ [Unit]
+Description=Uptime log
+Before=shutdown.target
+
+[Service]
+ExecStart=/bin/true
+ExecStop=/bin/bash /usr/sbin/uptime.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+$ sudo systemctl start uptime && sudo systemctl enable uptime && sudo systemctl restart uptime
+
+Verificar o registo do uptime em /mnt/linux/registos/uptime
+
+
+Parte pedagógica:
+
+echo $(cat /etc/sistema) "|" $(date) "|" $(uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print h+0"h",m+0"m"}')|| |  ' >> /media/linux/registos/uptime
+EOF
+
+Eliminar palavras:
+
+sed 's/WEST 2017//g'
+
+Eliminar demasiados espaços em branco:
+awk '{$1=$1}{ print }'
+
+Trocar coluna (a 5ª com a 6ª)
+awk ' { t = $5; $5 = $6; $6 = t; print; }

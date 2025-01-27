@@ -1,0 +1,20 @@
+$ sudo nano /etc/ntp.conf
+
+server 0.europe.pool.ntp.org iburst
+server 1.europe.pool.ntp.org iburst 
+server 2.europe.pool.ntp.org iburst
+server 3.europe.pool.ntp.org iburst
+
+logfile /var/log/ntp.log
+
+
+$ sudo systemctl start ntpd.service
+$ sudo systemctl enable ntpd.service
+
+
+UTC, o melhor para o Linux quando usado em exclusividade
+========================================================
+
+$ sudo timedatectl set-local-rtc 0
+
+Pode ser verificado na 3ª linha do ficheiro /etc/adjtime

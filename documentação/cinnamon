@@ -1,0 +1,33 @@
+Editar o tamanho da letra no menu:
+
+$ nano /home/jribeiro/.themes/Linux\ Mint/cinnamon/cinnamon.css
+$ sudo nano /usr/share/themes/Vertex-Maia/cinnamon/cinnamon.css
+
+/* ===================================================================
+ * PopupMenu (popupMenu.js) 
+ * ===================================================================*/
+
+.popup-menu {
+    color: #fff;
+    font-family: Noto Sans;
+    font-size: 11pt;
+    min-width: 100px;
+}
+
+.menu {
+    /*border: 1px solid rgba(120, 120, 120, 1);*/
+    border: 1px solid rgba(50, 50, 50, 1);
+    border-radius: 4px;
+    background-color: rgba(63, 63, 63, 0.95);
+    color: #fff;
+    font-size: 11pt;
+    min-width: 100px;
+}
+
+
+Não mostrar itens no Ambiente de Trabalho
+=========================================
+
+Definições do sistema => Ambiente de Trabalho => Mostrar itens no Ambiente de Trabalho: Desligar
+
+

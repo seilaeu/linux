@@ -1,0 +1,128 @@
+$ instalar archiso
+
+$ cp -r /usr/share/archiso/configs/releng/ /home/seilaeu/livecd
+
+$ cd /home/seilaeu/livecd
+
+$ nano packages.x86_64
+
+$ mkdir myrepo
+
+$ cd myrepo
+
+$ cp ../../Transferências/*.zst .
+
+$ repo-add myrepo.db.tar.gz *.zst
+
+$ cd ..
+
+$ nano pacman.conf
+
+[myrepo]
+SigLevel = Optional TrustAll
+Server = file:///home/seilaeu/livecd/myrepo
+
+$ cp /etc/sddm.conf  airootfs/etc/
+
+$ mkdir -p airootfs/etc/share/sddm/themes
+
+$ cp -r /usr/share/sddm/themes/Sweet/  archlive/airootfs/etc/share/sddm/themes
+
+$ mkdir airootfs/etc/share/icons
+
+$ cp -r /usr/share/icons/Oxygen\ 10\ Blue/  airootfs/etc/share/icons
+
+$ cp /etc/sudoers  airootfs/etc/
+
+$ mkdir  airootfs/etc/skel
+
+$ cp -r /home/$USER/.bash* airootfs/etc/skel/
+
+$ cp -r /home/$USER/.config/ airootfs/etc/skel/
+
+$ cp -r /home/$USER/.local/ airootfs/etc/skel/
+
+$ cp -r /home/$USER/.mozilla/ airootfs/etc/skel/
+
+$ cp -r /home/$USER/.gtkrc-2.0 airootfs/etc/skel/
+
+$ cp /etc/locale.gen airootfs/etc/locale.gen
+
+$ cp /etc/locale.conf airootfs/etc/locale.conf
+
+$ nano airootfs/etc/passwd
+
+$ openssl passwd -6
+
+$ nano airootfs/etc/shadow
+
+$ nano airootfs/etc/group
+
+$ nano airootfs/etc/gshadow
+
+$ nano ../profiledef.sh
+
+$ cp /usr/lib/systemd/system/sddm.service airootfs/etc/systemd/system/
+
+$ cd airootfs/etc/systemd/system/
+
+$ ln -s sddm.service display-manager.service
+
+$ nano airootfs/usr/local/bin/localegen.sh
+
+#!/bin/bash
+
+locale-gen
+
+$ nano airootfs/etc/systemd/system/localegen.service
+
+[Unit]
+Description=Generate locale on boot
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/local/bin/localegen.sh
+
+[Install]
+WantedBy=multi-user.target
+
+$ mkdir -p airootfs/etc/systemd/system/multi-user.target.wants/
+
+$ cd airootfs/etc/systemd/system/multi-user.target.wants/
+
+$ ln -sf ../localegen.service .
+
+$ cd ../../../../../
+
+$ cat airootfs/usr/local/bin/plasma-panel.sh
+
+#!/bin/bash
+
+sudo chmod +x /home/seilaeu/.local/share/plasma_icons/*
+
+
+$ nano airootfs/etc/systemd/system/plasma-panel.service
+
+[Unit]
+Description=Corrige permissão de execução dos atalhos no painel do plasma
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/local/bin/plasma-panel.sh
+
+[Install]
+WantedBy=multi-user.target
+
+$ cd airootfs/etc/systemd/system/multi-user.target.wants/
+
+$ ln -sf ../plasma-panel.service .
+
+$ cd ../../../../../
+
+$ mkdir -p airootfs/etc/systemd/systemd/user/pipewire.service.wants
+
+$ cp /etc/systemd/user/pipewire.service.wants/wireplumber.service airootfs/etc/systemd/user/pipewire.service.wants/
+
+$ cp /usr/lib/systemd/user/pipewire.service airootfs/etc/systemd/user/
+
+$ cp /usr/lib/systemd/user/pipewire-pulse.service airootfs/etc/systemd/user/

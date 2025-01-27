@@ -1,0 +1,131 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+# Prompt da bash
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u\[\033[1;37m\]@\[\033[1;31m\]\h\[\033[01;34m\] \w\[\033[0;00m\] \$ '
+
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+
+# Completar os comandos na bash
+complete -cf sudo
+
+
+# Controlo remoto
+
+
+# Manjaro
+alias mãe-acesso-terminal-manjaro="ssh -vv -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-manjaro="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch
+alias mãe-acesso-terminal-arch="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Mint
+alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch, Mint e Manjaro
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+
+
+alias casa='du -sh ~'
+alias raiz='df -h / '
+alias sistema='df -h'
+alias linux='df -h /dev/pclvm/linux'
+alias audio='df -h /dev/pclvm/audio'
+alias pessoal='df -h /dev/pclvm/pessoal'
+
+alias volumes='sudo lvdisplay'
+
+alias sincronizar='sudo apt-get update'
+alias procurar='apt-cache search'
+alias questionar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2| grep"
+alias instalar='sudo apt-get install'
+alias reinstalar='sudo apt-get install --reinstall'
+alias desinstalar='sudo apt-get remove'
+alias purgar='sudo apt-get purge'
+alias orfãos='sudo apt-get autoremove'
+alias cache='sudo apt-get clean all'
+alias pacotes-instalados="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2"
+alias limpeza='sh /mnt/linux/distribuições/debian/scripts/limpar-sistema.sh'
+alias configurar='sudo dpkg --configure -a'
+alias desbloquear='sudo rm /var/db/.*  && sudo rm -rf /var/tmp/portage/{,.[!.],..?}* && rm /usr/portage/distfiles/.*'
+
+
+# Kernels antigos
+alias kernels-listar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2|egrep 'linux-image|linux-headers'"
+
+alias edisources='ediroot /etc/apt/sources.list'
+alias edigrub='ediroot /etc/grub.d/40_custom'
+alias edifstab='ediroot /etc/fstab'
+
+alias montar="sudo mount"
+alias desmontar="sudo umount"
+
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
+
+# USB Drive
+alias formatusb='bash /mnt/linux/scripts/formatusb'
+alias burnusb='bash /mnt/linux/scripts/burnusb'
+
+# Grub
+alias grub-instalar='sudo /usr/sbin/grub-install sda'
+alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# Montagens de dispositivos
+
+alias montar_dados="sudo mount /mnt/dados" 
+alias desmontar_dados="sudo umount -l /mnt/dados"
+ 
+alias montar_debian='sudo mount /dev/sda3 /mnt/debian'
+alias desmontar_debian='sudo umount -l /mnt/debian'
+alias montar_gentoo='sudo mount /dev/sda5 /mnt/gentoo'
+alias desmontar_gentoo='sudo umount -l /mnt/gentoo'
+alias montar_funtoo='sudo mount /dev/sda6 /mnt/funtoo'
+alias desmontar_funtoo='sudo umount -l /mnt/funtoo'
+alias montar_kubuntu='sudo mount /dev/sda7 /mnt/kubuntu'
+alias desmontar_kubuntu='sudo umount -l /mnt/kubuntu'
+alias montar_manjaro='sudo mount /dev/sda9 /mnt/manjaro' 
+alias desmontar_manjaro='sudo umount -l /mnt/manjaro'                          
+ 
+
+# KDE
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
+
+
+alias edibash='$EDITOR ~/.bashrc'
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+export PATH=/bin:/usr/bin/:/sbin:/usr/sbin:$PATH
+
+neofetch
+
+alias ls='ls -l --color'
+LS_COLORS='di=1;34:fi=1;33:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
+export LS_COLORS
+
+
