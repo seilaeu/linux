@@ -1,0 +1,12 @@
+XBPS source packages collection
+-------------------------------
+
+$ git clone https://github.com/void-linux/void-packages.git
+$ cd void-packages
+$ echo XBPS_ALLOW_RESTRICTED=yes >> etc/conf
+$ ./xbps-src binary-bootstrap
+
+Build a package by specifying the pkg target and the package name:
+
+$ ./xbps-src pkg <package_name>
+$ sudo xi <package_name>

@@ -1,0 +1,620 @@
+grub:
+
+# mount -t proc none /mnt/proc
+
+# mount --rbind /dev /mnt/dev
+
+# mount --rbind /sys /mnt/sys
+
+# chroot /mnt/
+
+# grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=slackware
+
+# grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+idioma:
+
+# nano /mnt/etc/profile.d/lang.sh
+
+export LANG=pt_PT.UTF-8
+
+# reboot
+
+
+
+utilizador comum:
+
+# useradd -m -G wheel,users,audio,video -s /bin/bash seilaeu
+
+# passwd seilaeu
+
+# exit
+
+login: seilaeu
+
+passwd: *****
+
+$ startx
+
+
+
+sudo:
+# chmod u+w  /etc/sudoers
+# nano /etc/sudoers
+Defaults !insults
+Defaults editor=/usr/bin/nano
+%wheel ALL=(ALL:ALL) ALL
+# pwconv
+# chmod u-w  /etc/sudoers
+
+
+
+bashrc do utilizador comum:
+
+$ nano ~/.bashrc
+
+export PATH=$PATH:/sbin:/usr/sbin:/media/dados/arch_linux/scripts/:/opt/rust16/bin
+
+complete -cf sudo
+
+alias grub-instalar="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=slackware"
+alias grub-actualizar="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+alias pacotes-instalados-simples='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f4- -d- | rev | sort'
+alias pacotes-instalados-detalhado='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f3- -d- | rev | sort'
+alias questionar-simples='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f4- -d- | rev | sort | grep'
+alias questionar-detalhado='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f3- -d- | rev | sort | grep'
+
+alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
+alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
+alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
+
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+alias ls='ls -l --color'
+LS_COLORS='di=1;34:fi=1;97:ln=31:pi=5:so=5:bd=5:cd=5:or=05;37;41:mi=31;5:ex=32:*.pdf=1;90'
+export LS_COLORS
+
+root aliases:
+
+# nano /root/.bash_profile
+
+    if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+    fi
+
+
+root path:
+
+# nano /root/.bashrc
+
+export PATH="$PATH:/media/dados/arch_linux/scripts"
+
+Letra:
+
+freetype:
+$ sudo nano /etc/profile.d/freetype.sh
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+
+$ cd /etc/fonts/conf.d/
+$ sudo ln -s /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf
+$ sudo ln -s /usr/share/fontconfig/conf.avail/10-hinting-full.conf
+$ sudo ln -s /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
+
+$ lftp -c "open https://slackware.osuosl.org/slackware64-current/source/l/ ; mirror freetype"
+
+$ cd freetype/
+
+$ nano freetype.SlackBuild
+
+descomentar a linha do patch que começa por zcat
+
+$ sudo sh freetype.SlackBuild
+
+$ sudo removepkg freetype
+
+$ sudo installpkg /tmp/freetype-2.13.3-x86_64-2.txz
+
+
+
+letra:
+
+$ cd /etc/fonts/conf.d/
+$ sudo ln -s ../conf.avail/10-hinting-full.conf .
+$ sudo ln -s ../conf.avail/10-sub-pixel-rgb.conf .
+$ sudo ln -s ../conf.avail/11-lcdfilter-default.conf .
+$ sudo rm 10-scale-bitmap-fonts.conf
+$ sudo ln -s ../conf.avail/70-no-bitmaps.conf
+
+$ mv ~/.Xresources ~/.Xresources.bak
+$ cat > ~/.Xresources << 'EOF'
+Xft.dpi: 101
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+EOF
+$ xrdb -merge ~/.Xresources
+
+Ver ficheiro /media/dados/arch_linux/documentação/tipo_de_letra
+
+
+
+etiqueta slackware:
+
+$ sudo btrfs filesystem label / slackware
+
+
+
+slackpkg:
+
+$ sudo nano /etc/slackpkg/mirrors
+
+https://ftp.rnl.tecnico.ulisboa.pt/pub/slackware/slackware64-current/
+
+# https://mirror.netcologne.de/slackware/slackware64-current/
+
+# https://mirror.cs.princeton.edu/pub/mirrors/slackware/slackware64-current/
+
+
+
+não sobrepor pacotes sbo com pacotes slackware ou alien:
+
+$ sudo nano /etc/slackpkg/blacklist
+
+[0-9]+_SBo
+
+
+
+slackpkg+:
+
+https://sourceforge.net/projects/slackpkgplus/files/
+
+$ sudo installpkg slackpkg+-1.8.0-noarch-7mt.txz
+
+$ sudo nano /etc/slackpkg/slackpkgplus.conf
+
+REPOPLUS=( slackpkgplus restricted alienbob )
+
+MIRRORPLUS['alienbob']=https://slackware.nl/people/alien/sbrepos/current/x86_64
+MIRRORPLUS['restricted']=https://slackware.nl/people/alien/restricted_sbrepos/current/x86_64
+MIRRORPLUS['slackpkgplus']=https://slakfinder.org/slackpkg+15/
+
+
+
+Bloquear todos os pacotes xfce:
+
+$ sudo nano /etc/slackpkg/blacklist
+
+xfce/
+
+$ sudo slackpkg update gpg
+
+$ sudo slackpkg update
+
+$ sudo slackpkg install-new
+
+$ sudo slackpkg upgrade-all
+
+$ sudo slackpkg clean-system
+
+$ sudo slackpkg install aspell-pt_PT libreoffice vlc webcore-fonts-installer
+
+
+
+sbotools:
+
+https://pink-mist.github.io/sbotools/
+
+$ sudo installpkg sbotools-2.7-noarch-1_SBo.tgz
+$ sudo sboconfig -r https://github.com/Ponce/slackbuilds
+
+$ sudo sbosnap fetch
+
+$ sudo sboinstall deb2tgz clamav google-chrome-the-latest p7zip MEGAsync protonvpn-cli ufw unrar
+
+$ sudo sbocheck
+$ sudo sboupgrade --all
+
+
+
+clamav:
+
+$ sudo /etc/rc.d/rc.clamav start
+
+$ sudo freshclam
+
+$ sudo clamscan -r -i -l clamav.log /
+
+
+
+intel microcode:
+
+$ nano /etc/default/grub
+
+GRUB_EARLY_INITRD_LINUX_CUSTOM="intel-ucode.cpio"
+
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+
+
+protonvpn:
+
+$ sudo protonvpn init
+$ sudo protonvpn c -f
+
+
+
+ufw:
+
+$ sudo nano /etc/rc.d/rc.local
+
+if [ -x /lib/ufw/ufw-init ]; then
+  /lib/ufw/ufw-init start
+fi
+
+
+src2pkg:
+
+https://distro.ibiblio.org/amigolinux/download/src2pkg/
+
+$ sudo installpkg src2pkg-3.0-noarch-2.txz
+
+$ cd /tmp
+$ wget https://ponce.cc/slackware/testing/src2pkg.patch
+$ cd /usr/src/src2pkg/src2pkg-helpers
+$ sudo patch -p1 < /tmp/src2pkg.patch
+
+$ sudo src2pkg --setup
+
+
+
+$ cat src2pkg.patch
+
+--- ./src2pkg.setup.orig        2013-11-26 16:51:36.000000000 +0100
++++ ./src2pkg.setup     2021-11-20 17:18:43.462480000 +0100
+@@ -621,6 +621,7 @@
+### make the library
+cd $SRC_DIR
+cd libsentry-$LIBSENTRY_VERSION ;
++patch -p1 < /usr/src/src2pkg/src2pkg-helpers/libsentry-0.7.2_glibc-2.23.patch
+echo -n $BLUE"Creating libsentry - "$NORMAL
+make &> /dev/null
+if [[ $? -eq 0 ]] ; then
+--- /dev/null   2021-11-20 16:13:07.485000000 +0100
++++ ./libsentry-0.7.2_glibc-2.23.patch  2021-11-20 10:13:42.593387243 +0100
+@@ -0,0 +1,29 @@
++diff -Naur libsentry-0.7.2.orig/libsentry.c libsentry-0.7.2/libsentry.c
++--- libsentry-0.7.2.orig/libsentry.c   2012-02-29 15:37:05.000000000 +0100
+++++ libsentry-0.7.2/libsentry.c        2021-11-20 10:12:49.493387243 +0100
++@@ -51,6 +51,25 @@
++ #include
++ #include
++
+++#ifndef _STAT_VER
+++#if defined (__aarch64__)
+++#define _STAT_VER 0
+++#elif defined (__x86_64__)
+++#define _STAT_VER 1
+++#else
+++#define _STAT_VER 3
+++#endif
+++#endif
+++#ifndef _MKNOD_VER
+++#if defined (__aarch64__)
+++#define _MKNOD_VER 0
+++#elif defined (__x86_64__)
+++#define _MKNOD_VER 0
+++#else
+++#define _MKNOD_VER 1
+++#endif
+++#endif
+++
++ /* There's no d_off on GNU/kFreeBSD */
++ #if defined(__FreeBSD_kernel__)
++ #define D_OFF(X) (-1
+
+
+
+$ sudo nano /etc/slackpkg/blacklist
+
+src2pkg
+src2pkg-helpers
+
+
+
+ncdu:
+
+$ src2pkg ncdu-1.21.tar.gz
+
+depfinder:
+
+$ cd ~/Transferências
+
+$ git clone https://github.com/gapan/depfinder.git
+
+$ tar czvf depfinder-1.4.4.tar.gz depfinder
+
+$ src2pkg depfinder-1.4.4.tar.gz
+
+
+
+sddm:
+
+$ echo "" | sudo tee -a  /usr/share/sddm/scripts/Xsetup
+
+$ echo "setxkbmap pt" | sudo tee -a  /usr/share/sddm/scripts/Xsetup
+
+$ sudo nano /etc/sddm.conf
+
+Numlock=on
+Currrent=breeze
+CursorTheme=Oxygen_Blue
+
+ServerArguments=-nolisten tcp -dpi 102
+
+$ sudo nano /etc/inittab
+
+id:4:initdefault:
+
+
+
+teclado e tipo de letra no console:
+
+$ sudo nano /etc/rc.d/rc.keymap
+
+if [ -x /usr/bin/loadkeys ]; then
+/usr/bin/loadkeys pt-latin1.map
+fi
+
+$ sudo nano /etc/rc.d/rc.font
+setfont -v lat1-16.psfu.gz
+
+$ sudo chmod +x /etc/rc.d/rc.font
+
+
+
+remover o kernel-huge e usar o kernel-gereic:
+
+$ sudo /usr/share/mkinitrd/mkinitrd_command_generator.sh -k 'uname -r'
+
+colar a saída deste comando na linha de comando com privilégio de super-utilizador
+
+$ sudo removepkg kernel-huge
+
+
+
+requiredbuilder:
+
+https://www.stabellini.net/requiredbuilder.php
+
+
+
+esvaziar a directoria /tmp em cada encerramento do sistema:
+
+$ sudo nano /etc/rc.d/rc.local_shutdown
+
+/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;
+
+$ sudo chmod +x /etc/rc.d/rc.local_shutdown
+
+
+
+desactivar aspm:
+
+$ sudo nano /etc/default/grub
+
+GRUB_CMDLINE_LINUX="pcie_aspm=off pcie_port_pm=off"
+
+$ grub-actualizar
+
+
+
+bibliotecas firefox:
+
+$ sudo nano /etc/ld.so.conf.d/firefox.conf
+
+/usr/lib64/firefox/
+
+
+
+bibliotecas rust16:
+
+$ sudo nano /etc/ld.so.conf.d/rust16.conf
+
+/opt/rust16/lib64/
+
+
+
+zram:
+
+$ sudo wget -O /etc/rc.d/rc.zram https://raw.githubusercontent.com/otzy007/enable-zRam-in-Slackware/master/etc/rc.d/rc.zram
+
+$ sudo nano /etc/rc.d/rc.zram
+
+..........
+
+restart)
+#    echo 1 > /sys/block/zram0/reset
+stop
+sleep 1
+start
+..........
+
+$ cat /etc/rc.d/rc.zram
+
+#!/bin/bash
+#
+# /etc/rc.d/rc.zram
+# Script to start zRam (Virtual Swap Compressed in RAM)
+#
+# Size of swap space in MB
+# default 1GB
+
+SIZE=3793
+
+start() {
+  modprobe zram
+  echo $SIZE*1024*1024 | bc > /sys/block/zram0/disksize
+  mkswap /dev/zram0
+  swapon /dev/zram0
+}
+
+stop() {
+  swapoff /dev/zram0
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+
+  stop)
+    stop
+  ;;
+
+  restart)
+#    echo 1 > /sys/block/zram0/reset
+  stop
+  sleep 3
+  start
+  ;;
+
+  *)
+  echo "Usage: $0 (start|stop|restart)"
+esac
+
+$ sudo chmod +x /etc/rc.d/rc.zram
+
+$ sudo nano /etc/rc.d/rc.local
+
+# zram
+
+if [ -x /etc/rc.d/rc.zram ]; then
+/etc/rc.d/rc.zram start
+fi
+
+
+
+# numlock
+
+$ sudo nano /etc/rc.d/rc.numlock
+
+#!/bin/sh
+# Turn on Num Lock
+
+# Turn on Num Lock
+numlock_on() {
+  if [ -x /usr/bin/setleds ]; then
+    echo "Turning on Num Lock"
+    CLITTY=/dev/tty[1-6]
+    for tty in $CLITTY; do
+      /usr/bin/setleds -D +num < $tty
+    done
+  fi
+}
+
+case "$1" in
+'on')
+  numlock_on
+  ;;
+*)
+  echo "usage $0 on"
+esac
+$ sudo chmod +x /etc/rc.d/rc.numlock
+
+$ sudo nano /etc/rc.d/rc.local
+
+# numlock
+
+if [ -x /etc/rc.d/rc.numlock ]; then
+  /etc/rc.d/rc.numlock on
+fi
+
+
+
+startx automático no runlevel 3:
+
+$ nano .bash_profile
+
+if [ `tty` = /dev/tty1 ]; then
+    startx
+fi
+
+
+neofetch:
+
+$ nano .config/neofetch/config.conf
+
+color_blocks="off"
+
+
+
+consola root:
+
+- criar um perfil novo do konsole chamado Root Shell
+
+- comando: su -
+
+- criar uma cópia do atalho konsole
+
+- argumentos da linha de comandos: --profile 'Root Shell'
+
+- mudar o ícone
+
+
+Ler mais: https://janr-pt.webnode.pt/slackware/slackware-pos-instalacao/
+
+Cronie
+------
+
+# kill $(pgrep crond)
+# removepkg dcron
+# rm -rf /var/spool/cron
+
+Change this line in /etc/rc.d/rc.M
+  /usr/sbin/crond -l notice
+to:
+  /usr/sbin/crond
+
+
+anacron
+-----------
+
+Compilar o pacote a partir de https://slackbuilds.org/repository/14.2/system/anacron/
+
+Dicionários
+---------------
+
+$ deb2tgz hunspell-pt-pt_7.2.0-2_all.deb
+$ sudo installpkg hunspell-pt-pt_7.2.0-2_all.txz
+
+
+FSTRIM
+------
+
+$ sudo nano /etc/anacrontab
+
+# /etc/anacrontab example
+# See the anacrontab(5) manpage
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# format: period delay job-identifier command
+1       5       cron.daily      run-parts /etc/cron.daily
+7       5       cron.weekly     run-parts /etc/cron.weekly
+30      5      cron.monthly    run-parts /etc/cron.monthly
+
+$ sudo nano /etc/cron.weekly/fstrim
+
+#!/bin/sh
+LOG=/var/log/fstrim.log
+echo "*** $(date) ***" >> $LOG
+fstrim -v / >> $LOG
+
+
+$ sudo chmod +x /etc/cron.weekly/fstrim
+$ sudo sbopkg -i "bleachbit deb2tgz hoorex intel-microcode ncdu SpiderOakONE srm ufw unrar"

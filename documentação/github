@@ -1,0 +1,25 @@
+Comandos para iniciar um repositório
+
+$ git clone https://github.com/seilaeu/nome_do_repositório.git
+$ cd nome_do_repositório
+$ git config --global user.name <username>
+$ git config --global user.email <your_email>
+$ git config --global credential.helper cache
+$ git config --global credential.helper 'cache --timeout=3600'
+$ git init
+$ git status
+$ echo "# nome_do_repositório" >> README.md
+$ git add README.md
+$ git commit -m "first commit"
+$ git branch -M main
+$ git push -u origin main
+
+
+Sincronizar o repositório do github.com com o do computador
+
+$ cd /caminho/para/a/pasta
+$ git pull
+$ git status
+$ git add --all
+$ git commit -m "updating file"
+$ git push -u origin main

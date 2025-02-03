@@ -1,0 +1,80 @@
+
+Filesystem in Userspace
+
+Filesystem in Userspace (FUSE) provides a way for users to mount file systems without needing special permissions (mounting in Linux is generally reserved to those with administrative privileges). 
+
+
+Instalação
+----------
+
+1 - Kernel
+
+
+KERNEL Enable support for FUSE
+
+File systems  --->
+    <*> FUSE (Filesystem in Userspace) support
+    
+
+2 - Emerge
+
+As with most file systems, after building support for the file system into the kernel be sure to install the user space tools:
+
+# emerge --ask sys-fs/fuse
+
+
+Configuração
+------------
+
+1 - Ficheiros
+
+/etc/fuse.conf
+
+There are two configuration variables available in the fuse.conf file:
+
+    mount_max - Sets the maximum number of FUSE mounts allowed to non-root users (defaults to 1000 if unset).
+    user_allow_other - Allows non-root users to specify the allow_other or allow_root mount options. This is disabled for security reasons.
+    
+    
+Utilização
+----------
+
+$ fusermount -h
+
+fusermount: [options] mountpoint
+Options:
+ -h                 print help
+ -V                 print version
+ -o opt[,opt...]   mount options
+ -u                 unmount
+ -q                 quiet
+ -z                 lazy unmount
+
+Montando sistemas de ficheiros
+
+$ fusermount /path/to/mountpoint
+
+Desmontando sistemas de ficheiros
+
+Os sistemas de ficheiros podem ser desmontados quer usando o comando umount quer o fusermount:
+
+$ fusermount -u /path/to/mountpoint
+
+Desinstalação
+
+# emerge --ask --unmerge sys-fs/fuse
+
+Ver também:
+
+    Filesystem — a means to organize data expected to be retained after a program terminates by providing procedures to store, retrieve, and update data as well as manage the available space on the device(s) which contain it.
+
+External resources
+
+    Writing a FUSE Filesystem: a Tutorial
+    FUSE-based file systems (Arch Linux Wiki)
+
+Categories:
+
+    Pages with syntax highlighting errorsFilesystems
+
+

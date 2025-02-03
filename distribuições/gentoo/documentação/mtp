@@ -1,0 +1,64 @@
+MTP (Media Transfer Protocol) 
+
+Protocolo que permite a transferência de ficheiros para dispositivos externos. 
+É fornecido por diversos programas a maioria dos quais dependem do "FUSE" (https://wiki.gentoo.org/wiki/Filesystem_in_Userspace)
+
+Instalação
+----------
+
+1 - Kernel
+
+
+KERNEL Enable support for FUSE
+
+File systems  --->
+    <*> FUSE (Filesystem in Userspace) support
+    
+Programas disponíveis no Gentoo:
+
+
+Nome             Pacote                           Descrição               
+
+MTPfs          sys-fs/mtpfs               A FUSE-based filesystem providing access to MTP devices. More mature than some of the alternatives.
+Go-mtpfs       sys-fs/go-mtpfs            A simple FUSE-based filesystem written in Go language.
+jmtpfs         sys-fs/jmtpfs              A FUSE and media-libs/libmtp based filesystem for accessing MTP devices.
+gphotofs       media-gfx/gphotofs         gphotofs is a FUSE-based file system for interfacing with digital cameras using the gphoto2 application.
+simple-mtpfs   sys-fs/simple-mtpfs        Like the others: a simple MTP FUSE filesystem driver written in C++.
+Gnome          gnome-base/gvfs            Install gnome-base/gvfs with the mtp USE flag enabled. This can be either globally in make.conf's USE flag or for gnome-base/gvfs in package.use.
+Thunar         xfce-extra/thunar-volman   To have Thunar automount MTP devices (and other volumes), install the xfce-extra/thunar-volman package.
+
+KDE 5
+
+kio-extras contains MTP support, but it requires the mtp USE flag.
+
+Habilitar a use flag global "mtp" em /etc/portage/make.conf:
+
+USE="$USE mtp"
+
+
+Alternativamente, habilitá-la no pacote kio-extras em /etc/portage/package.use
+
+kde-apps/kio-extras mtp
+
+Instalar:
+
+# emerge --ask kde-apps/kio-extras
+
+After this, quitting KDE and restarting is probably sufficient to get it working.
+
+If that does not work, please try restarting the system. 
+
+Troubleshooting
+
+    Make sure the Android device is not going to sleep and the screen is not getting locked. Set screen timeout to very long values, or enable the "Do not turn off the screen" flag in the device's Settings - Development section.
+    Some ROMs (e.g. PAC ROM) require the unlocking of the screen of the device before files will appear. If the screen is not unlocked the device will appear empty.
+    Sometimes (specifically on HTC One X) USB debugging automatically activates when device is connected to a PC. USB debugging must be disabled. Otherwise media-libs/libmtp can't recognize the device.
+    If the device is not recognized by media-libs/libmtp, try upgrading to latest (or even live) version.
+    Lumia devices might require media-libs/libmtp version 1.1.9 and sys-fs/simple-mtpfs to be mounted properly.
+        Lumia devices must be unlocked to be able to connect (enter the user's PIN).
+
+See also
+
+    MTPfs — a FUSE-based filesystem providing access to MTP devices.
+
+

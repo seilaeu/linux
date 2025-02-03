@@ -1,0 +1,4 @@
+ 
+Sharped fonts:
+
+ USE=-cleartype_hinting emerge media-libs/freetype 

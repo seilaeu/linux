@@ -1,0 +1,23 @@
+Crontab do seilaeu:
+
+*/15 * * * * /media/dados/linux/scripts/duplicados-seilaeu.sh >> /var/log/cronie/duplicados-seilaeu 2>&1
+
+
+Crontab do root:
+
+*/15 * * * * /media/dados/linux/scripts/duplicados-root.sh >> /var/log/cronie/duplicados-root 2>&1
+
+
+$ sudo touch /var/log/cronie/duplicados-seilaeu
+$ sudo chown seilaeu:seilaeu /var/log/cronie/duplicados-seilaeu
+
+Eliminar entradas duplicadas no histórico da bash:
+
+$ cat /media/dados/linux/scripts/duplicados-seilaeu.sh
+
+awk '!a[$0]++'  .bash_history > .bash_history.tmp && mv .bash_history.tmp .bash_history
+
+
+$ cat /media/dados/linux/scripts/duplicados-root.sh
+
+awk '!a[$0]++'  /root/.bash_history > /root/.bash_history.tmp && mv /root/.bash_history.tmp /root/.bash_history

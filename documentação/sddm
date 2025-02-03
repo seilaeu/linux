@@ -1,0 +1,8 @@
+Criar ficheiro de configuração, se inexistente:
+
+$ sudo bash -c "sddm --example-config > /etc/sddm.conf"
+
+
+Teclado português:
+
+$ sudo bash -c "echo 'setxkbmap pt' >> /usr/share/sddm/scripts/Xsetup"

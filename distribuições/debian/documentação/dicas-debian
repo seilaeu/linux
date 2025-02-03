@@ -1,0 +1,15 @@
+Reconstruir a initramfs:
+
+$ sudo update-initramfs -c -k <versão_do_kernel>
+
+
+Pacotes de programação:
+
+$ instalar build-essential autoconf
+
+
+Fuso horário:
+
+$ sudo dpkg-reconfigure tzdata
+
+$ sudo dpkg-reconfigure locales

@@ -1,0 +1,111 @@
+Systemd:
+
+Mostrar unidades instaladas: 
+sudo systemctl list-unit-files
+
+
+Mostrar o estado de uma unidade:
+sudo systemctl status <unidade>
+
+
+Iniciar uma unidade:
+sudo systemctl start <unidade>
+
+
+Verificar se uma unidade está ou não activada:
+sudo systemctl is-active <unidade>
+
+
+Parar uma unidade:
+sudo systemctl stop <unidade>
+
+
+Reiniciar uma unidade:
+sudo systemctl restart <unidade>
+
+
+Activar o iní­­cio de uma unidade no arranque:
+sudo systemctl enable <unidade>
+
+
+Desactivar o iní­­cio de uma unidade no arranque:
+sudo systemctl disable <unidade>
+
+
+Verificar se uma unidade inicia ou não no arranque:
+sudo systemctl is-enabled <unidade>
+
+
+Desactivar uma unidade:
+sudo systemctl stop <unidade>
+
+
+Recarregar a configuração de uma unidade:
+sudo systemctl reload <unidade>
+
+
+Recarregar a configuração de uma unidade:
+sudo systemctl reload <unidade>
+
+
+Mostra a página de ajuda de uma unidade:
+sudo systemctl help <unidade>
+
+
+Recarrega o systemd pesquisando por novas ou alteradas unidades:
+sudo systemctl daemon-reload
+
+
+Instalação manual:
+ln -s /usr/lib/systemd/system/foo.service /etc/systemd/system/graphical.target.wants/
+
+Nota: Substituir foo pelo nome do serviço.
+
+
+Reiniciar o sistema:
+
+$ systemctl reboot
+
+
+Desligar o sistema:
+
+$ systemctl poweroff
+
+
+Suspender o sistema:
+
+$ systemctl suspend
+
+
+Pôr o sistema em hibernação:
+
+$ systemctl hibernate
+
+
+Pôr o sistema em estado hiybrid-sleep:
+
+$ systemctl hybrid-sleep
+
+
+Vericiar os tempos de execução das unidades no arranque:
+
+$ sudo systemd-analyze blame
+
+
+Ler os registos do systemd:
+journalctl
+
+
+Configurar o journal:
+
+$ sudo mv -v /etc/systemd/journald.conf /etc/systemd/journald.conf.backup && sudo bash -c 'cat > /etc/systemd/journald.conf' << 'EOF'
+
+[Journal]
+Storage=persistent
+Compress=yes
+MaxFileSec=1 day
+MaxRetentionSec=2 week
+SystemMaxUse=200M
+SystemMaxFileSize=60M
+RuntimeMaxUse=150M
+RuntimeMaxFileSize=60M

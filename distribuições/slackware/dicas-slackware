@@ -1,0 +1,51 @@
+Instalar pacotes deb no slackware
+--------------------------------------
+
+1ª Opção: deb2tgz
+
+2ª Opção:
+
+$ mkdir -p work/pkg
+$ cd work
+$ ar -x /path/to/package_name.deb
+$ cd pkg
+$ tar xvf ../data.tar.xz
+
+$ sudo makepkg -l y -c n /tmp/package_name.txz
+$ sudo installpkg /tmp/package_name.txz
+
+$ cd ../..
+$ rm -r work
+
+
+Acelerar o arranque
+-------------------
+
+$ sudo nano /etc/rc.d/rc.M
+
+Desactivar PCMCIA, X fonts, bluetooth, cups, netatalk, quota, mysqld, apache, samba, gpm, icecream
+
+Registar o arranque do sistema
+------------------------------
+
+$ sudo nano /etc/rc.d/rc.S
+
+# Bootlogd
+
+if [ -x /sbin/bootlogd ]; then
+    echo 'Starting bootlogd'
+    /sbin/bootlogd
+    echo 'Bootlogd started (this is the first boot message that appears in /var/log/boot).'
+fi
+
+Listar pacotes instalados por tamanho crescente:
+
+$ (cd /var/log/packages/ ; grep -x 'U.*M' * ) | awk -F: '{print $3 "\t" $1}' | sort -n
+
+Listar pacotes instalados por tamanho decrescente:
+
+$ (cd /var/log/packages/ ; grep -x 'U.*M' * ) | awk -F: '{print $3 "\t" $1}' | sort -rn
+
+Esconder a opção Teclado Virtual do ecrã de boas-vindas do sddm:
+
+=> Colocar a linha InputMethod= na secção [General] do ficheiro /etc/sddm.conf

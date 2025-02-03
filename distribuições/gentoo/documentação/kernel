@@ -1,0 +1,15 @@
+Utilizar a config do kernel em execução
+=======================================
+
+$ zcat /proc/config.gz > running.config
+
+Compilar kernel
+===============
+
+# make mrproper
+# make clean
+# zcat /proc/config.gz > /usr/src/linux/.config
+# make menuconfig
+# make -j5 && make modules_install
+# make install
+# genkernel --lvm --install initramfs

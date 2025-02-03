@@ -1,0 +1,77 @@
+sudo bash -c 'echo "export FREETYPE_PROPERTIES=\"truetype:interpreter-version=35\"" >> /etc/profile.d/freetype2.sh'
+
+sudo bash -c 'cat > /etc/fonts/local.conf' << 'EOF'
+<?xml version='1.0'?>
+<!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+<fontconfig>
+<match target="font">
+    <edit name="antialias" mode="assign">
+        <bool>true</bool>
+    </edit>
+    <edit name="autohint" mode="assign">
+        <bool>false</bool>
+    </edit>
+    <edit name="hinting" mode="assign">
+        <bool>true</bool>
+    </edit>
+    <edit name="hintstyle" mode="assign">
+        <const>hintfull</const>
+    </edit>
+    <edit name="lcdfilter" mode="assign">
+        <const>lcddefault</const>
+    </edit>
+    <edit name="rgba" mode="assign">
+        <const>rgb</const>
+    </edit>
+    <edit name="embeddedbitmap" mode="assign">
+        <bool>false</bool>
+    </edit>
+</match>
+</fontconfig>
+EOF
+
+mv ~/.Xresources ~/.Xresources.bak
+
+cat > ~/.Xresources << 'EOF'
+Xft.dpi: 101
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+EOF
+xrdb -merge ~/.Xresources
+
+cd /etc/fonts/conf.d
+
+sudo ln -s ../conf.avail/10-sub-pixel-rgb.conf
+sudo ln -s ../conf.avail/11-lcdfilter-default.conf
+sudo ln -s ../conf.avail/70-no-bitmaps.conf
+sudo rm 10-scale-bitmap-fonts.conf
+
+
+Plasma 5
+
+Geral, Barra de ferramentas, Menu e Título da janela: BitStreamVera Sans 10
+Tamanho fixo: Monospace 10
+Pequeno: BitStreamVera Sans 9
+
+Suavização activada
+Sub-pixel: RGB
+Sugestão: Completa
+Forçar os ppp: 101
+
+Konsole: Terminus 11
+
+Tipo de letra do Windows :
+
+$ su
+
+# mkdir /usr/share/fonts/WindowsFonts
+
+# cp /windows/Windows/Fonts/* /usr/share/fonts/WindowsFonts/
+
+# chmod 644 /usr/share/fonts/WindowsFonts/*
+
+# fc-cache --force

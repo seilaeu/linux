@@ -1,0 +1,29 @@
+Comando que cria um atalho para actualizar o sistema:
+
+konsole -e bash -c 'yay -Syy && yay; echo; read -p "Prima a tecla Enter..."'
+
+konsole -e bash -c '/media/dados/linux/distribuições/arch/scripts/actualizar.sh; echo; read -p "Prima a tecla Enter..."'
+
+Listar os pacotes votados do AUR:
+
+$ for i in $(pacman -Qqm); do aurvote -c $i; done
+$ pacman -Qqm
+
+
+Reinstalar o Arch Linux:
+
+=> Obter a listagem dos pacotes instalados explicitamente
+
+$ pacman -Qqe > pacotes-instalados-explicitamente
+
+=> Reinstalar o sistema
+
+$ pacman -Sy
+
+$ yay -S - < pacotes-instalados-explicitamente
+
+Esconder a opção Teclado Virtual do ecrã de boas-vindas do sddm:
+
+=> substituir a linha "visible: inputPanel.status === Loader.Ready" por "visible: false" no ficheiro /usr/share/sddm/themes/<tema usado>/Main.qml
+
+

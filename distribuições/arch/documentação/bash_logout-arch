@@ -1,0 +1,9 @@
+Root:
+
+
+awk '!a[$0]++'  /root/.bash_history > /root/.bash_history.tmp && mv /root/.bash_history.tmp /root/.bash_history 
+
+
+Utilizador comum:
+
+awk '!a[$0]++'  .bash_history > .bash_history.tmp && mv .bash_history.tmp .bash_history

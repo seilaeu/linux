@@ -1,0 +1,179 @@
+Editar o ficheiro ~/.bashrc:
+
+
+Ver ficheiro /media/dados/linux/distribuições/fedora/documentação/bashrc-fedora
+
+Nome do anfitrião:
+
+$ sudo hostnamectl set-hostname fedora
+
+# Inspeccionar repositórios instalados
+
+$ ls /etc/yum.repos.d/
+
+Configurar o dnf:
+
+$ sudo nano /etc/dnf/dnf.conf
+
+max_parallel_downloads=20
+defaultyes=True
+deltarpm=False
+installonly_limit=3
+
+Functions:
+
+$ mkdir .bash_functions/
+
+$ nano .bash_functions/questionar-simples
+
+function questionar-simples { /usr/bin/dnf list --installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep -i $1; }
+
+$ nano .bash_functions/questionar-detalhado
+
+function questionar-detalhado { /usr/bin/dnf list --installed |awk '{print $1 "-" $2}'| sed 's/[.][^-+]*-/-/' | grep -i $1; }
+
+$ nano ~/.bashrc
+
+for f in ~/.bash_functions/* ; do source $f; done
+
+
+Alguns pacotes importantes:
+
+$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
+
+
+$ desinstalar im-chooser qt5-qdbusviewer kaddressbook kmail kontact korganizer libreoffice-draw \
+libreoffice-impress libreoffice-math kolourpaint konversation krdc krfb plasma-welcome kcharselect kmag \
+kmousetool kmouth kmahjongg kmines kpat anaconda ImageMagick qemu-guest-agent* khelpcenter cups \
+bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cups-pk-helper flatpak-kcm \
+flatpak-libs aajohan-comfortaa-fonts gnome-keyring-pam
+
+
+Tipo de letra dejavu e bitstream vera:
+
+$ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts bitstream-vera-fonts-all libreoffice-langpack-pt-PT
+
+
+Duplicados do dnf:
+
+$ instalar dnf-utils
+$ sudo package-cleanup --cleandupes
+
+Adicionar repositórios:
+
+=> RPM Fusion
+
+=> Proton VPN
+
+=> MEGASync
+
+Tipo de letra da Microsoft
+
+NumLock no arranque:
+
+$ sudo nano /var/lib/sddm/.config/kcminputrc
+
+[Keyboard]
+NumLock=0
+
+# Impedir que abra uma janela de autenticação quando executamos git push origin master:
+
+$ desinstalar openssh-askpass ksshaskpass
+
+$ nano ~/.bashrc
+
+unset SSH_ASKPASS
+
+# Letra mais fina
+
+$ sudo nano /etc/profile.d/freetype2.sh
+
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+
+$ actualizar
+
+Remover serviços systemd
+========================
+
+ sudo systemctl mask packagekit-offline-update.service
+ sudo systemctl mask systemd-journal-flush.service
+ sudo systemctl mask dnf-makecache.service
+ sudo systemctl mask mandb.service
+
+
+ Desabilitar serviços systemd
+============================
+
+
+sudo systemctl disable auditd.service ?? SELinux ??
+
+
+cd /lib/systemd/system
+for i in abrt*.service auditd.service akmods-shutdown.service akmods.service \
+avahi-daemon.* bluetooth.* fedora*storage* dev-hugepages.mount dev-mqueue.mount \
+dmraid-activation.service fedora-configure.service smartd.service spice-vdagentd.service \
+fedora-loadmodules.service fedora-readonly.service ip6tables.service livesys livesys-late \
+lvm2-monitor.* iptables.service irqbalance.service mcelog.service rsyslog.service \
+systemd-udev-settle.service sendmail.service sm-client.service sys-kernel-config.mount \
+jexec.service mdmonitor*.* sys-kernel-debug.mount vmtoolsd.service; do sudo systemctl mask $i; done
+
+Serviços indispensáveis:
+
+/usr/lib/systemd/system/default.target
+/usr/lib/systemd/system/basic.target
+/usr/lib/systemd/system/sysinit.target
+/usr/lib/systemd/system/getty.target
+/usr/lib/systemd/system/getty@.service
+/usr/lib/systemd/system/console-getty.service
+
+
+ JAVA da Oracle
+==============
+
+Passo 1: Visitar https://www.java.com/en/download/manual.jsp?locale=en
+Passo 2: Transferir o pacote RPM apropriado.
+Passo 3: Instalar o pacote RPM: $ instalar /caminho/para/o/java/jre-8u25-linux-x64.rpm
+
+sudo alternatives --install /usr/bin/java java /usr/java/latest/bin/java 200000
+sudo alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
+sudo alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/latest/lib/amd64/libnpjp2.so 200000
+
+Escolher a versão do java:
+
+sudo alternatives --config java
+
+Escolhendo a versão do plugin do java para o firefox:
+
+sudo alternatives --config libjavaplugin.so.x86_64
+
+Verificar com os comandos:
+
+sudo alternatives --display java
+
+sudo alternatives --display libjavaplugin.so.x86_64
+
+sudo java -version
+sudo javaws
+
+Removendo o java errado:
+
+sudo alternatives --remove libjavaplugin.so.x86_64 /usr/java/jre1.7.0_40/lib/amd64/libnpjp2.so
+
+Se não funcionar talvez seja necessário editar o ficheiro /etc/profile:
+
+## export JAVA_HOME JRE ##
+export JAVA_HOME="/usr/java/latest"
+
+## export JAVA_HOME JRE ##
+export JAVA_HOME="/usr/java/jre1.7.0_45"
+
+$ sudo dnf install binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
+
+Instalar alguns pacotes multimedia
+==================================
+
+instalar gstreamer gstreamer-ffmpeg gstreamer-plugins-bad \
+gstreamer-plugins-bad-free gstreamer-plugins-bad-nonfree gstreamer-plugins-base \
+gstreamer-plugins-good gstreamer-plugins-ugly gstreamer-plugin-crystalhd \
+gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-free \
+gstreamer1-plugins-good gstreamer1-libav ffmpeg

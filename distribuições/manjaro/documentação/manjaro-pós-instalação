@@ -1,0 +1,91 @@
+Bashrc
+
+Fstab
+
+$ sudo chown -R jribeiro:jribeiro /home/jribeiro 
+
+$ instalar neofetch && sudo sed -i 's/color_blocks="on"/color_blocks="off"/g' /etc/neofetch/config 
+
+
+Optimizar compilações
+=====================
+
+$ ediroot /etc/makepkg.conf
+
+CFLAGS="-march=native -O2 -pipe -fstack-protector-strong"
+CXXFLAGS="${CFLAGS}"
+MAKEFLAGS="-j5"
+BUILDDIR=/tmp/makepkg
+COMPRESSXZ=(xz -c -T 4 -z -)
+
+Criar uma tecla de atalho para a actualização do sistema
+---------------------------------------------------------
+
+$ ediroot /usr/sbin/actualizar
+
+yaourt -Syua
+echo
+echo "                                Sistema actualizado!"
+read line
+
+$ sudo groupadd admin && sudo gpasswd -a jribeiro admin
+$ sudo chgrp admin /usr/sbin/actualizar && sudo chmod g+x /usr/sbin/actualizar
+$ newgrp admin
+
+
+Desinstalações
+--------------
+
+$ desinstalar yakuake skanlite system-config-printer inkscape krita thunderbird thunderbird-i18n-pt-pt kate kwalletmanager hplip samba cantata konversation  
+
+
+Actualizar o sistema
+====================
+
+$ actualizar
+
+$ ediroot /etc/vconsole.conf 
+
+KEYMAP=pt-latin9
+FONT=default8x16
+
+Instalações
+-----------
+
+Internet
+========
+
+$ instalar freshplayerplugin google-chrome spideroak-one
+
+$ instalar firefox-i18n-pt-pt qbittorrent
+ 
+
+Gráficos
+========
+
+$ instalar gimp-plugin-resynthesizer-git
+
+ 
+Escritório
+==========
+
+$ instalar libreoffice-fresh libreoffice-fresh-pt kmymoney
+
+
+KDE:
+instalar soundkonverter
+ 
+Multimedia:
+instalar clementine spotify libdvdcss vorbis-tools mp3gain fluidsynth vorbisgain 
+
+Sistema
+instalar prelink linuxXYZ-headers 
+
+Utilitários:
+$ instalar unzip p7zip unrar mlocate
+ 
+instalar partitionmanager  
+instalar jre nvidia-hook 
+instalar preload spideroak-one
+
+instalar nvidia-hook ???

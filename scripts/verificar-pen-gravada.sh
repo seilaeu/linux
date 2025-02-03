@@ -1,0 +1,28 @@
+#!/bin/bash
+# Read command output line by line into array ${lines [@]}
+# Bash 3.x: use the following instead:
+
+readarray -t isovar < <(find /home/$USER/Transferências/ -type f -name *.iso -printf "%f\n")
+
+# Prompt the user to select one of the lines.
+echo "Please select a iso file:"
+select iso in "${isovar[@]}"; do
+  [[ -n $iso ]] || { echo "Invalid choice. Please try again." >&2; continue; }
+  break # valid choice was made; exit prompt.
+done
+
+
+
+readarray -t devicevar < <(sudo lsblk --nodeps -no name | grep -Ev 'sda|sr0|sr1|zram0|zram1')
+
+# Prompt the user to select one of the lines.
+echo "Please select a drive:"
+select drive in "${devicevar[@]}"; do
+  [[ -n $drive ]] || { echo "Invalid choice. Please try again." >&2; continue; }
+  break # valid choice was made; exit prompt.
+done
+
+# Split the chosen line into ID and serial number.
+read -r id sn unused <<<"$drive"
+
+sudo cmp -n `stat -c '%s' /home/$USER/Transferências/$iso` /home/$USER/Transferências/$iso /dev/$drive

@@ -1,0 +1,36 @@
+# Prompt da bash
+PS1='[\u@\h \w]\$ '
+
+alias ls='ls --color=auto'
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+export HISTCONTROL=ignoreboth:erasedups 
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+export HISTSIZE=1000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+
+# Editor do sistema
+export EDITOR=nano
+
+# Completar os comandos na bash
+complete -cf sudo
+
+export PATH=$PATH:/usr/sbin:/sbin
+
+alias sincronizar='sudo emerge --sync'
+alias actualizar='sudo emerge -uDNav world' 
+alias procurar='emerge -s' 
+alias instalar='sudo emerge -av'
+alias desinstalar='sudo emerge -C'
+alias configurar='sudo dispatch-conf'
+alias edibash='pluma ~/.bashrc'
+alias edimakeconf='sudo pluma /etc/portage/make.conf'
+alias questionar='equery list "*" |grep'
+alias dependências='equery depends'
+alias retomar='sudo emerge --resume'
+
+screenfetch

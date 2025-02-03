@@ -1,0 +1,279 @@
+bash:
+
+Ver o ficheiro bashrc
+
+
+yay:
+
+$ yay --save --answerdiff None --answerclean All --removemake
+
+
+pacman:
+
+$ ediroot /etc/pacman.conf
+Color
+ParallelDownloads = 1000
+CheckSpace
+
+actualizar o sistema:
+
+$ actualizar
+
+
+nano:
+
+$ mkdir ~/.config/nano
+$ nano ~/.config/nano/nanorc
+
+include "/usr/share/nano/*.nanorc"
+include "/usr/share/nano/extra/*.nanorc"
+
+$ sudo mkdir -p /root/.config/nano
+$ sudo cp ~/.config/nano/nanorc /root/.config/nano
+
+Fonte: https://wiki.archlinux.org/title/nano
+
+
+tipo de letra mais fina:
+
+$ ediroot  /etc/profile.d/freetype2.sh
+
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+
+
+tema do cursor:
+
+Instalar o tema Oxygen 10 Blue nas definições do sistema
+
+$ sudo mv ~/.icons/Oxygen* /usr/share/icons
+
+Editar as definições do plasma, Aparência=> Cursores
+
+$ ediroot /etc/sddm.conf
+
+CursorTheme=Oxygen 10 Blue
+
+$ ediroot /usr/share/icons/default/index.theme
+
+[Icon Theme]
+Inherits=Oxygen 10 Blue
+
+
+Fuso horário automático e sincronizado:
+
+$ ediroot /etc/systemd/timesyncd.conf
+
+[Time]
+
+NTP=0.europe.pool.ntp.org
+NTP=1.europe.pool.ntp.org
+NTP=2.europe.pool.ntp.org
+NTP=3.europe.pool.ntp.org
+
+$ sudo timedatectl set-ntp true
+
+No Plasma:
+
+=> Clicar na hora com o botão direito do rato
+=> Acertar a data e hora...
+=> Configurar a data e hora automaticamente
+
+$ sudo timedatectl
+
+$ cat /etc/adjtime
+
+
+systemd:
+
+$ sudo mv -v /etc/systemd/journald.conf /etc/systemd/journald.conf.backup && sudo bash -c 'cat > /etc/systemd/journald.conf' << 'EOF'
+
+[Journal]
+Storage=persistent
+Compress=yes
+MaxFileSec=1 day
+MaxRetentionSec=2 week
+SystemMaxUse=200M
+SystemMaxFileSize=60M
+RuntimeMaxUse=150M
+RuntimeMaxFileSize=60M
+EOF
+
+
+$ sudo mv -v /etc/systemd/system.conf /etc/systemd/system.conf.backup && sudo bash -c 'cat > /etc/systemd/system.conf' << 'EOF'
+[Manager]
+DefaultTimeoutStartSec=15s
+DefaultTimeoutStopSec=15s
+EOF
+
+
+core dump:
+
+Utilizam muito espaço no disco rigí­do por esse motivo desactivamo-los
+
+$ sudo nano /etc/systemd/coredump.conf
+Storage=none
+
+$ sudo systemctl daemon-reload
+
+$ sudo nano /etc/security/limits.conf
+* hard core 0
+
+
+permissões:
+
+$ sudo groupadd $USER
+
+$ sudo chown -R $USER:$USER /home/$USER
+
+$ sudo chown -R $USER:$USER /media/dados
+
+
+fstrim:
+
+$ sudo systemctl enable --now fstrim.timer
+
+
+neofetch:
+
+$ instalar neofetch && sudo sed -i 's/color_blocks="on"/color_blocks="off"/g' /etc/neofetch/config 
+
+
+optimizar compilações:
+
+$ ediroot /etc/makepkg.conf
+
+CFLAGS="-march=native -O2 -pipe -fno-plt"
+CXXFLAGS="${CFLAGS}"
+RUSTFLAGS="-C opt-level=2 -C target-cpu=native"
+MAKEFLAGS="-j$(nproc)"
+BUILDDIR=/tmp/makepkg makepkg
+COMPRESSXZ=(xz -c -z --threads=0 -)
+COMPRESSZST=(zstd -c -z -q --threads=0 -)
+
+
+silenciar o grub:
+
+$ ediroot /etc/grub.d/10_linux
+
+comentar as linhas 149 e 160:
+
+#echo	'$(echo "$message" | grub_quote)'
+
+$ grub-actualizar
+
+
+Silenciar o arranque:
+
+$ sudo nano /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log-priority=3"
+
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+$ sudo nano /etc/sysctl.d/20-quiet-printk.conf
+kernel.printk = 3 3 3 3
+
+
+ZRAM
+====
+
+$ ediroot ediroot /etc/mkinitcpio.conf
+MODULES=(zram)
+
+$ sudo mkinitcpio -P
+
+$ ediroot /etc/udev/rules.d/99-zram.rules
+ACTION=="add", KERNEL=="zram0", ATTR{comp_algorithm}="zstd", ATTR{disksize}="3787M", RUN="/usr/bin/mkswap -U clear /dev/%k", TAG+="systemd"
+
+$ ediroot /etc/fstab
+# zram
+/dev/zram0 none swap defaults,pri=100 0 0
+
+Fonte: https://wiki.archlinux.org/title/Zram
+
+
+substituir keymap e consolefont por sd-vconsole:
+
+$ ediroot /etc/mkinitcpio.conf
+
+HOOKS=(...keyboard sd-vconsole block...)
+
+Limpar a cache do utilizador seilaeu no desligamento ou no reinício do sistema
+
+$ sudo nano /etc/systemd/user/limpar-cache-seilaeu.service
+[Unit]
+Description=Limpar sistema
+Before=shutdown.target
+
+[Service]
+ExecStart=/bin/true
+ExecStop=/media/dados/arch_linux/scripts/limpar-cache-seilaeu.sh
+
+[Install]
+WantedBy=default.target
+
+$ systemctl --user enable limpar-cache-seilaeu.service
+
+$ nano /media/dados/arch_linux/scripts/limpar-cache-seilaeu.sh
+
+#!/bin/bash
+
+rm -rf /home/seilaeu/.cache/*
+mkdir /home/seilaeu/.cache/thumbnails/
+rm -rf /home/seilaeu/.local/share/Trash/*
+rm -rf /media/dados/.Trash-*
+
+Limpar a cache do utilizador root no desligamento ou no reinício do sistema
+
+$ sudo nano /etc/systemd/system/limpar-cache-root.service
+[Unit]
+Description=Limpar sistema
+Before=shutdown.target
+
+[Service]
+ExecStart=/bin/true
+ExecStop=/media/dados/arch_linux/scripts/limpar-cache-root.sh
+
+[Install]
+WantedBy=default.target
+
+$ sudo systemctl enable limpar-cache-root.service
+
+$ nano /media/dados/arch_linux/scripts/limpar-cache-root.sh
+#!/bin/bash
+
+rm -rf /root/.cache/*
+
+$ sudo nano /etc/xdg/systemd/user/duplicados-seilaeu.service
+[Unit]
+Description=Limpar duplicados da bash do seilaeu
+Before=shutdown.target
+
+[Service]
+ExecStart=/bin/true
+ExecStop=/media/dados/arch_linux/scripts/duplicados-seilaeu.sh
+
+[Install]
+WantedBy=default.target
+
+$ systemctl --user enable duplicados-seilaeu.service
+
+
+Portal kde nas aplicações gtk, como por exemplo firefox:
+
+Firefox => about:config => Definir widget.use-xdg-desktop-portal.file-picker para 1
+Firefox => about:config => Definir widget.use-xdg-desktop-portal.mime-handler para 1
+
+
+Definir o dolphin como gestor de ficheiros padrão:
+
+$ xdg-mime query default inode/directory
+org.kde.dolphin.desktop
+
+Caso a saída deste comando não seja aquela:
+
+$ xdg-mime default dolphin.desktop inode/directory
+
+
+Caso a opção minimizar e ecrã completo não desaparecerem:
+
+Firefox => about:config => Definir browser.tabs.inTitlebar para 0

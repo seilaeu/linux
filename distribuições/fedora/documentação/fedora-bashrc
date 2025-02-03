@@ -1,0 +1,80 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
+
+##### JANR #####
+
+# Prompt da bash
+#PS1='\[\e[1;94m\]\u\[\033[1;37m\]@\[\e[1;94m\]\h\[\033[01;34m\] \w\[\033[0;00m\] \$ '
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+alias actualizar="sudo dnf upgrade"
+alias procurar="dnf search"
+alias instalar="sudo dnf install"
+alias reinstalar='sudo dnf reinstall'
+alias desinstalar="sudo dnf remove"
+alias pertencer="rpm -qf"
+alias orfãos="sudo dnf autoremove"
+alias cache="sudo dnf clean all"
+alias pacotes-instalados-ficheiro='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| sort > pacotes-fedora-rpm'
+alias pacotes-instalados-listar='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| sort'
+alias pacotes-instalados-número='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| wc -l'
+alias questionar-simples="rpmquery -a |rev | cut -f3- -d- | rev | sort | grep -i"
+alias questionar-detalhado="rpmquery -a |rev | cut -f1- -d- | rev | sort | grep -i"
+
+alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg && sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"
+alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
+
+alias montar="sudo mount"
+alias desmontar="sudo umount"
+
+export EDITOR=/usr/bin/kwrite
+
+alias ediroot="sudo $EDITOR"
+alias edibash='$EDITOR ~/.bashrc'
+
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
+export PATH="/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH"
+
+# Não abrir uma janela a pedir palavra-passe para o git push origin master:
+unset SSH_ASKPASS
+
+# Controlo remoto
+#alias mãe-conexão-de-partilha="ssh -vv -L 55900:localhost:5900 -i ~/.ssh/jribeiro-manjaro_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+
+#alias mãe-acesso-terminal-manjaro="ssh -vv -i ~/.ssh/jribeiro-manjaro_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
+#alias mãe-acesso-gráfico-manjaro="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-manjaro_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+#alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"

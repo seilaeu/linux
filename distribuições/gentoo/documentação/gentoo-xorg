@@ -1,0 +1,54 @@
+1 - Configurar o kernel
+Kernel configuration:Enabling evdev in the kernel
+Device Drivers --->
+  Input device support --->
+  <*>  Event interface
+  
+Kernel modesetting
+Modern open-source video drivers rely on kernel modesetting (KMS). 
+KMS provides an improved graphical boot with less flickering, faster user 
+switching, a built-in framebuffer console, seamless switching from the console 
+to Xorg, and other features. KMS conflicts with legacy framebuffer drivers, which 
+must remain disabled in your kernel configuration.
+
+First, prepare your kernel for KMS. You need to do this step regardless of which 
+Xorg video driver you're using.
+ [Collapse] Kernel configurationConfiguring framebuffers
+Device Drivers --->
+  Graphics support --->
+    Support for frame buffer devices --->
+    ## (Disable all drivers, including VGA, Intel, nVidia, and ATI)
+ 
+    ## (Further down, enable basic console support. KMS uses this.)
+    Console display driver support --->
+      <*>  Framebuffer Console Support
+Next, configure your kernel to use the proper KMS driver for your video card. Intel, nVidia, and AMD/ATI are the most common cards, so follow code listing for your card below.
+
+nVidia:
+ [Collapse] Kernel configurationnVidia settings
+Device Drivers --->
+  Graphics support --->
+    Direct Rendering Manager (XFree86 4.1.0 and higher DRI support) --->
+    <*>    Nouveau (nVidia) cards
+
+
+emerge -pv xorg-drivers
+
+echo "x11-base/xorg-server udev" >> /etc/portage/package.use
+
+emerge --ask xorg-server
+
+env-update 
+source /etc/profile 
+
+nano -w /etc/X11/xorg.conf.d/20-nvidia.conf 
+Section "Device"
+        Identifier "Nvidia Card"
+        Driver "nvidia"
+        VendorName "NVIDIA Corporation"
+        Option "NoLogo" "true"
+        Option "RegistryDwords" "EnableBrightnessControl=1"        
+EndSection            
+
+emerge $(qlist -C -I x11-drivers/)
+

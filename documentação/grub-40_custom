@@ -1,0 +1,35 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+menuentry "Arch" {
+       insmod fat
+        insmod chain
+       search --no-floppy --set=root --fs-uuid 51F3-D9B8
+        chainloader /EFI/arch/grubx64.efi
+}
+menuentry "Fedora" {
+       insmod fat
+        insmod chain
+       search --no-floppy --set=root --fs-uuid 51F3-D9B8
+        chainloader /EFI/fedora/grubx64.efi
+}
+menuentry "Slackware" {
+       insmod fat
+        insmod chain
+       search --no-floppy --set=root --fs-uuid 51F3-D9B8
+        chainloader /EFI/slackware/grubx64.efi
+}
+menuentry "Debian" {
+       insmod fat
+        insmod chain
+       search --no-floppy --set=root --fs-uuid 51F3-D9B8
+        chainloader /EFI/debian/grubx64.efi
+}
+menuentry 'Desligar' {
+        halt
+}
+menuentry 'Reiniciar' {
+        reboot
+}

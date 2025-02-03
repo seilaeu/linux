@@ -1,0 +1,38 @@
+Directoria dos temas do plasma:
+
+/usr/share/plasma/desktoptheme/  
+
+
+Directoria dos esquemas de cores:
+
+/usr/share/color-schemes/
+
+
+Directoria dos temas decoração de janelas:
+
+/home/$USER/.local/share/aurorae/themes/
+
+
+Ícones do cursor:
+
+/home/$USER/.icons/
+/usr/share/icons/
+
+
+Ficheiro que define o wallpaper a ser usado:
+
+/home/$USER/.config/plasma-org.kde.plasma.desktop-appletsrc
+
+
+Desactivar o kwallet:
+
+$ nano ~/.config/kwalletrc 
+
+[Wallet]
+First Use=false
+Enabled=false
+
+
+Forçar as aplicações a abrirem no centro do ecrã:
+
+Clicar com o botão direito do rato na barra superior da janela da aplicação => Mais acções => Configurar as Regras Especiais de Janelas => Adicionar uma Propriedade: Colocação Inicial, Obrigar, Centrado => Adicionar uma Propriedade: Ignorar a Geometria Pedida, Obrigar, Sim => Aplicar

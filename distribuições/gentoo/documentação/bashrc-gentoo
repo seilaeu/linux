@@ -1,0 +1,146 @@
+# /etc/skel/.bashrc
+#
+# This file is sourced by all *interactive* bash shells on startup,
+# including some apparently interactive shells such as scp and rcp
+# that can't tolerate any output.  So make sure this doesn't display
+# anything or bad things will happen !
+
+
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+	# Shell is non-interactive.  Be done now!
+	return
+fi
+
+
+# Put your fun stuff here.
+
+# Prompt da bash
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u\[\033[1;35m\]@\[\033[1;32m\]\h\[\033[01;35m\] \w\[\033[0;00m\] \$ '
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[1;35m\]\u\[\033[1;32m\]@\[\033[1;35m\]\h\[\033[01;32m\] \w\[\033[0;00m\] \$ '
+
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+
+# Completar os comandos na bash
+complete -cf sudo
+
+# Controlo remoto
+
+
+# Manjaro
+alias mãe-acesso-terminal-manjaro="ssh -vv -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-manjaro="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-manjaro_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch
+alias mãe-acesso-terminal-arch="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Mint
+alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+# Arch, Mint e Manjaro
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+
+alias casa='du -sh ~'
+alias raiz='df -h / '
+alias sistema='df -h'
+
+alias sincronizar='sudo eix-sync'
+alias actualizar='sudo /usr/sbin/actualizar' 
+alias procurar='emerge -s'
+alias questionar='equery list "*" |grep'
+alias instalar='sudo emerge -av'
+alias desinstalar='sudo emerge -aC'
+alias retomar-instalação='sudo emerge --resume'
+alias configurar='sudo dispatch-conf'
+alias dependências='equery depends'
+alias depclean='sudo emerge -av --depclean'
+alias revdep-rebuild='sudo revdep-rebuild -pv'
+alias preserved-rebuild='sudo emerge -pv @preserved-rebuild'
+alias cache='sudo rm -r /usr/portage/distfiles/*'
+alias pacotes-instalados="equery list '*'"
+alias limpar='sh /mnt/dados/linux/distribuições/gentoo/scripts/limpar-sistema-gentoo.sh'
+alias desbloquear='sudo rm -rf /var/tmp/portage/{,.[!.],..?}* && sudo find /var/db/ -name ".*" -delete && sudo find /usr/portage/distfiles/ -name ".*" -delete'
+alias world='less /var/lib/portage/world'
+alias edimakeconf='ediroot /etc/portage/make.conf'
+alias ediuse='ediroot /etc/portage/package.use'
+alias edikeywords='ediroot /etc/portage/package.keywords'
+alias edilicense='ediroot /etc/portage/package.license'
+alias edimask='ediroot /etc/portage/package.mask'
+alias ediunmask='ediroot /etc/portage/package.unmask'
+alias edienv='ediroot /etc/portage/package.env'
+alias ediworld='ediroot /var/lib/portage/world'
+alias kernel-compilar='su -c "make -j5 && make modules_install && make install && genkernel lvm initramfs --lvm --install"'
+
+# Kernels antigos
+alias kernels-listar="questionar gentoo-sources"
+
+
+# Montagens de dispositivos
+
+alias montar_dados="mount /mnt/dados"
+
+alias montar_arch='sudo mount /dev/pclvm/arch /mnt/arch'
+alias chroot_arch='sudo mount -t proc none /mnt/arch/proc && sudo mount --rbind /dev /mnt/arch/dev && sudo mount --rbind /sys /mnt/arch/sys && sudo chroot /mnt/arch'
+alias montar_debian='sudo mount /dev/pclvm/debian /mnt/debian'
+alias chroot_debian='sudo mount -t proc none /mnt/debian/proc && sudo mount --rbind /dev /mnt/debian/dev && sudo mount --rbind /sys /mnt/debian/sys && sudo chroot /mnt/debian'
+alias montar_funtoo='sudo mount /dev/pclvm/funtoo /mnt/funtoo'
+alias chroot_funtoo='sudo mount -t proc none /mnt/funtoo/proc && sudo mount --rbind /dev /mnt/funtoo/dev && sudo mount --rbind /sys /mnt/funtoo/sys && sudo chroot /mnt/funtoo'
+
+alias acestream-kodi='acestreamengine --client-console'
+
+
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
+
+# USB Drive
+alias formatusb='bash /mnt/dados/linux/scripts/formatusb'
+alias burnusb='bash /mnt/dados/linux/scripts/burnusb'
+
+# Grub
+alias grub-instalar='sudo /usr/sbin/grub-install sda5'
+alias grub-update='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+
+# KDE
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
+
+alias edibash='$EDITOR ~/.bashrc'
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+#export PATH=/bin:/usr/bin/:/sbin:/usr/sbin:$PATH
+
+#neofetch
+#screenfetch
+
+#alias ls='ls -l'
+alias ls='ls -l --color'
+
+# Habilitar as "alias" quando usamos o comando "sudo"
+alias sudo='sudo '
+
+#LS_COLORS='di=1;34:fi=1;33:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
+#export LS_COLORS
+
+
+

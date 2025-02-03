@@ -1,0 +1,26 @@
+$ crontab -l 
+# crontab -l
+
+$ crontab -e 
+# crontab -e
+
+
+- Com redirecionamento apenas de erros
+- Verificado a cada 15 minutos e executado a cada hora, aos minutos 0 e 30, 5 e 35, e 10 e 40
+
+00,30  * * * *  ID=sincronização FREQ=1h/15m sudo eix-sync 2> /var/log/cronie/sincronização 
+05,35  * * * *  ID=mandb FREQ=1h/15m /usr/bin/mkdir -p /var/cache/man 2> /var/log/cronie/mandb && /usr/bin/mandb 2> /var/log/cronie/mandb
+10,40  * * * *  ID=updatedb FREQ=1h/15m /usr/bin/updatedb -v 2> /var/log/cronie/updatedb 
+
+- Com redirecionamento de todo o output
+- Verificado a cada 15 minutos e executado a cada duas horas, aos minutos 0 e 30
+
+00,30  * * * *  ID=mandb FREQ=2h/15m /usr/bin/mkdir -p /var/cache/man >> /var/log/cronie/mandb 2>&1 && /usr/bin/mandb >> /var/log/cronie/mandb 2>&1
+
+É executado a cada 15 minutos:
+
+#*/15 * * * *  ID=rclone FREQ=1h/15m rclone -v sync /home/jribeiro/nuvem/computador/ Nuvem:computador >> /var/log/cronie/rclone 2>&1
+
+
+$ sudo systemctl start cronie
+$ sudo systemctl enable --now cronie

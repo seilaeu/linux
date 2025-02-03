@@ -1,0 +1,24 @@
+Não conseguir entrar no sistema como root nas tty:
+
+$ sudo nano /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+
+Mensagem de erro no na bash: /usr/bin/rm: argument list too long
+
+solução: find . -type d -print0 | xargs -0 rm -r
+
+Mensagem de erro no arranque:
+
+usb 3-1: device descriptor read/64, error -62 ou
+usb 4-2: device descriptor read/64, error -71 ou
+usb 2-3: device descriptor read/64, error -101 ou
+usb 2-3: device descriptor read/64, error -110
+                              
+solução: Desligar o computador, desligar todos os cabos. Esperar 1-2 minutos. Voltar a ligar os cabos e ligar o computador. 
+
+Mensagem de erro em systemsettings:
+
+Could not get owner of name 'org.kde.kcontrol.kcmkdm': no such name.  
+solução: reinstalar todos os pacotes dbus*
+

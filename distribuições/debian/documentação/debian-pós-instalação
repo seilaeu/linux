@@ -1,0 +1,49 @@
+=> bashrc
+
+=> sítios-espelho
+
+=> fstab
+
+
+sudo:
+
+$ instalar sudo && sudo gpasswd -a seilaeu sudo
+
+$ ediroot /etc/sudoers
+
+descomentar a linha %sudo ALL=(ALL:ALL) ALL 
+
+$ newgrp sudo
+
+
+Criar uma tecla de atalho para a actualização do sistema:
+
+$ ediroot /usr/sbin/actualizar
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+echo
+echo "                                Sistema actualizado!"
+read line
+
+$ sudo groupadd admin && sudo gpasswd -a seilaeu admin
+$ sudo chgrp admin /usr/sbin/actualizar && sudo chmod g+x /usr/sbin/actualizar
+$ newgrp admin
+
+
+Utilizar a tecla Favoritos com o seguinte comando: konsole -e "sh /usr/sbin/actualizar"
+
+
+$ actualizar
+
+
+Tipos de letra da Microsoft:
+
+$ instalar ttf-mscorefonts-installer
+
+$ instalar kmymoney elisa
+
+MEGAsync
+ProtonVPN
+

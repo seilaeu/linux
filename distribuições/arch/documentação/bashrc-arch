@@ -1,0 +1,93 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+PS1='\[\e[1;94m\]\u\[\033[1;37m\]@\[\e[1;94m\]\h\[\033[01;34m\] \w\[\033[0;00m\] \$ '
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
+trap '. $HOME/.bash_logout; exit' 0
+
+# Controlo remoto
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+alias mãe-acesso-terminal-arch="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
+alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+
+alias orfãos='sudo pacman -Rsn $(pacman -Qqtd)'
+alias cache='sudo pacman -Scc && yay -Scc'
+alias desinstalar='sudo pacman -Rsn'
+alias desinstalar-simples='sudo pacman -Rn'
+alias desinstalar-forçado='sudo pacman -Rddn'
+alias sincronizar-pt-https='sudo reflector --verbose --country portugal -p https --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
+alias sincronizar-pt-http='sudo reflector --verbose --country portugal -p http --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
+alias sincronizar-pt-rsync='sudo reflector --verbose --country portugal -p rsync --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
+alias actualizar='sudo reflector --verbose --country portugal -p https --age 2 --sort rate --save /etc/pacman.d/mirrorlist && sudo pacman -Syu && yay'
+alias procurar='yay -Syy && yay'
+alias instalar='yay -Syy && yay -S --needed'
+alias reinstalar='yay -Syy && yay -S'
+alias questionar-simples='pacman -Qq|grep -i'
+alias questionar-detalhado='pacman -Q|grep -i'
+alias pertencer='pacman -Qo'
+alias desbloquear='sudo rm /var/lib/pacman/db.lck'
+
+alias desligar='/usr/bin/poweroff'
+alias reiniciar='/usr/bin/reboot'
+
+alias nano="nano -l"
+alias mv="mv -iv"
+alias cp="cp -iv"
+
+alias git-add="git add --all"
+alias git-commit="git commit -a -m update"
+alias git-push="git push -u origin main"
+
+# Grub
+alias grub-instalar='sudo /usr/sbin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch'
+alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+alias montar="sudo mount"
+alias desmontar="sudo umount"
+
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
+
+alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
+alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
+alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
+
+
+# KDE
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
+
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+export PATH=/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH
+
+alias grep='grep --color=auto'
+alias ls='ls -l --color'
+LS_COLORS='di=1;34:fi=1;97:ln=31:pi=5:so=5:bd=5:cd=5:or=05;37;41:mi=31;5:ex=32:*.pdf=1;90'
+export LS_COLORS
+
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
+# Necessário para o pacote de xadrez chessx
+
+export QT_QPA_PLATFORM=xcb

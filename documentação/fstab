@@ -1,0 +1,51 @@
+Field definitions
+
+/etc/fstab contains the following fields separated by a space or tab:
+
+<file system>   <dir>   <type>  <options>       <dump>  <pass>
+
+    <file systems> - defines the storage device (i.e. /dev/sda1).
+
+    <dir> - tells the mount command where it should mount the <file system> to.
+
+    <type> - defines the file system type of the device or partition to be mounted. Many different file systems are supported. Some examples are: ext2, ext3, reiserfs, xfs, jfs, smbfs, iso9660, vfat, ntfs, swap, and auto. The 'auto' type lets the mount command to attempt to guess what type of file system is used, this is useful for removable devices such as CDs and DVDs.
+
+    <options> - define particular options for filesystems. Some options relate only to the filesystem itself. Some of the more common options are:
+
+        auto - file system will mount automatically at boot, or when the command 'mount -a' is issued.
+
+        noauto - the filesystem is mounted only when you tell it to.
+
+        exec - allow the execution binaries that are on that partition (default).
+
+        noexec - do not allow binaries to be executed on the filesystem.
+
+        ro - mount the filesystem read only.
+
+        rw - mount the filesystem read-write.
+
+        sync - I/O should be done synchronously.
+
+        async - I/O should be done asynchronously.
+
+        flush - specific option for FAT to flush data more often, thus making copy dialogs or progress bars to stays up until things are on the disk.
+
+        user - permit any user to mount the filesystem (implies noexec,nosuid,nodev unless overridden).
+
+        nouser - only allow root to mount the filesystem (default).
+
+        defaults - default mount settings (equivalent to rw,suid,dev,exec,auto,nouser,async).
+
+        suid - allow the operation of suid, and sgid bits. They are mostly used to allow users on a computer system to execute binary executables with temporarily elevated privileges in order to perform a specific task.
+
+        nosuid - block the operation of suid, and sgid bits.
+
+        noatime - do not update inode access times on the filesystem. Can help performance.
+
+        nodiratime - do not update directory inode access times on the filesystem. Can help performance.
+
+        relatime - update inode access times relative to modify or change time. Access time is only updated if the previous access time was earlier than the current modify or change time (similar to noatime, but doesn't break mutt or other applications that need to know if a file has been read since the last time it was modified). Can help performance. 
+
+    <dump> - is used by the dump utility to decide when to make a backup. When installed, dump checks the entry and uses the number to decide if a file system should be backed up. Possible entries are 0 and 1. If 0, dump will ignore the file system, if 1, dump will make a backup. Most users will not have dump installed, so they should put 0 for the <dump> entry.
+
+    <pass> fsck reads the <pass> number and determines in which order the file systems should be checked. Possible entries are 0, 1, and 2. The root file system should have the highest priority, 1, all other file systems you want to have checked should get a 2. File systems with a <pass> value 0 will not be checked by the fsck utility. 

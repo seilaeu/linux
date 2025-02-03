@@ -1,0 +1,212 @@
+Actualizar o sistema
+============
+
+# emerge --sync
+# emerge -uDNav world
+
+Remover kernels desnecessários
+===================
+
+# eclean-kernel -n NÚMERO (deixa os NÚMERO kernels mais recentes) 
+
+
+Remover pacotes orfãos
+==============
+
+# emerge --depclean -p
+
+
+emerge -p @preserved-rebuild
+
+
+Reparar pacotes quebrados
+================
+
+# revdep-rebuild -p
+
+perl-cleaner  --reallyall -p
+
+Listar os pacotes instalados
+================
+
+# equery list '*'
+
+Verificação de segurança
+==============
+
+# glsa-check -t all
+
+
+Adicionar um pacote ao ficheiro /var/lib/portage/world sem o instalar
+=======================================
+
+# emerge --noreplace nome-do-pacote
+
+
+Ferramentas administrativas
+================
+
+app-portage/diffmask
+app-portage/flaggie
+app-portage/install-mask
+app-portage/portpeek
+app-portage/smart-live-rebuild
+
+
+Limpar o gentoo 
+==========
+
+sudo rm -r ~/.cache/*
+rm -r ~/.config/chromium/Default/File\ System/* 
+rm -r ~/.local/share/akonadi/* 
+rm -r ~/.local/share/Trash/* 
+sudo rm -r /usr/portage/distfiles/* 
+sudo rm -rf /tmp/* 
+sudo rm -rf /var/tmp/* 
+sudo rm -rf /var/cache/* 
+sudo mkdir /var/cache/revdep-rebuild/
+
+#################################
+# Cópia de segurança do sistema #
+#################################
+
+Cria cópia:
+
+sudo mount /dev/sdaX /mnt/gentoo
+sudo tar cjvf gentoo-`date +"%d.%m.%Y"`.tar.bz2 -X /mnt/dados/linux/distribuições/gentoo/documentação/gentoo.exclusões  /mnt/gentoo 
+
+
+Restaurar cópia:
+
+mount /dev/sdaX /mnt/gentoo
+
+sudo tar -xjvpf funtoo*.tar.bz2 -C /mnt/gentoo
+
+Em caso de alteração da partição raíz, editar o ficheiro /etc/fstab e alterar a identidade da mesma.
+
+Restaurar o grub: Ver o ficheiro /media/dados/linux/documentação/linux-dicas
+
+
+Equery
+====
+
+Mostra os pacotes que correspondem a determinada expressão
+=====================================
+
+# equery --quiet list gcc
+# equery --quiet list --portage-tree --full-regex fi*e?x
+equery list -po nano ( portage e overlays)
+
+Verificar a integridade do pacote:
+equery check firefox
+
+Mostra os pacotes que usam determinada USE flag:
+equery hasuse sse sse2
+
+Saber a que pacote pertence determinado ficheiro:
+equery belongs -e /usr/bin/find
+
+Mostra o registo de alterações de determinado pacote:
+equery changes portage
+
+Mostra que pacotes dependem de determinado pacote:
+equery depends bash
+
+Mostra a dependência gráfica de determinado pacote:
+equery depgraph chromium
+
+Mostra os ficheiros instalados por determinado pacote:
+equery files dolphin
+equery files --tree kwrite
+
+Mostrar metadados de determinado pacote:
+equery meta kmymoney
+equery meta --description emacs
+
+Saber o tamanho de determinado pacote:
+equery size libreoffice
+
+Mostrar que USE flags utiliza determinado pacote:
+equery uses amarok
+
+Mostar o caminho para a ebuild de determinado pacote:
+equery which konsole 
+
+Mostrar a página inicial de determinado pacote:
+grep HOMEPAGE $(equery which vlc)
+
+############
+# Overlays #
+############
+
+Criar uma overlay local
+
+mkdir -p /usr/local/portage/{metadata,profiles}
+echo 'José_Ribeiro' > /usr/local/portage/profiles/repo_name
+echo 'masters = gentoo' > /usr/local/portage/metadata/layout.conf
+chown -R portage:portage /usr/local/portage
+
+
+echo 'PORTDIR_OVERLAY="/usr/local/portage ${PORTDIR_OVERLAY}"' >> /etc/portage/make.conf
+
+# mkdir -p /usr/local/portage/sys-apps/dkms-gentoo/
+# cp ~myuser/artha-1.0.2.ebuild /usr/local/portage/sys-apps/dkms-gentoo/dkms-gentoo-20.ebuild
+# pushd /usr/local/portage/sys-apps/dkms-gentoo/
+# repoman manifest
+# popd
+# chown -R portage:portage /usr/local/portage
+
+
+# emerge -av sys-apps/dkms-gentoo
+
+
+Compilar o kernel
+=================
+
+make menuconfig
+make
+make modules_install
+cp .config /boot/config-4.4.6
+cp System.map /boot/System.map-genkernel-x86_64-4.4.6-gentoo 
+cp arch/x86_64/boot/bzImage /boot/kernel-x86_64-4.4.6-gentoo
+genkernel --install initramfs
+grub2-mkconfig -o /boot/grub/grub.cfg 
+
+
+Remover pacote do @system
+=================
+
+$ sudo nano /usr/portage/profiles/base/packages
+
+sys-apps/openrc
+virtual/service-manager
+
+Ou mais simplesmente:
+
+$ sudo sed -i 's#*sys-apps/openrc##g' /usr/portage/profiles/base/packages
+$ sudo sed -i 's#*virtual/service-manager##g' /usr/portage/profiles/base/packages
+
+
+Erro de permissões no portage
+=============================
+
+chown -R portage:portage /usr/portage
+chown -R portage:portage /usr/local/portage
+
+Sets
+====
+
+nano /var/lib/portage/world_sets
+
+
+Libertar versões em bloco
+=========================
+
+# eix -C kde-apps --only-names | while read x ; do echo "=${x}-15.04.1" >> /etc/portage/package.accept_keywords/kf5-apps ; echo "=${x}-15.04.1" >> /etc/portage/package.unmask/kf5-apps ; done
+
+
+Recriar a directoria portage após rm -rf /usr/portage/* usando o git
+====================================================================
+
+# sudo emaint sync -a 
+# layman -a <nome da overlay> 

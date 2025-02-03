@@ -1,0 +1,263 @@
+Sincroniza os repositórios:
+
+$ pacman -Sy
+
+
+Procura por atualizações:
+
+$ pacman -Su
+
+
+Sincronização dos repositórios e procura de atualizações:
+
+$ pacman -Syu
+
+
+para selecionar ou excluir pacotes ou conjunto de pacotes utilizar a seguinte sintaxe:
+
+Enter a selection (default=todos): 1-10 15 , esta acção seleciona os pacotes de 1 a 10 e o 15.
+
+Enter a selection (default=all): ^5-8 ^2 , esta acção seleciona todos os pacotes excepto os pacotes 2 e o de 5 a 8.
+
+
+Lista os pacotes pertencentes a um grupo:
+
+$ pacman -Sg kde
+
+Instalar um pacote:
+
+$ pacman -S <nome do pacote>
+
+
+Instalar um pacote sem necessidade de confirmação:
+
+$ pacman -S <nome do pacote > --nonconfirm
+
+
+Instala apenas as dependências de um pacote:
+
+$ pacman -Se <nome do pacote>
+
+
+Mostra informações de um pacote instalável:
+
+$ pacman -Si <nome do pacote>
+
+
+Transfere um pacote:
+
+$ pacman -Sw <nome do pacote>
+
+
+Remover do cache os pacotes antigos:
+
+$ pacman -Sc
+
+
+Remover do cache os pacotes antigos e repositórios de sincronização não utilizados:
+
+$ pacman -Scc
+
+Instalar um pacote ignorando os seus dependentes:
+
+$ pacman -Sdd <nome do pacote>
+
+
+Sincronizar os repositórios e procurar actualizações ignorando os grupos dos pacotes solicitados:
+
+$ pacman -Syu --ignoregroup <nome do pacote1 , <nome do pacote2>...
+
+Se estivermos a utilizar o repositório testing e ele estiver listado abaixo dos outros repositórios no ficheiro /etc/pacman.conf significa que um pacote de versão antiga se sobrepõe a outro de versão mais recente do repositório testing. Para evitar isso fazemos:
+
+$ pacman -S testing/<nome do pacote>
+
+
+Desinstalar um pacote:
+
+$ pacman -R <nome do pacote>
+
+
+Desinstalar  um pacote e seus dependentes que não são usados por outros pacotes:
+
+$ pacman -Rs <nome do pacote>
+
+
+Desinstalar um pacote e seus dependentes que não são usados por outros pacotes e seus arquivos de configuração:
+
+$ pacman -Rsn <nome do pacote>
+
+
+Desinstalar um pacote, seus dependentes e seus arquivos de configuração, tudo:
+
+$ pacman -Rscn
+
+
+Desinstalar um pacote ignorando os seus dependentes:
+
+$ pacman -Rdd
+
+
+Procurar pacotes instaláveis:
+
+$ pacman -Ss <palavra>
+
+
+Pacotes órfãos:
+
+$ pacman -Qqdt
+
+
+Desinstalar pacotes órfãos:
+
+$ sudo pacman -R $(sudo pacman -Qqdt)
+
+
+Desinstalar pacotes órfãos e seus dependentes que não são usados por outros pacotes e seus arquivos de configuração:
+
+$ pacman -Rsn $(pacman -Qqtd)
+
+
+Listar pacotes nativos:
+
+$ pacman -Qqn
+
+
+Listar pacotes instalados através do AUR ou manualmente:
+
+$ pacman -Qqm ou yaourt -Qqm
+
+
+Listar pacotes instalados explicitamente:
+
+$ pacman -Qe
+
+
+Pacotes explicitamente instalados que não são requeridos, como dependentes, a qualquer pacote instalado:
+
+$ pacman -Qqet
+
+
+Pacotes nativos explicitamente instalados que não são requeridos, como dependentes, a qualquer pacote instalado:
+
+$ pacman -Qqetn
+
+
+Pacotes aur explicitamente instalados que não são requeridos, como dependentes, a qualquer pacote instalado:
+
+$ pacman -Qqetm
+
+
+Procurar pacotes instalados:
+
+$ pacman -Q | grep <palavra>
+
+
+Listar os ficheiros pertencentes a um pacote:
+
+$ pacman -Ql <nome do pacote>
+
+
+Mostrar as informações de um pacote instalado:
+
+$ pacman -Qi <nome do pacote>
+
+
+Mostrar as informações de um pacote instalado e ficheiros em cópia de segurança:
+
+$ pacman -Qii pacote
+
+
+Mostrar a descrição de um pacote instalado:
+
+$ pacman -Qs <nome do pacote>
+
+
+Listar os pacotes actualizáveis:
+
+$ pacman -Qu
+
+
+Listar os pacotes instalados:
+
+$ pacman -Q
+
+
+Criar um ficheiro dos pacotes instalados:
+
+$ pacman -Q > pacotes-instalados-arch
+
+
+Mostra a que pacote instalado um ficheiro pertence:
+
+$ pacman -Qo /localização/do/arquivo
+
+
+Mostra a que pacote instalado, ou não, um ficheiro pertence:
+
+$ sudo pacman -Fy
+$ pacman -Fy /localização/do/arquivo
+
+
+Informar o pacman que queremos tornar explcitamente instalado determinado pacote:
+
+$ pacman -D --asexplicit <nome do pacote>
+
+
+Instalar um pacote local:
+
+$ pacman -U /caminho/para/o/pacote/<nome do pacote>.pkg.tar.xz
+
+
+Instalar um pacote a partir da url:
+
+$ pacman -U  http://www.examplo-de-endereço/repo/<nome do pacote>.tar.xz
+
+
+Instalar ou reinstalar pacotes a partir de um ficheiro, sem confirmação:
+
+$ pacman -S `(cat lista_de_pacotes.txt)` --noconfirm
+
+
+Reinstalar pacotes instalados explicitamente que não são requeridos, como dependentes, a qualquer pacote instalado, excepto os pacotes AUR:
+
+$ pacman -S $(pacman -Qqet | grep -v "$(pacman -Qmq)")
+
+
+Listar quais os pacotes dos quais depende um dado pacote:
+
+$ pactree <nome do pacote>
+
+
+Listar os pacotes que dependem de um dado pacote:
+
+$ pactree -r <nome do pacote>
+
+
+Criar ficheiro de pacotes instalados na totalidade:
+
+$ sudo pacman -Q > pacotes_instalados-total-`date +"%Y.%m.%d"`
+
+
+Criar ficheiro de pacotes instalados explicitamente que não são requeridos como dependência de qualquer outro pacote instalado:
+
+$sudo pacman -Qqet > pacotes_instalados-explí­citos-`date +"%Y.%m.%d"`
+
+
+Criar ficheiro de pacotes instalados explicitamente a partir do aur que não são requeridos como dependência de qualquer outro pacote instalado::
+
+$ sudo pacman -Qqetm > pacotes_instalados-aur-`date +"%Y.%m.%d"`
+
+
+Criar ficheiro de pacotes instalados explicitamente, excepto do aur: que não são requeridos como dependência de qualquer outro pacote instalado:
+
+$ sudo pacman -Qqe | grep -vx "$(pacman -Qqm)" > pacotes_instalados-explí­citos-sem-aur-`date +"%Y.%m.%d"`
+
+
+Listar pacotes recentemente actualizados:
+
+$ expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -50
+
+
+Baixar a versão de um pacote:
+
+$ sudo downgrade <nome do pacote>
