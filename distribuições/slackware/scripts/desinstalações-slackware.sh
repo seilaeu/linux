@@ -7,7 +7,6 @@ sudo removepkg /var/lib/pkgtools/packages/glade-*
 sudo removepkg /var/lib/pkgtools/packages/skanlite-*
 sudo removepkg /var/lib/pkgtools/packages/kdenlive-*
 sudo removepkg /var/lib/pkgtools/packages/QtAV-*
-sudo removepkg /var/lib/pkgtools/packages/v4l-utils-*
 sudo removepkg /var/lib/pkgtools/packages/digikam-*
 sudo removepkg /var/lib/pkgtools/packages/khelpcenter-*
 sudo removepkg /var/lib/pkgtools/packages/krita-*
@@ -31,8 +30,6 @@ sudo removepkg /var/lib/pkgtools/packages/cups-*
 sudo removepkg /var/lib/pkgtools/packages/wacomtablet-*
 sudo removepkg /var/lib/pkgtools/packages/fcitx-*
 sudo removepkg /var/lib/pkgtools/packages/anthy-*
-sudo removepkg /var/lib/pkgtools/packages/ModemManager-*
-sudo removepkg /var/lib/pkgtools/packages/qpdf-*
 sudo removepkg /var/lib/pkgtools/packages/xf86-input-acecad-*
 sudo removepkg /var/lib/pkgtools/packages/xf86-input-joystick-*
 sudo removepkg /var/lib/pkgtools/packages/kdevelop-*
@@ -45,7 +42,7 @@ sudo removepkg /var/lib/pkgtools/packages/kdevelop-*
 sudo removepkg /var/lib/pkgtools/packages/*gnome*
 sudo removepkg /var/lib/pkgtools/packages/vala-*
 sudo removepkg /var/lib/pkgtools/packages/soma-*
-sudo removepkg /var/lib/pkgtools/packages/kontactinterface-21.12.2-x86_64-1
+sudo removepkg /var/lib/pkgtools/packages/seamonkey-*
 sudo removepkg /var/lib/pkgtools/packages/kontactinterface-*
 sudo removepkg /var/lib/pkgtools/packages/kmailtransport-*
 sudo removepkg /var/lib/pkgtools/packages/libksieve-*
@@ -76,9 +73,6 @@ sudo removepkg /var/lib/pkgtools/packages/cervisia-*
 sudo removepkg /var/lib/pkgtools/packages/akonadiconsole-*
 sudo removepkg /var/lib/pkgtools/packages/kimagemapeditor-*
 sudo removepkg /var/lib/pkgtools/packages/kaddressbook-*
-sudo removepkg /var/lib/pkgtools/packages/mariadb-*
-sudo removepkg /var/lib/pkgtools/packages/libqalculate-*
-sudo removepkg /var/lib/pkgtools/packages/sweeper-*
 sudo removepkg /var/lib/pkgtools/packages/liberation-fonts-ttf-*
 sudo removepkg /var/lib/pkgtools/packages/ttf-tlwg-0.7.3-*
 sudo removepkg /var/lib/pkgtools/packages/ttf-indic-fonts-*
@@ -87,4 +81,5 @@ sudo removepkg /var/lib/pkgtools/packages/php-*
 sudo removepkg /var/lib/pkgtools/packages/imagemagick-*
 sudo removepkg /var/lib/pkgtools/packages/mutt-*
 sudo removepkg /var/lib/pkgtools/packages/mercurial-*
-sudo removepkg  /var/lib/pkgtools/packages/plasma-workspace-wallpapers-*
+sudo removepkg /var/lib/pkgtools/packages/merkuro-*
+sudo removepkg /var/lib/pkgtools/packages/plasma-workspace-wallpapers-*
