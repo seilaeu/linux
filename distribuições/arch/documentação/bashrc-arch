@@ -79,6 +79,8 @@ export EDITOR VISUAL
 
 alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
 
+alias edibash='$EDITOR ~/.bashrc'
+
 export PATH=/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH
 
 alias grep='grep --color=auto'

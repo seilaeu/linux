@@ -56,9 +56,13 @@ alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedor
 alias montar="sudo mount"
 alias desmontar="sudo umount"
 
-export EDITOR=/usr/bin/kwrite
+# KDE
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
 
-alias ediroot="sudo $EDITOR"
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
 alias edibash='$EDITOR ~/.bashrc'
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
