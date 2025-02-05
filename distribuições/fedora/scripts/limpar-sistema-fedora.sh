@@ -9,6 +9,5 @@ rm -r ~/.local/share/Trash/*
 sudo rm -r /.Trash*
 sudo rm -rf /usr/tmp/*
 sudo rm -rf /var/cache/*
-sudo rm -rf /var/log/journal/*
 sudo rm -rf /var/tmp/*
 sudo rm -rf /tmp/*
