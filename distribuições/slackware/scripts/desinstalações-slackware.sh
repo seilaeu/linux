@@ -1,4 +1,4 @@
-#! /bin/bash
+#!marisa/bin/bash
 
 cd /var/lib/pkgtools/packages &&
 sudo removepkg rust-* calligra* wpa_supplicant-* filelight-* glade-* skanlite-* kdenlive-* \
@@ -22,6 +22,7 @@ knotes-* akregator-* mbox-importer-* akonadi-calendar-* libgravatar akonadi-impo
 incidenceeditor-* mailcommon-* messagelib-* kontact-* rust-* kdev-php-* kdev-python-* dvdauthor-* \
 epic5-* step-* dovecot-* subversion-* akonadi-calendar-tools-* kjots-* tokodon-* ibus-anthy-* \
 mailimporter-* cantor-* normalize-* kalarm-* netatalk-* dconf-editor-* labplot-* eventviews-* \
-nut-* calendarsupport-* kross-interpreters-* libhandy
+nut-* calendarsupport-* kross-interpreters-* libhandy-* libime-* marisa-* libkkc-* OpenCC-* \
+ibus-kkc-* ibus-libpinyin-* keysmith-*
 
 
