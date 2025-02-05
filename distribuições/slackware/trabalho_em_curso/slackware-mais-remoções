@@ -1,0 +1,6 @@
+sudo removepkg httpd kleopatra rust knotes akregator mbox-importer akonadi-calendar \
+libgravatar akonadi-import-wizard incidenceeditor mailcommon messagelib kontact \
+fcitx5-anthy kdev-php kdev-python dvdauthor epic5 step dovecot subversion \
+akonadi-calendar-tools kjots tokodon ibus-anthy mailimporter cantor normalize kalarm \
+netatalk dconf-editor labplot eventviews nut calendarsupport kross-interpreters libhandy
+

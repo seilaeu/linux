@@ -3,17 +3,12 @@ rm -rfv ~/.cache/*
 rm -rfv ~/.local/share/akonadi/* 
 rm -rfv ~/.local/share/Trash/* 
 rm -rfv ~/.thumbnails/*
-sudo rm -rfv /.Trash* 
-sudo rm -rfv /mnt/audio/.Trash-1000/
-sudo rm -rfv /mnt/pessoal/.Trash-1000/
-sudo rm -rfv /mnt/linux/.Trash-1000/
 sudo rm -rfv /usr/share/doc/*
 sudo rm -rfv /usr/share/info/*
 sudo rm -rfv /usr/tmp/* 
 sudo rm -rfv /var/cache/*
 sudo rm -rfv /var/tmp/* 
-#Não executar o seguinte porque cria problemas na inicialização de programas na barra de ferramentas 
-#sudo rm -rf /tmp/* 
+#Não executar sudo rm -rf /tmp/* porque cria problemas na inicialização de programas na barra de ferramentas
 echo "Limpar Pacman Cache"
 sudo apt-get clean all
 echo "Limpar Orfãos"
