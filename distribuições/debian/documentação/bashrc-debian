@@ -93,5 +93,3 @@ export PATH=/sbin:/usr/sbin:$PATH
 alias ls='ls -l --color'
 LS_COLORS='di=1;34:fi=1;33:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
 export LS_COLORS
-
-

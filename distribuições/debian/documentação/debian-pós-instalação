@@ -7,13 +7,17 @@
 
 sudo:
 
-$ instalar sudo && sudo gpasswd -a seilaeu sudo
+# gpasswd -a seilaeu sudo
 
-$ ediroot /etc/sudoers
+# chmod u+w /etc/sudoers
+
+# nano /etc/sudoers
 
 descomentar a linha %sudo ALL=(ALL:ALL) ALL 
 
-$ newgrp sudo
+# chmod u-w /etc/sudoers
+
+# reboot
 
 
 Criar uma tecla de atalho para a actualização do sistema:
@@ -26,10 +30,6 @@ sudo apt-get dist-upgrade
 echo
 echo "                                Sistema actualizado!"
 read line
-
-$ sudo groupadd admin && sudo gpasswd -a seilaeu admin
-$ sudo chgrp admin /usr/sbin/actualizar && sudo chmod g+x /usr/sbin/actualizar
-$ newgrp admin
 
 
 Utilizar a tecla Favoritos com o seguinte comando: konsole -e "sh /usr/sbin/actualizar"
