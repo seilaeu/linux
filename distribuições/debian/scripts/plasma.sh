@@ -1,13 +1,11 @@
 # KDE
-sudo apt-get install ark akregator clementine discover qbittorrent \
-dolphin gwenview k3b kalarm kcalc kde-l10n-pt kdeconnect kde-spectacle \
-kfind knotes konsole kmymoney kwin-decoration-oxygen kwrite okular \
-partitionmanager plasma-desktop qapt-deb-installer sddm sddm-theme-breeze \
-sddm-theme-debian-breeze muon && sudo apt-get purge amarok gksu gnome-keyring \
-jovie kate kwalletmanager kmail kmousetool kmouth ktnef juk kaccessible \
-kaddressbook kmag konqueror kopete korganizer pinentry-gnome3 \
-sddm-theme-debian-maui task-portuguese-kde-desktop khelpcenter synaptic
-
+sudo apt install ark elisa discover ktorrent dolphin gwenview \
+kcalc kdeconnect kde-spectacle kfind konsole kmymoney kwrite okular \
+kwin-decoration-oxygen partitionmanager plasma-desktop qapt-deb-installer \
+sddm sddm-theme-breeze sddm-theme-debian-breeze && sudo apt purge \
+amarok gksu kwalletmanager kmail kmousetool kmouth juk kaccessible \
+kmag kaddressbook konqueror korganizer sddm-theme-debian-maui \
+task-portuguese-kde-desktop khelpcenter
 
 
 
