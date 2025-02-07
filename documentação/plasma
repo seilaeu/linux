@@ -36,3 +36,7 @@ Enabled=false
 Forçar as aplicações a abrirem no centro do ecrã:
 
 Clicar com o botão direito do rato na barra superior da janela da aplicação => Mais acções => Configurar as Regras Especiais de Janelas => Adicionar uma Propriedade: Colocação Inicial, Obrigar, Centrado => Adicionar uma Propriedade: Ignorar a Geometria Pedida, Obrigar, Sim => Aplicar
+
+Esconder a opção Teclado Virtual do ecrã de boas-vindas do sddm:
+
+=> substituir a linha "visible: inputPanel.status === Loader.Ready" por "visible: false" no ficheiro /usr/share/sddm/themes/<tema usado>/Main.qml

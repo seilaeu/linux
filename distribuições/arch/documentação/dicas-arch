@@ -21,9 +21,3 @@ $ pacman -Qqe > pacotes-instalados-explicitamente
 $ pacman -Sy
 
 $ yay -S - < pacotes-instalados-explicitamente
-
-Esconder a opção Teclado Virtual do ecrã de boas-vindas do sddm:
-
-=> substituir a linha "visible: inputPanel.status === Loader.Ready" por "visible: false" no ficheiro /usr/share/sddm/themes/<tema usado>/Main.qml
-
-
