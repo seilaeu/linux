@@ -48,3 +48,8 @@ URIs: http://ftp.pt.debian.org/debian/
 Suites: bookworm
 Components: main contrib non-free non-free-firmware
 Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+
+
+Listar pacotes que não tenham sido instalados a partir do repositório testing:
+
+$ aptitude search -F "%p %V %v" "?narrow(?installed,?not(?archive(testing)))"
