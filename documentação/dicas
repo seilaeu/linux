@@ -208,3 +208,18 @@ sudo pkill -kill -u $USER
 Verificar pen gravada:
 
 $ sudo cmp -n `stat -c '%s' ficheiro.iso` ficheiro.iso /dev/sdX
+
+
+Obter informações da placa-mãe:
+
+=> Fabricante e modelo
+
+$ sudo dmidecode -t 2
+
+=> Versão
+
+$ sudo dmidecode -s bios-version
+
+=> Data de lançamento
+
+$ sudo dmidecode -s bios-release-date
