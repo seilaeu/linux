@@ -216,6 +216,8 @@ Obter informações da placa-mãe:
 
 $ sudo dmidecode -t 2
 
+Obter informações da bios:
+
 => Versão
 
 $ sudo dmidecode -s bios-version
