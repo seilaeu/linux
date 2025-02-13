@@ -47,6 +47,12 @@ alias questionar-detalhado='pacman -Q|grep -i'
 alias pertencer='pacman -Qo'
 alias desbloquear='sudo rm /var/lib/pacman/db.lck'
 
+# Procurar ligações quebradas
+alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
+
 alias desligar='/usr/bin/poweroff'
 alias reiniciar='/usr/bin/reboot'
 
@@ -71,15 +77,12 @@ alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc no
 alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
 alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
 
-
 # KDE
 EDITOR=/usr/bin/kwrite
 VISUAL=$EDITOR
 export EDITOR VISUAL
 
 alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
-
-alias edibash='$EDITOR ~/.bashrc'
 
 export PATH=/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH
 
