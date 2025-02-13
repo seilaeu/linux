@@ -50,11 +50,21 @@ alias pacotes-instalados-número='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey
 alias questionar-simples="rpmquery -a |rev | cut -f3- -d- | rev | sort | grep -i"
 alias questionar-detalhado="rpmquery -a |rev | cut -f1- -d- | rev | sort | grep -i"
 
+# Procurar ligações quebradas
+alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
+
 alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg && sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"
 alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
 
 alias montar="sudo mount"
 alias desmontar="sudo umount"
+
+alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
+alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
+alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
 
 # KDE
 EDITOR=/usr/bin/kwrite
@@ -67,7 +77,7 @@ alias edibash='$EDITOR ~/.bashrc'
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
-export PATH="/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH"
+export PATH="/media/dados/linux/scripts/:/media/dados/linux/distribuições/fedora/scripts/:$PATH"
 
 # Não abrir uma janela a pedir palavra-passe para o git push origin master:
 unset SSH_ASKPASS

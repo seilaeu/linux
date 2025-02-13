@@ -67,6 +67,12 @@ alias configurar='sudo dpkg --configure -a'
 alias desbloquear='sudo rm /var/db/.*  && sudo rm -rf /var/tmp/portage/{,.[!.],..?}* && rm /usr/portage/distfiles/.*'
 alias kernels-listar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2|egrep 'linux-image|linux-headers'"
 
+# Procurar ligações quebradas
+alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
+
 alias montar="sudo mount"
 alias desmontar="sudo umount"
 
