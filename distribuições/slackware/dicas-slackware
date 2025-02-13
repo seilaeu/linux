@@ -12,7 +12,7 @@ $ cd pkg
 $ tar xvf ../data.tar.xz
 
 $ sudo makepkg -l y -c n /tmp/package_name.txz
-$ sudo installpkg /tmp/package_name.txz
+$ sudo upgradepkg --install-new /tmp/package_name.txz
 
 $ cd ../..
 $ rm -r work
