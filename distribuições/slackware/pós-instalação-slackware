@@ -67,6 +67,9 @@ alias pacotes-instalados-detalhado='find /var/lib/pkgtools/packages/ -type f -pr
 alias questionar-simples='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f4- -d- | rev | sort | grep'
 alias questionar-detalhado='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f3- -d- | rev | sort | grep'
 
+# Procurar ligações quebradas
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l ; echo"
+
 alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
 alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
