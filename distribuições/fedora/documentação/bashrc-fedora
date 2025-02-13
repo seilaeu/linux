@@ -51,10 +51,10 @@ alias questionar-simples="rpmquery -a |rev | cut -f3- -d- | rev | sort | grep -i
 alias questionar-detalhado="rpmquery -a |rev | cut -f1- -d- | rev | sort | grep -i"
 
 # Procurar ligações quebradas
-alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l ; echo"
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
-alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
 
 alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg && sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"
 alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"

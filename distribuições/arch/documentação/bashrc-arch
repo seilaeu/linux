@@ -25,10 +25,8 @@ alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
 
-
 alias mãe-acesso-terminal-arch="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
-
 
 alias orfãos='sudo pacman -Rsn $(pacman -Qqtd)'
 alias cache='sudo pacman -Scc && yay -Scc'
@@ -48,10 +46,10 @@ alias pertencer='pacman -Qo'
 alias desbloquear='sudo rm /var/lib/pacman/db.lck'
 
 # Procurar ligações quebradas
-alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l ; echo"
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
-alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
 
 alias desligar='/usr/bin/poweroff'
 alias reiniciar='/usr/bin/reboot'
