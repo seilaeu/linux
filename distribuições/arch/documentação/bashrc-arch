@@ -46,7 +46,7 @@ alias pertencer='pacman -Qo'
 alias desbloquear='sudo rm /var/lib/pacman/db.lck'
 
 # Procurar ligações quebradas
-alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l ; echo"
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"

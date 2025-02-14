@@ -34,10 +34,18 @@ Instalar um pacote sem necessidade de confirmação:
 $ pacman -S <nome do pacote > --nonconfirm
 
 
-Instala apenas as dependências de um pacote:
+Instalar apenas as dependências de um pacote:
 
 $ pacman -Se <nome do pacote>
 
+
+Instalar pacotes como não-explicitamente instalados:
+
+$ pacman -S --asdeps <nome do pacote>
+
+Marcar o(s) pacote(s) como não-explicitamente instalado(s):
+
+$ pacman -D --asdeps <nome do pacote>
 
 Mostra informações de um pacote instalável:
 

@@ -68,6 +68,12 @@ alias desbloquear='sudo rm /var/db/.*  && sudo rm -rf /var/tmp/portage/{,.[!.],.
 alias kernels-listar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2|egrep 'linux-image|linux-headers'"
 
 # Procurar ligações quebradas
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
+
+# Procurar ligações quebradas
 alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
@@ -94,7 +100,7 @@ export EDITOR VISUAL
 alias edibash='$EDITOR ~/.bashrc'
 alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
 
-export PATH=/sbin:/usr/sbin:$PATH
+export PATH="/sbin:/usr/sbin:/media/dados/linux/scripts:/media/dados/linux/distribuições/debian/scripts:$PATH"
 
 alias ls='ls -l --color'
 LS_COLORS='di=1;34:fi=1;33:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'
