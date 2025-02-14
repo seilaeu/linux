@@ -137,7 +137,7 @@ $ pacman -Qqm ou yaourt -Qqm
 
 Listar pacotes instalados explicitamente:
 
-$ pacman -Qe
+$ pacman -Qqe
 
 
 Pacotes explicitamente instalados que não são requeridos, como dependentes, a qualquer pacote instalado:
@@ -206,7 +206,7 @@ $ sudo pacman -Fy
 $ pacman -Fy /localização/do/arquivo
 
 
-Informar o pacman que queremos tornar explcitamente instalado determinado pacote:
+Marcar um pacote como explcitamente instalado:
 
 $ pacman -D --asexplicit <nome do pacote>
 
@@ -241,14 +241,14 @@ Listar os pacotes que dependem de um dado pacote:
 $ pactree -r <nome do pacote>
 
 
-Criar ficheiro de pacotes instalados na totalidade:
+Criar ficheiro do total de pacotes instalados:
 
 $ sudo pacman -Q > pacotes_instalados-total-`date +"%Y.%m.%d"`
 
 
 Criar ficheiro de pacotes instalados explicitamente que não são requeridos como dependência de qualquer outro pacote instalado:
 
-$sudo pacman -Qqet > pacotes_instalados-explí­citos-`date +"%Y.%m.%d"`
+$ sudo pacman -Qqet > pacotes_instalados-explí­citos-`date +"%Y.%m.%d"`
 
 
 Criar ficheiro de pacotes instalados explicitamente a partir do aur que não são requeridos como dependência de qualquer outro pacote instalado::
@@ -260,6 +260,13 @@ Criar ficheiro de pacotes instalados explicitamente, excepto do aur: que não são
 
 $ sudo pacman -Qqe | grep -vx "$(pacman -Qqm)" > pacotes_instalados-explí­citos-sem-aur-`date +"%Y.%m.%d"`
 
+Criar um ficheiro de pacotes não explicitamente instalados:
+
+$ pacman -Qq |grep -vx "$(pacman -Qqe)" > pacotes-não-explícitos
+
+Instalar pacotes não explicitamente instalados a partir de um ficheiro:
+
+$ sudo pacman -S --asdeps `cat pacotes-não-explícitos`
 
 Listar pacotes recentemente actualizados:
 
