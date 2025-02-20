@@ -1,3 +1,13 @@
 adicionar o repositório packman:
 
 sudo zypper addrepo -cfp 90 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
+
+instalar pacotes em falta:
+
+sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois
+
+MEGA
+
+ProtonVPN
+
+Google Chrome
