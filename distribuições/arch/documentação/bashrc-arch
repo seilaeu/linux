@@ -58,10 +58,6 @@ alias nano="nano -l"
 alias mv="mv -iv"
 alias cp="cp -iv"
 
-alias git-add="git add --all"
-alias git-commit="git commit -a -m update"
-alias git-push="git push -u origin main"
-
 # Grub
 alias grub-instalar='sudo /usr/sbin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch'
 alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -72,8 +68,8 @@ alias desmontar="sudo umount"
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
 
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
-alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
-alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
+alias chroot-opensuse="sudo mount /dev/sda4 /media/opensuse && sudo mount -t proc none /media/opensuse/proc && sudo mount --rbind /sys /media/opensuse/sys && sudo mount --rbind /dev /media/opensuse/dev && sudo chroot /media/opensuse"
+alias chroot-slackware="sudo mount /dev/sda5 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
 
 # KDE
 EDITOR=/usr/bin/kwrite
@@ -84,7 +80,7 @@ alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
 
 export PATH=/media/dados/linux/scripts/:/media/dados/linux/distribuições/arch/scripts/:$PATH
 
-alias grep='grep --color=auto'
+alias grep='grep -i --color=auto'
 alias ls='ls -l --color'
 LS_COLORS='di=1;34:fi=1;97:ln=31:pi=5:so=5:bd=5:cd=5:or=05;37;41:mi=31;5:ex=32:*.pdf=1;90'
 export LS_COLORS
