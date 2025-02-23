@@ -2,4 +2,4 @@
 
 # Servidor gráfico
 
-sudo pacman -S xorg-server xorg-xinit xorg-xkill --needed
+sudo pacman -S xorg-server xorg-xinit xorg-xkill xorg-xsetroot --needed
