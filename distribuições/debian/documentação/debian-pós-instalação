@@ -9,16 +9,7 @@ sudo:
 
 # gpasswd -a seilaeu sudo
 
-# chmod u+w /etc/sudoers
-
-# nano /etc/sudoers
-
-descomentar a linha %sudo ALL=(ALL:ALL) ALL 
-
-# chmod u-w /etc/sudoers
-
 # reboot
-
 
 Criar uma tecla de atalho para a actualização do sistema:
 

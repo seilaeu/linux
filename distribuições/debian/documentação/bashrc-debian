@@ -24,9 +24,6 @@ HISTFILESIZE=2000
 # Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
 trap '. $HOME/.bash_logout; exit' 0
 
-# Completar os comandos na bash
-complete -cf sudo
-
 # Controlo remoto
 
 # Manjaro

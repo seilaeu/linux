@@ -15,43 +15,6 @@ $ sudo dpkg-reconfigure tzdata
 $ sudo dpkg-reconfigure locales
 
 
-Apt pinning, prioridade dos ramos da distribuição quando misturados:
-
-=> Priorizar o ramo testing, depois o sid e por último o stable
-
-$ cat /etc/apt/preferences.d/preferences-janr
-
-Package: *
-Pin: release a=stable
-Pin-Priority: 99
-
-Package: *
-Pin: release a=testing
-Pin-Priority: 1000
-
-Package: *
-Pin: release a=unstable
-Pin-Priority: 499
-
-$ cat /etc/apt/sources.list.d/debian-unstable.sources
-
-# Modernized from /etc/apt/sources.list
-Types: deb deb-src
-URIs: http://ftp.pt.debian.org/debian/
-Suites: sid
-Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-$ cat /etc/apt/sources.list.d/debian-stable.sources
-
-# Modernized from /etc/apt/sources.list
-Types: deb deb-src
-URIs: http://ftp.pt.debian.org/debian/
-Suites: bookworm
-Components: main contrib non-free non-free-firmware
-Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-
 Listar pacotes que não tenham sido instalados a partir do repositório testing:
 
 $ aptitude search -F "%p %V %v" "?narrow(?installed,?not(?archive(testing)))"
