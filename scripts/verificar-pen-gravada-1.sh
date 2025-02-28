@@ -1,7 +1,7 @@
 #!/usr/bin/bash 
 
 if [ $# -ne 2 ]; then
-  echo "Syntax: $0 dispositivo ficheiro_ISO"
+  echo "Syntax: $0 <dispositivo> <ficheiro_ISO>"
   exit 1
 fi
 

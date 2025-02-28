@@ -39,6 +39,14 @@ $ sudo nano  /etc/sddm.conf.d/numlock.conf
 [General]
 Numlock=on
 
+ZRAM:
+
+$ sudo apt install zram-tools
+
+$ ediroot /etc/default/zramswap
+ALGO=zstd
+PERCENT=100
+PRIORITY=100
 
 Java:
 
