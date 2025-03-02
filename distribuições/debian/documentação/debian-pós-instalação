@@ -48,6 +48,8 @@ ALGO=zstd
 PERCENT=100
 PRIORITY=100
 
+$ sudo zramswap start
+
 Java:
 
 $ instalar java-package java-common && cd Transferências
