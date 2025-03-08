@@ -1,0 +1,52 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+PS1='\[\e[1;94m\]\u\[\033[1;37m\]@\[\e[1;94m\]\h\[\033[01;34m\] \w\[\033[0;00m\] \$ '
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+alias procurar="sudo slackpkg search"
+alias instalar="sudo slackpkg install"
+alias reinstalar="sudo slackpkg reinstall"
+alias desinstalar="sudo slackpkg remove"
+alias desbloquear="sudo rm /var/lock/slackpkg*"
+alias pacotes-instalados-simples='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f4- -d- | rev | sort'
+alias pacotes-instalados-detalhado='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f3- -d- | rev | sort'
+alias questionar-simples='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f4- -d- | rev | sort | grep -i'
+alias questionar-detalhado='find /var/lib/pkgtools/packages/ -type f -printf "%f\n" |rev | cut -f3- -d- | rev | sort | grep -i'
+
+alias grub-instalar="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=slackware"
+alias grub-actualizar="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+# Procurar ligações quebradas
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
+alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
+alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
+
+EDITOR=/usr/bin/kwrite
+VISUAL=$EDITOR
+export EDITOR VISUAL
+
+alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+export PATH="/sbin:/usr/sbin:/media/dados/linux/scripts/:/media/dados/linux/distribuições/slackware/scripts/:$PATH"
+
+alias ls='ls -l --color'
+LS_COLORS='di=1;34:fi=1;97:ln=31:pi=5:so=5:bd=5:cd=5:or=05;37;41:mi=31;5:ex=32:*.pdf=1;90'
+export LS_COLORS
+
+complete -cf sudo
+
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"

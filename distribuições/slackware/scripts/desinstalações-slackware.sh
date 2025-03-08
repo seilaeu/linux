@@ -14,7 +14,7 @@ akonadiconsole-* kimagemapeditor-* kaddressbook-* liberation-fonts-ttf-* ttf-tlw
 ttf-indic-fonts-* wqy-zenhei-font-ttf-* php-* imagemagick-* mutt-* mercurial-* merkuro-* \
 plasma-workspace-wallpapers-* MPlayer-* NetworkManager-openvpn-* audacious-* blackbox-* \
 blueman-* ddd-* easytag-* electricsheep-* ffmpegthumbnailer-* fluxbox-* freerdp-* fvwm-* \
-geeqie-* gftp-* gkrellm-* gnuchess-* gnuplot-* gparted-* gucharmap-* gv-* hexchat-* mpv-* \
+geeqie-* gftp-* gkrellm-* gnuchess-* gnuplot-* gparted-* gucharmap-* gv-* hexchat-* \
 mozilla-thunderbird-* pan-* pidgin-* qalculate-* rdesktop-* rxvt-unicode-* seamonkey-* \
 seyon-* ssr-* vim-gvim-* windowmaker-* x11-ssh-askpass-* x3270-* xaos-* xgames-* xine-lib-* \
 xlockmore-* xine-ui-* xmms-* xpaint-* xpdf-* xsane-* xscreensaver-* xsnow-* httpd-* kleopatra-* \
@@ -23,6 +23,7 @@ incidenceeditor-* mailcommon-* messagelib-* kontact-* rust-* kdev-php-* kdev-pyt
 epic5-* step-* dovecot-* subversion-* akonadi-calendar-tools-* kjots-* tokodon-* ibus-anthy-* \
 mailimporter-* cantor-* normalize-* kalarm-* netatalk-* dconf-editor-* labplot-* eventviews-* \
 nut-* calendarsupport-* kross-interpreters-* libhandy-* libime-* marisa-* libkkc-* OpenCC-* \
-ibus-kkc-* ibus-libpinyin-* keysmith-* kernel-source-* linux-faqs-* linux-howtos-*
+ibus-kkc-* ibus-libpinyin-* keysmith-* kernel-source-* linux-faqs-* linux-howtos-* ibus-m17n \
+graphviz m17n-lib
 
 
