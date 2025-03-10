@@ -1,39 +1,31 @@
-Estabelecer ligação entre o meu computador e o computador da minha mãe de modo a poder ajudá-la remotamente.
+Estabelecer ligação entre o meu computador e o computador da minha mãe de modo a poder ajudá-la remotamente:
 
-Configuração:
+No computador da minha mãe, criar uma conta para mim:
 
-No computador da minha mãe, numa conta minha:
+$ sudo useradd -m filho && passwd filho
 
-É necessário saber o endereço privado do computador dela:
+Obter o endereço privado do computador da minha mãe:
 
 $ ifconfig |grep inet |grep 192
 
-Configurar o router dela:
+Configurar o router da minha mãe com o endereço obtido no passo acima.
 
-O endereço para configurar o router é 192.168.1.1
-
-Reencaminhar o tráfego de uma porta aleatória do router para a porta 22 do computador dela.
+Reencaminhar o tráfego de uma porta aleatória do router para a porta 22 do computador da minha mãe.
 
 É bom escolher um número de porta acima de 1024.
 
 Desactivar a firewall ou então pô-la compatível com o router
 
-Criar uma conta para mim:
-
-$ sudo useradd -m filho && passwd filho
-
 Gerar um par de chaves pública/privada, com frase-passe.
 
 $ su - filho
-
 $ ssh-keygen -t rsa -b 4096
-
 $ sudo mkdir /etc/ssh/$USER 
 $ sudo chmod 755 /etc/ssh/$USER 
 $ sudo chown $USER:$USER /etc/ssh/$USER
 $ sudo cat filho_rsa.pub >> /etc/ssh/$USER/authorized_keys
 $ sudo chmod 644 /etc/ssh/$USER/authorized_keys
-sudo chown $USER:$USER /etc/ssh/$USER/authorized_keys
+$ sudo chown $USER:$USER /etc/ssh/$USER/authorized_keys
 
 Apagar a chave pública.
 Transferir a chave privada do meu utilizador para uma USB. Não deixá-la no computador da minha mãe. 
@@ -46,14 +38,15 @@ No computador da minha mãe:
 $ sudo systemctl start sshd.service
 
 Talvez seja precise executar este comando:
+
 $ sudo systemctl start sshd.socket
 
 No meu computador:
 
-Acesso exclusivo ao terminal:
+Acesso ao terminal do computador da minha mãe:
 $ ssh -vv -i ~/.ssh/filho -p XXXXX filho@ip_público_da_mãe
 
-Para acesso gráfico; no computador da minha mãe:
+Acesso gráfico ao computador da minha mãe:
 
 # Criar um palavra-passe para o programa VNC
 
@@ -61,14 +54,13 @@ $ vncpasswd
 
 Agora, na minha conta, no meu computador:
 
-
 $ x0vncserver -display :0 -passwordfile ~/.vnc/passwd
 
 Verificar se a porta xx.xxx está aberta.
 
 No meu computador:
 
-$ ssh -vv -L 55900:localhost:5900 -i ~/.ssh/filho-arch_rsa -p xx.xxx jribeiro@ipmãe
+$ ssh -vv -L 55900:localhost:5900 -i ~/.ssh/filho-arch_rsa -p xx.xxx jribeiro@ip_público_da_mãe
 
 $ vncviewer -x11cursor 127.0.0.1:55900
 
@@ -83,6 +75,7 @@ PasswordAuthentication no
 PermitEmptyPasswords no 
 Subsystem       sftp    /usr/libexec/sftp-server
 
+
 Aqui, fica um método que dispensa a intervenção da mãe para lançar o servidor gráfico
 =====================================================================================
 
@@ -92,7 +85,7 @@ Nota: Tudo, é feito a partir do meu computador
 Hipótese 1
 ==========
 
-$ ssh -t -L 55900:localhost:5900 -i ~/.ssh/filho_rsa -p XXXXX filho@ip_público_mãe 'sudo x11vnc -display :0 -auth /home/mãe/.Xauthority -rfbauth /home/mãe/.x11vnc/passwd'
+$ ssh -t -L 55900:localhost:5900 -i ~/.ssh/filho_rsa -p XXXXX filho@ip_público_da_mãe 'sudo x11vnc -display :0 -auth /home/mãe/.Xauthority -rfbauth /home/mãe/.x11vnc/passwd'
 
 Visualizar:
 $ vncviewer -x11cursor 127.0.0.1:55900
@@ -100,7 +93,7 @@ $ vncviewer -x11cursor 127.0.0.1:55900
 Hipótese 2
 ==========
 
-$ ssh -t -L 5900:localhost:5900 -i ~/.ssh/filho_rsa -p XXXXX filho@ip_público_mãe 'sudo x11vnc -display :0 -auth /home/mãe/.Xauthority -rfbauth /home/mãe/.x11vnc/passwd'
+$ ssh -t -L 5900:localhost:5900 -i ~/.ssh/filho_rsa -p XXXXX filho@ip_público_da_mãe 'sudo x11vnc -display :0 -auth /home/mãe/.Xauthority -rfbauth /home/mãe/.x11vnc/passwd'
 
 Visualizar:
 $ vncviewer -encodings "copyrect tight zrle hextile" localhost:0

@@ -21,12 +21,14 @@ HISTFILESIZE=2000
 trap '. $HOME/.bash_logout; exit' 0
 
 # Controlo remoto
-alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
+
 alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
 
 alias mãe-acesso-terminal-arch="ssh -vv -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-arch_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
 alias orfãos='sudo pacman -Rsn $(pacman -Qqtd)'
 alias cache='sudo pacman -Scc && yay -Scc'
