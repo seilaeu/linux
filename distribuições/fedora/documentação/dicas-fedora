@@ -1,3 +1,8 @@
+Comando que cria um atalho para actualizar o sistema:
+
+konsole -e bash -c '/media/dados/linux/distribuições/fedora/scripts/actualizar-fedora.sh; echo; read -p "Prima a tecla Enter..."'
+
+
 Cópia de segurança do sistema:
 
 

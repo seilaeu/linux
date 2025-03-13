@@ -1,3 +1,7 @@
+Comando que cria um atalho para actualizar o sistema:
+
+konsole -e bash -c '/media/dados/linux/distribuições/slackware/scripts/actualizar-slackware.sh; echo; read -p "Prima a tecla Enter..."'
+
 Instalar pacotes deb no slackware
 --------------------------------------
 
