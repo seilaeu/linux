@@ -225,3 +225,7 @@ $ sudo dmidecode -s bios-version
 => Data de lançamento
 
 $ sudo dmidecode -s bios-release-date
+
+Esvaziar a directoria /tmp:
+
+$ /usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec sudo /bin/rm -rf {} +;
