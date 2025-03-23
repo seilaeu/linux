@@ -1,6 +1,5 @@
 Editar o ficheiro ~/.bashrc:
 
-
 Ver ficheiro /media/dados/linux/distribuições/fedora/documentação/bashrc-fedora
 
 Nome do anfitrião:
@@ -101,12 +100,11 @@ Remover serviços systemd
  sudo systemctl mask mandb.service
 
 
- Desabilitar serviços systemd
+Desabilitar serviços systemd
 ============================
 
 
-sudo systemctl disable auditd.service ?? SELinux ??
-
+sudo systemctl disable auditd.service
 
 cd /lib/systemd/system
 for i in abrt*.service auditd.service akmods-shutdown.service akmods.service \
@@ -127,45 +125,7 @@ Serviços indispensáveis:
 /usr/lib/systemd/system/console-getty.service
 
 
- JAVA da Oracle
-==============
-
-Passo 1: Visitar https://www.java.com/en/download/manual.jsp?locale=en
-Passo 2: Transferir o pacote RPM apropriado.
-Passo 3: Instalar o pacote RPM: $ instalar /caminho/para/o/java/jre-8u25-linux-x64.rpm
-
-sudo alternatives --install /usr/bin/java java /usr/java/latest/bin/java 200000
-sudo alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
-sudo alternatives --install /usr/lib64/mozilla/plugins/libjavaplugin.so libjavaplugin.so.x86_64 /usr/java/latest/lib/amd64/libnpjp2.so 200000
-
-Escolher a versão do java:
-
-sudo alternatives --config java
-
-Escolhendo a versão do plugin do java para o firefox:
-
-sudo alternatives --config libjavaplugin.so.x86_64
-
-Verificar com os comandos:
-
-sudo alternatives --display java
-
-sudo alternatives --display libjavaplugin.so.x86_64
-
-sudo java -version
-sudo javaws
-
-Removendo o java errado:
-
-sudo alternatives --remove libjavaplugin.so.x86_64 /usr/java/jre1.7.0_40/lib/amd64/libnpjp2.so
-
-Se não funcionar talvez seja necessário editar o ficheiro /etc/profile:
-
-## export JAVA_HOME JRE ##
-export JAVA_HOME="/usr/java/latest"
-
-## export JAVA_HOME JRE ##
-export JAVA_HOME="/usr/java/jre1.7.0_45"
+Pacotes de programação:
 
 $ sudo dnf install binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
 

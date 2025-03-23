@@ -12,7 +12,7 @@ sudo mount /dev/sdaX /media/fedora
 sudo tar cjvf fedora-20-`date +"%Y.%m.%d"`.tar.bz2 -X /media/dados/linux/distribuições/fedora/documentação/fedora.exclusões  /media/fedora
 
 
-=> Restaurar a cópia:
+=> Restaurar a cópiade segurança do sistema:
 
 tar -xjvpf Fedora-19*.tar.bz2 -C /directorio/de/destino
 
@@ -21,13 +21,9 @@ Em caso de alteração da partição raíz, editar o ficheiro /etc/fstab e alter
 
 Restaurar o grub: 
 
-$ sudo efibootmgr -o "nome_da_entrada"
+$ sudo efibootmgr -o < nome da entrada>
 
 
 Limpar duplicados
 
 package-cleanup --cleandupes
-
-
-
-
