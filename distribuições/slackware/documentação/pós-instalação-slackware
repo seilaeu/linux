@@ -93,7 +93,6 @@ $ sudo removepkg freetype
 $ sudo installpkg /tmp/freetype-2.13.3-x86_64-2.txz
 
 
-
 letra:
 
 $ cd /etc/fonts/conf.d/
