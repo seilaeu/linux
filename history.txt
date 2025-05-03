@@ -3,3 +3,8 @@ find /media/dados/ -type d | wc -l
 find /media/dados/ -type f | wc -l
 grub-actualizar
 ligações-quebradas -exec rm -rf {} +
+cd /media/dados/linux/
+git status
+git add --all
+git commit -m "updating file"
+git push origin main
