@@ -1,0 +1,23 @@
+Sbopkg para current
+
+$ sudo nano /etc/sbopkg/sbopkg.conf
+
+REPO_BRANCH=${REPO_BRANCH:-current}
+
+REPO_NAME=${REPO_NAME:-SBo-git}
+
+$ sudo sbopkg -r
+
+
+Sincronização
+-------------
+
+$ sudo rm -fR /var/lib/sbopkg/SBo-git
+
+$ sudo sbopkg -r
+
+Google-chrome
+-------------
+
+https://ftp.rnl.tecnico.ulisboa.pt/pub/slackware/slackware64-current/extra/google-chrome/
+wget  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

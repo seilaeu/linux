@@ -55,13 +55,13 @@ echo
 echo
 echo
 
-sudo pacman -S firefox firefox-i18n-pt-pt wget --needed
+sudo pacman -S firefox firefox-i18n-pt-pt wget proton-vpn-gtk-app network-manager-applet --needed
 
 echo
 echo
 echo
 
-yay -S protonvpn youtube-dl --needed
+yay -S youtube-dl --needed
 
 echo
 echo

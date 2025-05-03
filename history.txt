@@ -1,0 +1,5 @@
+ligações-quebradas
+find /media/dados/ -type d | wc -l
+find /media/dados/ -type f | wc -l
+grub-actualizar
+ligações-quebradas -exec rm -rf {} +

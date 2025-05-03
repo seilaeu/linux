@@ -1,0 +1,334 @@
+Criar o ficheiro bashrc
+-----------------------
+
+$ nano ~/.bashrc
+
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+export PATH="$PATH:/sbin:/usr/sbin"
+
+complete -cf sudo
+
+alias system-update-1="sudo slackpkg update"
+alias system-update-2="sudo slackpkg install-new"
+alias system-update-3="sudo slackpkg upgrade-all"
+alias system-update-4="sudo slackpkg clean-system"
+
+alias procurar="sudo slackpkg search"
+alias instalar="sudo slackpkg install"
+alias desinstalar="sudo slackpkg remove"
+alias questionar-detalhado="ls /var/lib/pkgtools/packages|grep"
+alias questionar-simplificado="ls /var/lib/pkgtools/packages/ | rev | cut -f4- -d- | rev|grep"
+alias desbloquear="sudo rm /var/lock/slackpkg*"
+
+alias pacotes-totalidade="ls -1 /var/lib/pkgtools/packages/|wc -l"
+alias pacotes-lista-detalhada="ls -1 /var/lib/pkgtools/packages/"
+alias pacotes-lista-simplificada="ls /var/lib/pkgtools/packages/ | rev | cut -f4- -d- | rev"
+
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+alias chroot-arch="sudo mount /dev/sda2 /mnt/arch && sudo mount -t proc none /mnt/arch/proc && sudo mount --rbind /sys /mnt/arch/sys && sudo mount --rbind /dev /mnt/arch/dev && sudo chroot /mnt/arch"
+alias chroot-slackware-15.0="sudo mount /dev/sda3 /mnt/slackware-15.0/ && sudo mount -t proc none /mnt/slackware-15.0/proc && sudo mount --rbind /sys /mnt/slackware-15.0/sys && sudo mount --rbind /dev /mnt/slackware-15.0/dev && sudo chroot /mnt/slackware-15.0"
+
+alias chroot-gentoo="sudo mount /dev/sda4 /mnt/gentoo/ && sudo mount -t proc none /mnt/gentoo/proc && sudo mount --rbind /sys /mnt/gentoo/sys && sudo mount --rbind /dev /mnt/gentoo/dev && sudo chroot /mnt/gentoo"
+
+
+Bash Functions
+--------------
+
+$ nano ~/.bash_functions
+
+function pertence(){
+    grep "$1" /var/lib/pkgtools/packages/*
+}
+
+$ nano ~/.bashrc
+
+source ~/.bash_functions
+
+$ sudo nano /etc/profile.d/lang.sh
+export LANG=pt_PT.UTF-8
+
+$  source /etc/profile
+$ echo $LANG
+
+$ sudo useradd -m -G  wheel,users,audio,video,cdrom,disk,sddm -s /bin/bash seilaeu
+
+
+Grupos do utilizador
+--------------------
+
+$ sudo usermod -aG wheel,users,audio,video,cdrom,disk,sddm seilaeu
+
+
+Letra
+-----
+
+$ sudo nano /etc/profile.d/freetype.sh
+
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+
+
+$ cd /etc/fonts/conf.d/
+$ sudo ln -s /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf
+$ sudo ln -s /usr/share/fontconfig/conf.avail/10-hinting-full.conf
+$ sudo ln -s /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf
+
+
+
+SDDM
+---------
+
+$ echo "" | sudo tee -a  /usr/share/sddm/scripts/Xsetup
+
+$ echo "setxkbmap pt" | sudo tee -a  /usr/share/sddm/scripts/Xsetup
+
+
+
+$ sudo nano /etc/sddm.conf
+
+[General]
+Numlock=on
+
+[Theme]
+Currrent=breeze
+CursorTheme=Oxygen_Blue
+
+[X11]
+
+ServerArguments=-nolisten tcp -dpi 102
+
+
+Instalar pacotes
+----------------
+
+$ sudo slackpkg install mozilla-firefox pavucontrol
+
+$ sudo nano /etc/slackpkg/mirrors
+
+https://ftp.rnl.tecnico.ulisboa.pt/pub/slackware/slackware64-15.0 ou https://ftp.rnl.tecnico.ulisboa.pt/pub/slackware/slackware64-current
+
+$ sudo slackpkg update gpg
+$ sudo slackpkg update
+$ sudo slackpkg upgrade-all
+
+
+Slackpkg+
+---------
+
+Obter o pacote em https://slakfinder.org/slackpkg+/
+
+$ sudo nano /etc/slackpkg/slackpkgplus.conf
+
+REPOPLUS=( slackpkgplus alienbob multilib )
+
+MIRRORPLUS['multilib']=http://bear.alienbase.nl/mirrors/people/alien/multilib/current/
+
+MIRRORPLUS['alienbob']=http://bear.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/
+
+$ sudo slackpkg update gpg
+$ sudo slackpkg update
+
+$ sudo slackpkg install libreoffice vlc
+
+
+Sbotools
+------------
+
+Obter o pacote em https://pink-mist.github.io/sbotools/
+
+
+Configurar o repositório
+
+$ sudo sboconfig -r https://cgit.ponce.cc/slackbuilds
+
+Puxar o repositório
+
+$ sudo sbosnap fetch
+
+$ sudo sboinstall bleachbit deb2tgz hoorex intel-microcode ncdu SpiderOakONE srm ufw unrar cronie
+
+
+Cronie
+------
+
+# kill $(pgrep crond)
+# removepkg dcron
+# rm -rf /var/spool/cron
+
+Change this line in /etc/rc.d/rc.M
+  /usr/sbin/crond -l notice
+to:
+  /usr/sbin/crond
+
+
+anacron
+-----------
+
+Compilar o pacote a partir de https://slackbuilds.org/repository/14.2/system/anacron/
+
+
+Dicionários
+---------------
+
+$ deb2tgz hunspell-pt-pt_7.2.0-2_all.deb
+$ sudo installpkg hunspell-pt-pt_7.2.0-2_all.txz
+
+
+sbopkg
+----------
+
+( Equivalente ao sbotools, prefiro instalar apenas o último)
+
+Obter o pacote em https://sbopkg.org/downloads.php
+
+Editar os repositórios no ficheiro /etc/sbopkg/sbopkg.conf se necessário
+
+# Sincronizar a base de dados do sbopkg
+
+$ sudo sbopkg -r
+
+$ sudo sbopkg -i "bleachbit deb2tgz hoorex intel-microcode ncdu SpiderOakONE srm ufw unrar"
+
+
+src2pkg
+-------
+
+Obter o pacote em https://distro.ibiblio.org/amigolinux/download/src2pkg/
+
+$ sudo src2pkg --setup
+
+Se a configuração falhar:
+
+$ cd /tmp
+$ wget https://ponce.cc/slackware/testing/src2pkg.patch
+$ cd /usr/src/src2pkg/src2pkg-helpers
+$ patch -p1 < /tmp/src2pkg.patch
+$ sudo src2pkg --setup
+
+FSTRIM
+------
+
+$ sudo nano /etc/anacrontab
+
+# /etc/anacrontab example
+# See the anacrontab(5) manpage
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# format: period delay job-identifier command
+1       5       cron.daily      run-parts /etc/cron.daily
+7       5       cron.weekly     run-parts /etc/cron.weekly
+30      5      cron.monthly    run-parts /etc/cron.monthly
+
+$ sudo nano /etc/cron.weekly/fstrim
+
+#!/bin/sh
+LOG=/var/log/fstrim.log
+echo "*** $(date) ***" >> $LOG
+fstrim -v / >> $LOG
+
+
+$ sudo chmod +x /etc/cron.weekly/fstrim
+
+
+Instalar pacotes deb no slackware
+--------------------------------------
+
+1ª Opção: deb2tgz
+2ª Opção:
+
+$ mkdir -p work/pkg
+$ cd work
+$ ar -x /path/to/package_name.deb
+$ cd pkg
+$ tar xvf ../data.tar.xz
+
+$ sudo makepkg -l y -c n /tmp/package_name.txz
+$ sudo installpkg /tmp/package_name.txz
+
+$ cd ../..
+$ rm -r work
+
+
+Numlockx
+--------
+
+$ sudo nano /etc/rc.d/rc.local
+
+# Turn on Num Lock
+
+echo -n "Turning NumLock ON... "
+for tty in /dev/tty[1-9]*; do
+setleds -D +num < $tty
+done
+echo "done."
+
+
+Firewall UFW
+------------
+
+$ sudo nano /etc/rc.d/rc.local
+
+# Enable firewall ufw
+
+ufw enable
+
+$ sudo ufw enable
+$ sudo ufw status verbose
+
+
+INITRD
+------
+
+$ sudo mv initrd.gz initrd.gz.bak
+$ sudo mkinitrd -c -k 5.15.19 -m ext4
+
+
+Listar pacotes por tamanho
+--------------------------
+
+$ (cd /var/log/packages/ ; grep -x 'U.*M' * ) | awk -F: '{print $3 "\t" $1}' | sort -n
+
+
+Acelerar o arranque
+-------------------
+
+$ sudo nano /etc/rc.d/rc.M
+
+Desactivar PCMCIA, X fonts, bluetooth, cups, netatalk, quota, mysqld, apache, samba, gpm, icecream
+
+
+Intel ucode
+-----------
+
+$ sudo nano /boot/grub/grub.cfg
+
+initrd  /boot/intel-ucode.cpio /boot/initrd.gz
+
+
+Clean /tmp directory
+--------------------
+
+$ sudo nano /etc/rc.d/rc.local_shutdown
+
+/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;
+
+$ sudo chmod +x /etc/rc.d/rc.local_shutdown
+
+
+Registar o arranque do sistema
+------------------------------
+
+$ sudo nano /etc/rc.d/rc.S
+
+# Bootlogd
+
+if [ -x /sbin/bootlogd ]; then
+    echo 'Starting bootlogd'
+    /sbin/bootlogd
+    echo 'Bootlogd started (this is the first boot message that appears in /var/log/boot).'
+fi
