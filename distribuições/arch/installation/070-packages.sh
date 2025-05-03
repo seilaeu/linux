@@ -87,18 +87,6 @@ echo
 echo
 echo
 
-echo "Instalar o SpiderOak ONE"
-
-echo
-echo
-echo
-
-yay -S spideroak-one --needed
-
-echo
-echo
-echo
-
 echo "Instalar a firewall"
 
 echo
