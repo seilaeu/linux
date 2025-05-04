@@ -10,9 +10,10 @@ echo
 echo
 echo
 
-sudo pacman -S plasma-desktop konsole kate dolphin ark kcalc okular gwenview plasma-pa kwalletmanager kscreen \
-ktorrent elisa breeze-gtk kde-gtk-config kmymoney plasma-systemmonitor kdeplasma-addons kalarm sddm \
-sddm-kcm kinfocenter kompare kamoso plasma-nm kwallet-pam libappindicator-gtk3 audiocd-kio plasma-browser-integration --needed
+sudo pacman -S plasma-desktop konsole kate dolphin ark kcalc okular gwenview plasma-pa kwalletmanager \
+ktorrent elisa breeze-gtk kde-gtk-config kmymoney plasma-systemmonitor kdeplasma-addons kalarm sddm  \
+sddm-kcm kinfocenter kompare kamoso plasma-nm kwallet-pam libappindicator-gtk3 audiocd-kio \
+plasma-browser-integration breeze5 plasma5-integration kscreen --needed
 
 sudo systemctl enable sddm
 

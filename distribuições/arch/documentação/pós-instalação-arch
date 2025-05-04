@@ -15,6 +15,7 @@ Color
 ParallelDownloads = 1000
 CheckSpace
 
+
 actualizar o sistema:
 
 $ actualizar
@@ -138,19 +139,6 @@ neofetch:
 $ instalar neofetch && sudo sed -i 's/color_blocks="on"/color_blocks="off"/g' /etc/neofetch/config 
 
 
-optimizar compilações:
-
-$ ediroot /etc/makepkg.conf
-
-CFLAGS="-march=native -O2 -pipe -fno-plt"
-CXXFLAGS="${CFLAGS}"
-RUSTFLAGS="-C opt-level=2 -C target-cpu=native"
-MAKEFLAGS="-j$(nproc)"
-BUILDDIR=/tmp/makepkg makepkg
-COMPRESSXZ=(xz -c -z --threads=0 -)
-COMPRESSZST=(zstd -c -z -q --threads=0 -)
-
-
 silenciar o grub:
 
 $ ediroot /etc/grub.d/10_linux
@@ -173,8 +161,7 @@ $ sudo nano /etc/sysctl.d/20-quiet-printk.conf
 kernel.printk = 3 3 3 3
 
 
-ZRAM
-====
+ZRAM:
 
 $ ediroot ediroot /etc/mkinitcpio.conf
 MODULES=(zram)
@@ -197,9 +184,10 @@ $ ediroot /etc/mkinitcpio.conf
 
 HOOKS=(...keyboard sd-vconsole block...)
 
+
 Limpar a cache do utilizador seilaeu no desligamento ou no reinício do sistema
 
-$ sudo nano /etc/systemd/user/limpar-cache-seilaeu.service
+$ ediroot /etc/systemd/user/limpar-cache-seilaeu.service
 [Unit]
 Description=Limpar sistema
 Before=shutdown.target
@@ -213,7 +201,7 @@ WantedBy=default.target
 
 $ systemctl --user enable limpar-cache-seilaeu.service
 
-$ nano /media/dados/arch_linux/scripts/limpar-cache-seilaeu.sh
+$ nano /media/dados/linux/scripts/limpar-cache-seilaeu.sh
 
 #!/bin/bash
 
@@ -222,9 +210,10 @@ mkdir /home/seilaeu/.cache/thumbnails/
 rm -rf /home/seilaeu/.local/share/Trash/*
 rm -rf /media/dados/.Trash-*
 
+
 Limpar a cache do utilizador root no desligamento ou no reinício do sistema
 
-$ sudo nano /etc/systemd/system/limpar-cache-root.service
+$ ediroot /etc/systemd/system/limpar-cache-root.service
 [Unit]
 Description=Limpar sistema
 Before=shutdown.target
@@ -238,24 +227,10 @@ WantedBy=default.target
 
 $ sudo systemctl enable limpar-cache-root.service
 
-$ nano /media/dados/arch_linux/scripts/limpar-cache-root.sh
+$ nano /media/dados/linux/scripts/limpar-cache-root.sh
 #!/bin/bash
 
-rm -rf /root/.cache/*
-
-$ sudo nano /etc/xdg/systemd/user/duplicados-seilaeu.service
-[Unit]
-Description=Limpar duplicados da bash do seilaeu
-Before=shutdown.target
-
-[Service]
-ExecStart=/bin/true
-ExecStop=/media/dados/arch_linux/scripts/duplicados-seilaeu.sh
-
-[Install]
-WantedBy=default.target
-
-$ systemctl --user enable duplicados-seilaeu.service
+sudo bash -c "rm -rf /root/.cache/*"
 
 
 Portal kde nas aplicações gtk, como por exemplo firefox:
