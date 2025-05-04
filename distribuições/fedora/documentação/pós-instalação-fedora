@@ -2,13 +2,16 @@ Editar o ficheiro ~/.bashrc:
 
 Ver ficheiro /media/dados/linux/distribuições/fedora/documentação/bashrc-fedora
 
+
 Nome do anfitrião:
 
 $ sudo hostnamectl set-hostname fedora
 
-# Inspeccionar repositórios instalados
+
+Inspeccionar repositórios instalados:
 
 $ ls /etc/yum.repos.d/
+
 
 Configurar o dnf:
 
@@ -18,6 +21,7 @@ max_parallel_downloads=20
 defaultyes=True
 deltarpm=False
 installonly_limit=3
+
 
 Functions:
 
@@ -41,6 +45,8 @@ Alguns pacotes importantes:
 $ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
 
 
+Algumas desinstalações de pacotes:
+
 $ desinstalar im-chooser qt5-qdbusviewer kaddressbook kmail kontact korganizer libreoffice-draw \
 libreoffice-impress libreoffice-math kolourpaint konversation krdc krfb plasma-welcome kcharselect kmag \
 kmousetool kmouth kmahjongg kmines kpat anaconda ImageMagick qemu-guest-agent* khelpcenter cups \
@@ -58,6 +64,7 @@ Duplicados do dnf:
 $ instalar dnf-utils
 $ sudo package-cleanup --cleandupes
 
+
 Adicionar repositórios:
 
 => RPM Fusion
@@ -66,7 +73,9 @@ Adicionar repositórios:
 
 => MEGASync
 
+
 Tipo de letra da Microsoft
+
 
 NumLock no arranque:
 
@@ -75,7 +84,8 @@ $ sudo nano /var/lib/sddm/.config/kcminputrc
 [Keyboard]
 NumLock=0
 
-# Impedir que abra uma janela de autenticação quando executamos git push origin master:
+
+Impedir que abra uma janela de autenticação quando executamos git push origin master:
 
 $ desinstalar openssh-askpass ksshaskpass
 
@@ -83,54 +93,28 @@ $ nano ~/.bashrc
 
 unset SSH_ASKPASS
 
-# Letra mais fina
+
+Letra mais fina:
 
 $ sudo nano /etc/profile.d/freetype2.sh
 
 export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
 
+
 $ actualizar
 
-Remover serviços systemd
-========================
 
- sudo systemctl mask packagekit-offline-update.service
- sudo systemctl mask systemd-journal-flush.service
- sudo systemctl mask dnf-makecache.service
- sudo systemctl mask mandb.service
+Remover serviços systemd:
 
-
-Desabilitar serviços systemd
-============================
-
-
-sudo systemctl disable auditd.service
-
-cd /lib/systemd/system
-for i in abrt*.service auditd.service akmods-shutdown.service akmods.service \
-avahi-daemon.* bluetooth.* fedora*storage* dev-hugepages.mount dev-mqueue.mount \
-dmraid-activation.service fedora-configure.service smartd.service spice-vdagentd.service \
-fedora-loadmodules.service fedora-readonly.service ip6tables.service livesys livesys-late \
-lvm2-monitor.* iptables.service irqbalance.service mcelog.service rsyslog.service \
-systemd-udev-settle.service sendmail.service sm-client.service sys-kernel-config.mount \
-jexec.service mdmonitor*.* sys-kernel-debug.mount vmtoolsd.service; do sudo systemctl mask $i; done
-
-Serviços indispensáveis:
-
-/usr/lib/systemd/system/default.target
-/usr/lib/systemd/system/basic.target
-/usr/lib/systemd/system/sysinit.target
-/usr/lib/systemd/system/getty.target
-/usr/lib/systemd/system/getty@.service
-/usr/lib/systemd/system/console-getty.service
+sudo systemctl mask NetworkManager-wait-online.service
 
 
 Pacotes de programação:
 
 $ sudo dnf install binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
 
-Instalar alguns pacotes multimedia
-==================================
+
+Instalar alguns pacotes multimedia:
 
 instalar gstreamer gstreamer-ffmpeg gstreamer-plugins-bad \
 gstreamer-plugins-bad-free gstreamer-plugins-bad-nonfree gstreamer-plugins-base \
