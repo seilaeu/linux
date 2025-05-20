@@ -194,7 +194,7 @@ Before=shutdown.target
 
 [Service]
 ExecStart=/bin/true
-ExecStop=/media/dados/arch_linux/scripts/limpar-cache-seilaeu.sh
+ExecStop=/media/dados/linux/scripts/limpar-cache-seilaeu.sh
 
 [Install]
 WantedBy=default.target
@@ -220,7 +220,7 @@ Before=shutdown.target
 
 [Service]
 ExecStart=/bin/true
-ExecStop=/media/dados/arch_linux/scripts/limpar-cache-root.sh
+ExecStop=/media/dados/linux/scripts/limpar-cache-root.sh
 
 [Install]
 WantedBy=default.target
