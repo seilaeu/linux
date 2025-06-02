@@ -31,7 +31,7 @@ alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-a
 alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
 alias orfãos='sudo pacman -Rsn $(pacman -Qqtd)'
-alias cache='sudo pacman -Scc && yay -Scc'
+alias cache='paccache -rk 3 && paccache -ruk 0'
 alias desinstalar='sudo pacman -Rsn'
 alias desinstalar-simples='sudo pacman -Rn'
 alias desinstalar-forçado='sudo pacman -Rddn'
