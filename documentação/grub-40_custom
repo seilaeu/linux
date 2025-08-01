@@ -21,9 +21,9 @@ menuentry "Slackware" {
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
         chainloader /EFI/slackware/grubx64.efi
 }
-menuentry 'Desligar' {
-        halt
-}
 menuentry 'Reiniciar' {
         reboot
+}
+menuentry 'Desligar' {
+        halt
 }
