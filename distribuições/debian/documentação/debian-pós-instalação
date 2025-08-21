@@ -13,17 +13,16 @@ sudo:
 
 Criar uma tecla de atalho para a actualização do sistema:
 
-$ ediroot /usr/sbin/actualizar
+$ sudo nano /media/dados/linux/distribuições/debian/scripts/actualizar-debian.sh
 
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 echo
 echo "                                Sistema actualizado!"
-read line
 
 
-Utilizar a tecla Favoritos com o seguinte comando: konsole -e "sh /usr/sbin/actualizar"
+Utilizar a tecla Favoritos com o seguinte comando: konsole -e bash -c '/media/dados/linux/distribuições/debian/scripts/actualizar-debian.sh; echo; read -p "Prima a tecla Enter..."'
 
 
 $ actualizar
@@ -49,17 +48,3 @@ PERCENT=100
 PRIORITY=100
 
 $ sudo zramswap start
-
-Java:
-
-$ instalar java-package java-common && cd Transferências
-
-Transferir pacote java a partir de http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
-
-$ fakeroot make-jpkg jre-8u1**-linux-x64.tar.gz
-
-$ sudo dpkg -i oracle-java8-jre_8u1**_amd64.deb
-
-$ sudo update-java-alternatives -s oracle-java8-jre-amd64
-
-$ sudo apt-get purge $(questionar icedtea)  $(questionar jdk)

@@ -1,7 +1,7 @@
 #!/usr/bin/bash 
 
 if [ $# -ne 2 ]; then
-  echo "Syntax: $0 <dispositivo> <ficheiro_ISO>"
+  echo "Syntax: $0 <ficheiro_ISO> <dispositivo>"
   exit 1
 fi
 
@@ -9,12 +9,12 @@ dev="$1"
 iso="$2"
 
 if [ ! -b "$dev" ]; then
-  echo "Erro: O primeiro argumento deve ser um dispositivo"
+  echo "Erro: O primeiro argumento deve ser um ficheiro ISO"
   exit 2
 fi
 
 if [ ! -f "$iso" ]; then
-  echo "Erro: O segundo argumento deve ser um ficheiro ISO"
+  echo "Erro: O segundo argumento deve ser um dispositivo"
   exit 3
 fi
 
