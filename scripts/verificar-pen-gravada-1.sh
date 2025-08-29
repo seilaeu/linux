@@ -5,15 +5,15 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-dev="$1"
-iso="$2"
+iso="$1"
+dev="$2"
 
-if [ ! -b "$dev" ]; then
+if [ ! -f "$iso" ]; then
   echo "Erro: O primeiro argumento deve ser um ficheiro ISO"
   exit 2
 fi
 
-if [ ! -f "$iso" ]; then
+if [ ! -b "$dev" ]; then
   echo "Erro: O segundo argumento deve ser um dispositivo"
   exit 3
 fi
@@ -21,6 +21,6 @@ fi
 size="$(stat -c %s "$iso")"
 
 echo "Verificando $size bytes..."
-sudo cmp -n $size "$dev" "$iso"
+sudo cmp -n $size "$iso" "$dev"
 
-if [ $? -eq 0 ]; then echo "A pen e o ficheiro ISO são idênticos"; fi
+if [ $? -eq 0 ]; then echo "O ficheiro ISO e a pen e o são idênticos"; fi
