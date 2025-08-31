@@ -31,6 +31,28 @@ alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
 
+alias actualizar="sudo zypper dup"
+
+alias procurar="sudo zypper se"
+
+alias instalar="sudo zypper in"
+
+alias reinstalar="sudo zypper in -f"
+
+alias desinstalar="sudo zypper rm --clean-deps"
+
+alias pertencer="zypper se --provides --match-exact"
+
+alias questionar-simples='rpm -qa --qf "%{NAME}\n"|sort|grep'
+
+alias questionar-detalhado="rpm -qa|grep"
+
+alias orfãos="sudo zypper pa --orphaned"
+
+alias desnecessários="sudo zypper pa --unneeded"
+
+alias cache="sudo zypper clean --all"
+
 alias desligar='/usr/bin/poweroff'
 alias reiniciar='/usr/bin/reboot'
 

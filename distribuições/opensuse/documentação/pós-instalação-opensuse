@@ -1,13 +1,70 @@
-adicionar o repositório packman:
+bashrc
 
-sudo zypper addrepo -cfp 90 'https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/' packman
+Alterar o nome da máquina:
+YaST => Sistema => Definições de Rede => Nome da Máquica/DNS => Hospedeiro Estático
 
-instalar pacotes em falta:
+Desinstalações:
+$ sudo zypper rm --clean-deps kaddressbook kmail kontact korganizer libreoffice-base libreoffice-draw libreoffice-impress libreoffice-math konversation tigervnc kcharselect kmag kmousetool knotes ktnef kmines kpat kreversi xterm opensuse-welcome xscreensaver skanlite xf86-input-wacom icewm icewm-default icewm-lang xdg-desktop-portal-gtk jack-dbus
 
-sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois
+Desinstalar pacotes desnecessários:
+
+YaST => Software => Gestão de Software => Ver => Classificação do Pacote => Pacotes Desnecessários
+
+
+Repositório Packman:
+
+$ sudo zypper ar -cfp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
+
+$ sudo zypper dup --from packman --allow-vendor-change
+
+Actualizar o sistema:
+
+$ sudo zypper ref && sudo zypper up (OpenSUSE Leap)
+
+$ sudo zypper ref && sudo zypper dup (OpenSUSE Tumbleweed)
+
+
+Pacotes necessários:
+
+$ sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois ktorrent
+
+
+Multimedia codecs:
+
+https://www.opensuse-community.org/
+
+Tipo de letra da Microsoft:
+
+YaST => Software => Gestão de Software => Procurar por "fetchmsttfonts"
+
+Programação:
+
+YaST => Software => Gestão de Software => Procurar por "patterns-devel-base-devel_basis"
+
+Google-Chrome:
+
+https://www.google.com/chrome/
 
 MEGA
 
 ProtonVPN
 
-Google Chrome
+Numlock no arranque:
+
+$ sudo nano /etc/sddm.conf.d/10-numlock.conf
+Numlock=on
+
+$ sudo nano /etc/profile.d/freetype2.sh
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+
+Remover mensagem sgx:
+
+YaST → Sistema → Rotina de Arranque → Parâmetros de kernel → Parâmetro Opcional de Linha de Comando do Kernel "nosgx"
+
+Desactivar as entradas comentadas no histórico da bash do root:
+
+$ sudo nano /root/.bashrc
+
+unset HISTTIMEFORMAT
+
+
