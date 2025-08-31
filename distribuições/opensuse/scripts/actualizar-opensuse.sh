@@ -1,8 +1,6 @@
-sudo apt-get update && echo
-sudo apt-get upgrade && echo
-sudo apt-get dist-upgrade && echo
-sudo apt-get autoremove && echo
-sudo apt-get clean all && echo
+sudo zypper ref && sudo zypper dup && echo
+sudo zypper pa --orphaned && echo
+sudo zypper pa --unneeded
 sudo find / -not -path '/proc*' -not -path '/run*' -xtype l && echo
 systemctl --failed && echo
 journalctl -p 3 -b && echo

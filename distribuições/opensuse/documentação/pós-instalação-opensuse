@@ -3,6 +3,12 @@ bashrc
 Alterar o nome da máquina:
 YaST => Sistema => Definições de Rede => Nome da Máquica/DNS => Hospedeiro Estático
 
+Instalar apenas os dependências requeridas e descartar as recomendadas:
+
+$ sudo nano /etc/zypp/zypp.conf
+solver.onlyRequires = true
+
+
 Desinstalações:
 $ sudo zypper rm --clean-deps kaddressbook kmail kontact korganizer libreoffice-base libreoffice-draw libreoffice-impress libreoffice-math konversation tigervnc kcharselect kmag kmousetool knotes ktnef kmines kpat kreversi xterm opensuse-welcome xscreensaver skanlite xf86-input-wacom icewm icewm-default icewm-lang xdg-desktop-portal-gtk jack-dbus
 

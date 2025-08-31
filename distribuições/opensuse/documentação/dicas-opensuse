@@ -1,0 +1,3 @@
+Comando que cria um atalho para actualizar o sistema:
+
+konsole -e bash -c '/media/dados/linux/distribuições/opensuse/scripts/actualizar-opensuse.sh; echo; read -p "Prima a tecla Enter..."'

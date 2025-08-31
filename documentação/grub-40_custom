@@ -15,11 +15,11 @@ menuentry "Fedora" {
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
         chainloader /EFI/fedora/grubx64.efi
 }
-menuentry "Slackware" {
+menuentry "Opensuse" {
        insmod fat
         insmod chain
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
-        chainloader /EFI/slackware/grubx64.efi
+        chainloader /EFI/opensuse/grubx64.efi
 }
 menuentry "Debian" {
        insmod fat
