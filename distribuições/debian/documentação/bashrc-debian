@@ -37,8 +37,6 @@ alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-a
 # Arch e Manjaro
 alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
-alias sincronizar='sudo apt-get update'
-alias actualizar='sudo apt-get upgrade'
 alias procurar='apt-cache search'
 alias questionar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2| grep"
 alias instalar='sudo apt-get install'

@@ -11,21 +11,18 @@ sudo:
 
 # reboot
 
+Desinstalações:
+
+$ desinstalar konqueror kmail korganizer kaddressbook imagemagick kontrast imagemagick-7-common juk xterm kmag kmousetool kmouth libreoffice-draw libreoffice-impress libreoffice-base libreoffice-math
+
 Criar uma tecla de atalho para a actualização do sistema:
-
-$ sudo nano /media/dados/linux/distribuições/debian/scripts/actualizar-debian.sh
-
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
-echo
-echo "                                Sistema actualizado!"
-
 
 Utilizar a tecla Favoritos com o seguinte comando: konsole -e bash -c '/media/dados/linux/distribuições/debian/scripts/actualizar-debian.sh; echo; read -p "Prima a tecla Enter..."'
 
 
-$ actualizar
+$ actualizar-debian.sh
+
+$ instalar elisa vlc kmymoney ktorrent whois preload ttf-mscorefonts-installer
 
 MEGAsync
 ProtonVPN
