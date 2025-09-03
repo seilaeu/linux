@@ -38,6 +38,7 @@ alias desinstalar-forçado='sudo pacman -Rddn'
 alias sincronizar-pt-https='sudo reflector --verbose --country portugal -p https --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
 alias sincronizar-pt-http='sudo reflector --verbose --country portugal -p http --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
 alias sincronizar-pt-rsync='sudo reflector --verbose --country portugal -p rsync --latest 2 --sort rate --save /etc/pacman.d/mirrorlist'
+alias actualizar='sudo reflector --verbose --country portugal -p https --age 2 --sort rate --save /etc/pacman.d/mirrorlist && sudo pacman -Syu && yay'
 alias procurar='yay -Syy && yay'
 alias instalar='yay -Syy && yay -S --needed'
 alias reinstalar='yay -Syy && yay -S'
@@ -47,10 +48,7 @@ alias pertencer='pacman -Qo'
 alias desbloquear='sudo rm /var/lib/pacman/db.lck'
 
 # Procurar ligações quebradas
-alias ligações-quebradas-procurar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
-
-# Remover ligações quebradas
-alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm -rf {} + "
+alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"

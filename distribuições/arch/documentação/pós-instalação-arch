@@ -1,6 +1,6 @@
 bash:
 
-Ver o ficheiro bashrc
+Ver o ficheiro bashrc-arch
 
 
 yay:
@@ -18,7 +18,7 @@ CheckSpace
 
 actualizar o sistema:
 
-$ actualizar
+$ actualizar-arch.sh
 
 
 nano:
@@ -155,7 +155,7 @@ Silenciar o arranque:
 $ sudo nano /etc/default/grub
 GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log-priority=3"
 
-$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+$ grub-actualizar
 
 $ sudo nano /etc/sysctl.d/20-quiet-printk.conf
 kernel.printk = 3 3 3 3
@@ -189,7 +189,7 @@ Limpar a cache do utilizador seilaeu no desligamento ou no reinício do sistema
 
 $ ediroot /etc/systemd/user/limpar-cache-seilaeu.service
 [Unit]
-Description=Limpar sistema
+Description=Limpar cache do utilizador seilaeu
 Before=shutdown.target
 
 [Service]

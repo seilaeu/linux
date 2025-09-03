@@ -51,16 +51,13 @@ alias desbloquear='sudo rm /var/db/.*  && sudo rm -rf /var/tmp/portage/{,.[!.],.
 alias kernels-listar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2|egrep 'linux-image|linux-headers'"
 
 # Procurar ligações quebradas
-alias ligações-quebradas="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+alias ligações-quebradas-procurar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Remover ligações quebradas
+alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm -rf {} + "
 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
-
-# Procurar ligações quebradas
-alias ligações-quebradas="sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
-
-# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
-alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b"
 
 alias montar="sudo mount"
 alias desmontar="sudo umount"
@@ -73,7 +70,7 @@ alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
-alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
+alias chroot-opensuse="sudo mount /dev/sda4 /media/opensuse && sudo mount -t proc none /media/opensuse/proc && sudo mount --rbind /sys /media/opensuse/sys && sudo mount --rbind /dev /media/opensuse/dev && sudo chroot /media/opensuse"
 
 
 EDITOR=/usr/bin/kwrite

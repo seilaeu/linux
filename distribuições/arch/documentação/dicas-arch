@@ -1,7 +1,5 @@
 Comando que cria um atalho para actualizar o sistema:
 
-konsole -e bash -c 'yay -Syy && yay; echo; read -p "Prima a tecla Enter..."'
-
 konsole -e bash -c '/media/dados/linux/distribuições/arch/scripts/actualizar-arch.sh; echo; read -p "Prima a tecla Enter..."'
 
 Listar os pacotes votados do AUR:

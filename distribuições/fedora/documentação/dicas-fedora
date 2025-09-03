@@ -8,13 +8,13 @@ Cópia de segurança do sistema:
 
 => Cria a cópia
 
-sudo mount /dev/sdaX /media/fedora
-sudo tar cjvf fedora-20-`date +"%Y.%m.%d"`.tar.bz2 -X /media/dados/linux/distribuições/fedora/documentação/fedora.exclusões  /media/fedora
+$ sudo mount /dev/sdaX /media/fedora
+$ sudo tar cjvf fedora-20-`date +"%Y.%m.%d"`.tar.bz2 -X /media/dados/linux/distribuições/fedora/documentação/fedora.exclusões  /media/fedora
 
 
 => Restaurar a cópiade segurança do sistema:
 
-tar -xjvpf Fedora-19*.tar.bz2 -C /directorio/de/destino
+$ tar -xjvpf Fedora-19*.tar.bz2 -C /directorio/de/destino
 
 Em caso de alteração da partição raíz, editar o ficheiro /etc/fstab e alterar a identidade da mesma.
 
@@ -26,4 +26,16 @@ $ sudo efibootmgr -o < nome da entrada>
 
 Limpar duplicados
 
-package-cleanup --cleandupes
+$ package-cleanup --cleandupes
+
+
+
+Verificar os valores do grub env:
+
+$ sudo grub2-editenv list
+
+Ocultar o menu do GRUB:
+$ sudo grub2-editenv - set menu_auto_hide=1
+
+Mostrar o menu do GRUB:
+$ sudo grub2-editenv - set menu_auto_hide=2

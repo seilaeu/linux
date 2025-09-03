@@ -43,6 +43,6 @@ To create a snapshot:
 
 # mount -t btrfs -o subvolid=0 /dev/sdaX /mnt/
 
-# btrfs subvolume snapshot source [dest/]name
+# btrfs subvolume snapshot fonte destino
 
 To create a readonly snapshot add the -r flag. To create writable version of a readonly snapshot, simply create a snapshot of it. 
