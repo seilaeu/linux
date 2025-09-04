@@ -68,7 +68,7 @@ alias youtube-dl-mp3='yt-dlp --extract-audio --audio-format mp3 --audio-quality 
 alias grub-instalar='sudo /usr/sbin/grub-install sda'
 alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
-alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch"
+alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/@/proc && sudo mount --rbind /sys /media/arch/@/sys && sudo mount --rbind /dev /media/arch/@/dev && sudo chroot /media/arch/@"
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
 alias chroot-opensuse="sudo mount /dev/sda4 /media/opensuse && sudo mount -t proc none /media/opensuse/proc && sudo mount --rbind /sys /media/opensuse/sys && sudo mount --rbind /dev /media/opensuse/dev && sudo chroot /media/opensuse"
 

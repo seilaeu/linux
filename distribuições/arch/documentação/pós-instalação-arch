@@ -252,3 +252,5 @@ $ xdg-mime default dolphin.desktop inode/directory
 Caso a opção minimizar e ecrã completo não desaparecerem:
 
 Firefox => about:config => Definir browser.tabs.inTitlebar para 0
+
+MEGA

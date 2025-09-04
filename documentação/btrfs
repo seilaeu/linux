@@ -23,21 +23,16 @@ Apagar um subvolume:
 # btrfs subvolume delete /path/to/subvolume
 
 
+Verificar o subvolume padrão:
+
+$ sudo btrfs subvolume get-default /
+
 Mudar o subvolume padrão:
 
-The default sub-volume is mounted if no subvol= mount option is provided. To change the default subvolume, do:
-
-# btrfs subvolume set-default subvolume-id /
-
-
-fstab:
-
-LABEL=arch64 / btrfs rw,suid,dev,exec,auto,nouser,async,relatime,compress=lzo 0 0
+# btrfs subvolume set-default <subvolume-id> /
 
 
 Snapshots:
-
-"A snapshot is simply a subvolume that shares its data (and metadata) with some other subvolume, using btrfs's COW capabilities." See Btrfs Wiki SysadminGuide#Snapshots for details.
 
 To create a snapshot:
 
@@ -46,3 +41,16 @@ To create a snapshot:
 # btrfs subvolume snapshot fonte destino
 
 To create a readonly snapshot add the -r flag. To create writable version of a readonly snapshot, simply create a snapshot of it. 
+
+Criar directorias em vez de subvolumes automáticos pelo systemd:
+
+$ sudo btrfs subvolume delete /var/lib/machines/
+$ sudo mkdir /var/lib/machines/
+$ sudo btrfs subvolume delete /var/lib/portables/
+$ sudo mkdir /var/lib/portables/
+
+Criar um subvolume para guardar os snapshots
+
+$ sudo mount -t btrfs -o subvolid=0 /dev/sdaX /mnt/
+$ sudo btrfs subvolume create /mnt/@snapshots
+$ sudo btrfs subvolume snapshot /mnt/@ /mnt/@snapshots/arch-01-09-2025

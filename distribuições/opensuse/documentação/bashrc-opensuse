@@ -26,7 +26,7 @@ HISTFILESIZE=2000
 trap '. $HOME/.bash_logout; exit' 0
 
 # Procurar ligações quebradas
-alias ligações-quebradas-listar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+alias ligações-quebradas-procurar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
 
 # Remover ligações quebradas
 alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm -rf {} + "
