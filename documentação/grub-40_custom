@@ -9,6 +9,42 @@ menuentry "Arch" {
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
         chainloader /EFI/arch/grubx64.efi
 }
+submenu 'Arch Linux Snapshots' {
+         menuentry '01-09-2025' {
+                 load_video
+                 set gfxpayload=keep
+                 insmod gzio
+                 insmod part_gpt
+                 insmod btrfs
+                 set root='hd0,gpt2'
+                 if [ x$feature_platform_search_hint = xy ]; then
+                   search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  8e21ea49-51a3-4434-a033-db6af080f085
+                 else
+                   search --no-floppy --fs-uuid --set=root 8e21ea49-51a3-4434-a033-db6af080f085
+                 fi
+                 echo    'A carregar Linux linux ...'
+                 linux   /@01-09-2025/boot/vmlinuz-linux root=UUID=8e21ea49-51a3-4434-a033-db6af080f085 rw rootflags=subvol=@01-09-2025  quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log-priority=3
+                 echo    'A carregar ramdisk inicial...'
+                 initrd  /@01-09-2025/boot/intel-ucode.img /@01-09-2025/boot/initramfs-linux.img
+         }
+         menuentry '05-09-2025' {
+                 load_video
+                 set gfxpayload=keep
+                 insmod gzio
+                 insmod part_gpt
+                 insmod btrfs
+                 set root='hd0,gpt2'
+                 if [ x$feature_platform_search_hint = xy ]; then
+                   search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  8e21ea49-51a3-4434-a033-db6af080f085
+                 else
+                   search --no-floppy --fs-uuid --set=root 8e21ea49-51a3-4434-a033-db6af080f085
+                 fi
+                 echo    'A carregar Linux linux ...'
+                 linux   /@05-09-2025/boot/vmlinuz-linux root=UUID=8e21ea49-51a3-4434-a033-db6af080f085 rw rootflags=subvol=@05-09-2025  quiet loglevel=3 rd.systemd.show_status=auto rd.udev.log-priority=3
+                 echo    'A carregar ramdisk inicial...'
+                 initrd  /@05-09-2025/boot/intel-ucode.img /@05-09-2025/boot/initramfs-linux.img
+         }
+}
 menuentry "Fedora" {
        insmod fat
         insmod chain

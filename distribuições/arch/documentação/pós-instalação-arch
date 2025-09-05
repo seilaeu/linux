@@ -35,7 +35,7 @@ $ sudo cp ~/.config/nano/nanorc /root/.config/nano
 Fonte: https://wiki.archlinux.org/title/nano
 
 
-tipo de letra mais fina:
+Tipo de letra mais fina:
 
 $ ediroot  /etc/profile.d/freetype2.sh
 
