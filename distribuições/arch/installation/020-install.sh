@@ -38,7 +38,7 @@ echo
 
 echo "Instalar o sistema base"
 
-pacstrap -K /mnt/ base linux linux-firmware intel-ucode sudo nano
+pacstrap -Ki /mnt/ base linux linux-firmware intel-ucode sudo nano
 
 echo
 echo
