@@ -72,7 +72,7 @@ alias desmontar="sudo umount"
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
 
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
-alias chroot-slackware="sudo mount /dev/sda4 /media/slackware && sudo mount -t proc none /media/slackware/proc && sudo mount --rbind /sys /media/slackware/sys && sudo mount --rbind /dev /media/slackware/dev && sudo chroot /media/slackware"
+alias chroot-opensuse="sudo mount /dev/sda4 /media/opensuse && sudo mount -t proc none /media/opensuse/proc && sudo mount --rbind /sys /media/opensuse/sys && sudo mount --rbind /dev /media/opensuse/dev && sudo chroot /media/opensuse"
 alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
 
 # KDE
