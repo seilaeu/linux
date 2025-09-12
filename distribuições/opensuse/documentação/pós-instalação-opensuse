@@ -73,4 +73,17 @@ $ sudo nano /root/.bashrc
 
 unset HISTTIMEFORMAT
 
+# Adicionar o utilizador comum ao grupo wheel
 
+$ sudo gpasswd -a seilaeu wheel
+
+$ sudo chmod u+w /usr/etc/sudoers
+
+$ sudo nano /usr/etc/sudoers
+
+#Defaults targetpw   # ask for the password of the target user i.e. root
+#ALL   ALL=(ALL) ALL   # WARNING! Only use this together with 'Defaults targetpw'!
+
+%wheel ALL=(ALL:ALL) ALL
+
+$ sudo chmod u-w /usr/etc/sudoers
