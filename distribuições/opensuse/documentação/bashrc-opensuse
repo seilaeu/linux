@@ -25,15 +25,6 @@ HISTFILESIZE=2000
 # Possibilita a execução de comandos ao terminar a sessão na bash, a partir do ficheiro $HOME/.bash_logout
 trap '. $HOME/.bash_logout; exit' 0
 
-# Procurar ligações quebradas
-alias ligações-quebradas-procurar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
-
-# Remover ligações quebradas
-alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm -rf {} + "
-
-# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
-alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
-
 alias actualizar="sudo zypper dup"
 
 alias procurar="sudo zypper se"
@@ -56,32 +47,43 @@ alias desnecessários="sudo zypper pa --unneeded"
 
 alias cache="sudo zypper clean --all"
 
+# Procurar ligações quebradas
+alias ligações-quebradas-procurar="echo && sudo find / -not -path '/proc*' -not -path '/run*' -xtype l"
+
+# Remover ligações quebradas
+alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm -rf {} + "
+
+# Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
+alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
+
 alias desligar='/usr/bin/poweroff'
 alias reiniciar='/usr/bin/reboot'
+
+alias montar="sudo mount"
+alias desmontar="sudo umount"
+
+alias youtube-dl-mp3='yt-dlp --extract-audio --audio-format mp3 --audio-quality 0'
 
 alias nano="nano -l"
 alias mv="mv -iv"
 alias cp="cp -iv"
 
-# Grub
+# GRUB
 alias grub-instalar='sudo /usr/sbin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=opensuse'
 alias grub-actualizar="sudo grub2-mkconfig -o /boot/efi/EFI/opensuse/grub.cfg && sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
-
-alias montar="sudo mount"
-alias desmontar="sudo umount"
-
-alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
 
 alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch/"
 alias chroot-fedora="sudo mount /dev/sda3 /media/fedora && sudo mount -t proc none /media/fedora/proc && sudo mount --rbind /sys /media/fedora/sys && sudo mount --rbind /dev /media/fedora/dev && sudo chroot /media/fedora"
 alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
 
-# KDE
+# Editor padrão do KDE
 EDITOR=/usr/bin/kwrite
 VISUAL=$EDITOR
 export EDITOR VISUAL
 
 alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
+
+export PATH="/media/dados/linux/scripts:$PATH"
 
 alias grep='grep -i --color=auto'
 alias ls='ls -l --color'
@@ -90,4 +92,6 @@ export LS_COLORS
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
-export PATH="/media/dados/linux/scripts:$PATH"
+# Necessário para o pacote de xadrez chessx
+
+export QT_QPA_PLATFORM=xcb

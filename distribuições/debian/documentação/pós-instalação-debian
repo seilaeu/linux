@@ -13,7 +13,7 @@ sudo:
 
 Desinstalações:
 
-$ desinstalar konqueror kmail korganizer kaddressbook imagemagick kontrast imagemagick-7-common juk xterm kmag kmousetool kmouth libreoffice-draw libreoffice-impress libreoffice-base libreoffice-math
+$ desinstalar konqueror kmail korganizer kaddressbook imagemagick kontrast imagemagick-7-common juk xterm kmag kmousetool kmouth libreoffice-draw libreoffice-impress libreoffice-base libreoffice-math $(questionar evolut) alsa-utils alsa-ucm-conf alsa-topology-conf
 
 Criar uma tecla de atalho para a actualização do sistema:
 
@@ -23,6 +23,8 @@ Utilizar a tecla Favoritos com o seguinte comando: konsole -e bash -c '/media/da
 $ actualizar-debian.sh
 
 $ instalar elisa vlc kmymoney ktorrent whois preload ttf-mscorefonts-installer
+
+$ desinstalar
 
 MEGAsync
 ProtonVPN

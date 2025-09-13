@@ -67,7 +67,7 @@ alias nano="nano -l"
 alias mv="mv -iv"
 alias cp="cp -iv"
 
-# Grub
+# GRUB
 alias grub-instalar='sudo /usr/sbin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch'
 alias grub-actualizar='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 

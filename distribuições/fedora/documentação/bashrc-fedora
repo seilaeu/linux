@@ -65,30 +65,43 @@ alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
 
-alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
-alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
+alias desligar='/usr/bin/poweroff'
+alias reiniciar='/usr/bin/reboot'
 
 alias montar="sudo mount"
 alias desmontar="sudo umount"
+
+alias youtube-dl-mp3='yt-dlp --extract-audio --audio-format mp3 --audio-quality 0'
+
+alias nano="nano -l"
+alias mv="mv -iv"
+alias cp="cp -iv"
+
+#GRUB
+alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
+alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
 
 alias chroot-arch="sudo mount /dev/sda2 /media/arch && sudo mount -t proc none /media/arch/proc && sudo mount --rbind /sys /media/arch/sys && sudo mount --rbind /dev /media/arch/dev && sudo chroot /media/arch/"
 alias chroot-opensuse="sudo mount /dev/sda4 /media/opensuse && sudo mount -t proc none /media/opensuse/proc && sudo mount --rbind /sys /media/opensuse/sys && sudo mount --rbind /dev /media/opensuse/dev && sudo chroot /media/opensuse"
 alias chroot-debian="sudo mount /dev/sda5 /media/debian && sudo mount -t proc none /media/debian/proc && sudo mount --rbind /sys /media/debian/sys && sudo mount --rbind /dev /media/debian/dev && sudo chroot /media/debian"
 
-# KDE
+# Editor padrão do KDE
 EDITOR=/usr/bin/kwrite
 VISUAL=$EDITOR
 export EDITOR VISUAL
 
 alias ediroot="SUDO_EDITOR=$EDITOR sudoedit"
 
-alias edibash='$EDITOR ~/.bashrc'
+export PATH="/media/dados/linux/scripts/:/media/dados/linux/distribuições/fedora/scripts/:$PATH"
+
+alias grep='grep -i --color=auto'
+alias ls='ls -l --color'
+LS_COLORS='di=1;34:fi=1;97:ln=31:pi=5:so=5:bd=5:cd=5:or=05;37;41:mi=31;5:ex=32:*.pdf=1;90'
+export LS_COLORS
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
-export PATH="/media/dados/linux/scripts/:/media/dados/linux/distribuições/fedora/scripts/:$PATH"
-
-# Não abrir uma janela a pedir palavra-passe para o git push origin master:
+# Não abrir uma janela a pedir palavra-passe para o git push origin main:
 unset SSH_ASKPASS
 
 # Controlo remoto
@@ -97,3 +110,7 @@ alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
 alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
+
+# Necessário para o pacote de xadrez chessx
+
+export QT_QPA_PLATFORM=xcb
