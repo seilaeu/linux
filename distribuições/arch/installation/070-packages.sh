@@ -69,7 +69,23 @@ echo
 
 echo "Instalar alguns utilitários"
 
-sudo pacman -S bash-completion ncdu usbutils tree man-db reflector rsync --needed
+sudo pacman -S bash-completion ncdu usbutils tree man-db reflector rsync plocate --needed
+
+echo
+echo
+echo
+
+echo 'Comentar a linha PRUNEPATHS'
+
+echo 
+echo
+echo
+
+sleep 3
+
+sudo nano /etc/updatedb.conf
+
+sudo updatedb
 
 echo
 echo
