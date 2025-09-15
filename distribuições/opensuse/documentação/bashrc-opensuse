@@ -92,6 +92,9 @@ export LS_COLORS
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
+# Não abrir uma janela a pedir palavra-passe para o git push origin main:
+unset SSH_ASKPASS
+
 # Necessário para o pacote de xadrez chessx
 
 export QT_QPA_PLATFORM=xcb

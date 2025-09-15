@@ -25,7 +25,7 @@ solver.onlyRequires = true
 
 
 Desinstalações:
-$ sudo zypper rm --clean-deps kaddressbook kmail kontact korganizer libreoffice-base libreoffice-draw libreoffice-impress libreoffice-math konversation tigervnc kcharselect kmag kmousetool knotes ktnef kmines kpat kreversi xterm opensuse-welcome xscreensaver skanlite xf86-input-wacom icewm icewm-default icewm-lang xdg-desktop-portal-gtk jack-dbus
+$ sudo zypper rm --clean-deps kaddressbook kmail kontact korganizer libreoffice-base libreoffice-draw libreoffice-impress libreoffice-math konversation tigervnc kcharselect kmag kmousetool knotes ktnef kmines kpat kreversi xterm opensuse-welcome xscreensaver skanlite xf86-input-wacom icewm icewm-default icewm-lang xdg-desktop-portal-gtk jack-dbus openssh-askpass ksshaskpass
 
 Desinstalar pacotes desnecessários:
 
@@ -47,8 +47,7 @@ $ sudo zypper ref && sudo zypper dup (OpenSUSE Tumbleweed)
 
 Pacotes necessários:
 
-$ sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois ktorrent
-
+$ sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois ktorrent plocate yt-dlp-youtube-dl
 
 Multimedia codecs:
 
