@@ -3,7 +3,9 @@
 echo
 echo
 echo
+
 echo "Instalador do Arch Linux" 
+
 echo
 echo
 echo
@@ -21,7 +23,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 
 # Interface de rede
@@ -38,7 +40,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 
 # Ligação à Internet
@@ -55,7 +57,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 
 # Relógio
@@ -74,7 +76,7 @@ echo
 echo
 echo 
 
-sleep 3
+sleep 7
 
 
 # Partições
@@ -107,7 +109,7 @@ case $formatar_raiz in
      echo
      echo
      echo
-     sleep 3
+     sleep 7
      ;;
           btrfs) 
      echo
@@ -132,7 +134,7 @@ case $formatar_raiz in
      echo
      echo
      echo
-     sleep 3
+     sleep 7
      ;;
           *) 
      echo

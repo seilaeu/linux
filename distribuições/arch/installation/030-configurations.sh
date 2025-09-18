@@ -14,7 +14,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 echo "Localização"
 
@@ -30,7 +30,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 echo "Definir idioma"
 
@@ -40,11 +40,7 @@ echo
 
 echo "LANG=pt_PT.UTF-8" | tee /etc/locale.conf
 
-echo
-echo
-echo
-
-sleep 3
+sleep 7
 
 echo "Definir o tipo de letra e teclado no terminal"
 
@@ -56,11 +52,7 @@ echo "KEYMAP=pt-latin9" | tee  /etc/vconsole.conf
 echo "FONT=lat1-16" | tee -a /etc/vconsole.conf
 echo "FONT_MAP=8859-1" | tee -a /etc/vconsole.conf
 
-echo
-echo
-echo
-
-sleep 3
+sleep 7
 
 echo "Configuração da rede"
 
@@ -70,21 +62,13 @@ echo
 
 echo arch | tee /etc/hostname
 
-echo
-echo
-echo
-
 echo "127.0.0.1	localhost" | tee /etc/hosts
 
 echo "::1		localhost" | tee -a /etc/hosts
 
 echo "127.0.1.1      arch" | tee -a /etc/hosts
 
-echo
-echo
-echo
-
-sleep 3
+sleep 7
 
 echo "Instalar o gestor de rede"
 
@@ -104,7 +88,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 echo 'Descomentar a linha wheel no ficheiro /etc/sudoers'
 
@@ -112,7 +96,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 EDITOR=nano visudo
 
@@ -122,7 +106,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 passwd 
 
@@ -156,7 +140,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 passwd seilaeu 
 
@@ -177,6 +161,10 @@ echo
 echo 
 
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch
+
+echo
+echo
+echo
 
 grub-mkconfig -o /boot/grub/grub.cfg
 

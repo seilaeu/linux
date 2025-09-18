@@ -4,7 +4,7 @@ echo
 echo
 echo
 
-echo "Instalar o Plasma 5"
+echo "Instalar o Plasma 6"
 
 echo
 echo
@@ -30,10 +30,6 @@ echo
 
 echo "setxkbmap pt" | sudo tee -a /usr/share/sddm/scripts/Xsetup
 
-echo
-echo
-echo
-
 echo "Configurar o sddm"
 
 echo
@@ -48,7 +44,7 @@ echo
 
 echo "Definir Numlock=On"
 
-sleep 3
+sleep 7
 
 sudo nano /etc/sddm.conf
 

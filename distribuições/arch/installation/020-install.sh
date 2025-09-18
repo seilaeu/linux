@@ -22,7 +22,7 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 reflector --verbose --country Portugal --sort rate --save /etc/pacman.d/mirrorlist 
 
@@ -30,13 +30,17 @@ echo
 echo
 echo
 
-sleep 3
+sleep 7
 
 echo
 echo
 echo
 
 echo "Instalar o sistema base"
+
+echo
+echo
+echo
 
 pacstrap -Ki /mnt/ base linux linux-firmware intel-ucode sudo nano
 
@@ -46,9 +50,13 @@ echo
 
 echo "Verificar o ficheiro /etc/fstab"
 
+echo
+echo
+echo
+
 genfstab -U /mnt >> /mnt/etc/fstab 
 
-sleep 3
+sleep 7
 
 nano /mnt/etc/fstab 
 
@@ -58,6 +66,10 @@ echo
 
 echo "Mudar a raiz para a directoria mnt"
 
-sleep 3
+echo
+echo
+echo
+
+sleep 7
 
 arch-chroot /mnt /bin/bash

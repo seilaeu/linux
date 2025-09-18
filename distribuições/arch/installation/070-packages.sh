@@ -6,13 +6,17 @@ echo
 
 echo "Instalar o Libreoffice"
 
+echo
+echo
+echo
+
 sudo pacman -S libreoffice-fresh libreoffice-fresh-pt --needed
 
 echo
 echo
 echo
 
-echo "Instalar o pipewire, o vlc e codecs de media"
+echo "Instalar o pipewire, o vlc e os codecs de media"
 
 echo
 echo
@@ -27,7 +31,11 @@ echo
 echo
 echo
 
-echo "Instalar compressore e descompressores"
+echo "Instalar compressores e descompressores"
+
+echo
+echo
+echo
 
 sudo pacman -S unzip unrar --needed
 
@@ -36,6 +44,10 @@ echo
 echo
 
 echo "Instalar tipos de letra"
+
+echo
+echo
+echo
 
 sudo pacman -S ttf-bitstream-vera ttf-dejavu --needed
 
@@ -69,19 +81,23 @@ echo
 
 echo "Instalar alguns utilitários"
 
+echo
+echo
+echo
+
 sudo pacman -S bash-completion ncdu usbutils tree man-db reflector rsync plocate --needed
 
 echo
 echo
 echo
 
-echo 'Comentar a linha PRUNEPATHS'
+echo 'Comentar todas as linhas à excepção da linha PRUNEFS'
 
 echo 
 echo
 echo
 
-sleep 3
+sleep 7
 
 sudo nano /etc/updatedb.conf
 
@@ -134,6 +150,10 @@ echo
 echo
 
 echo "Instalar pacotes de sistema"
+
+echo
+echo
+echo
 
 sudo pacman -S bind pacman-contrib pkgfile pkgstats whois fwupd --needed
 yay -S gdisk --needed

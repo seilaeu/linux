@@ -49,6 +49,14 @@ Pacotes necessários:
 
 $ sudo zypper in kwrite kmymoney elisa vlc-codecs protonvpn-gui whois ktorrent plocate yt-dlp-youtube-dl
 
+$ ediroot /etc/updatedb.conf
+
+Comentar todas as linhas à excepção da linha PRUNEFS
+
+$ sudo updatedb
+
+$ sudo systemctl enable --now plocate-updatedb.timer
+
 Multimedia codecs:
 
 https://www.opensuse-community.org/
