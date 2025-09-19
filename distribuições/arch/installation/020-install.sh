@@ -32,10 +32,6 @@ echo
 
 sleep 7
 
-echo
-echo
-echo
-
 echo "Instalar o sistema base"
 
 echo

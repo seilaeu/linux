@@ -30,6 +30,10 @@ echo
 
 echo "setxkbmap pt" | sudo tee -a /usr/share/sddm/scripts/Xsetup
 
+echo
+echo
+echo
+
 echo "Configurar o sddm"
 
 echo

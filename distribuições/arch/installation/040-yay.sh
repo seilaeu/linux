@@ -33,3 +33,7 @@ makepkg -rsi
 cd ..
 rm -rf yay*
 
+echo
+echo
+echo
+
