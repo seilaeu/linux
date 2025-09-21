@@ -35,15 +35,15 @@ bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cup
 flatpak-libs aajohan-comfortaa-fonts gnome-keyring-pam
 
 
-Instalações de pacotes:
-
-$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
-
-
 $ actualizar-fedora.sh
 
 
-Tipo de letra dejavu e bitstream vera:
+Instalações de pacotes:
+
+$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu plocate
+
+
+Tipo de letra dejavu, bitstream vera e pacote de idioma português do libreoffice:
 
 $ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts bitstream-vera-fonts-all libreoffice-langpack-pt-PT
 
