@@ -23,29 +23,10 @@ deltarpm=False
 installonly_limit=3
 
 
-Functions:
-
-$ mkdir .bash_functions/
-
-$ nano .bash_functions/questionar-simples
-
-function questionar-simples { /usr/bin/dnf list --installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep -i $1; }
-
-$ nano .bash_functions/questionar-detalhado
-
-function questionar-detalhado { /usr/bin/dnf list --installed |awk '{print $1 "-" $2}'| sed 's/[.][^-+]*-/-/' | grep -i $1; }
-
-$ nano ~/.bashrc
-
-for f in ~/.bash_functions/* ; do source $f; done
+=> Adicionar o repositório RPM Fusion
 
 
-Alguns pacotes importantes:
-
-$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
-
-
-Algumas desinstalações de pacotes:
+Desinstalações de pacotes:
 
 $ desinstalar im-chooser qt5-qdbusviewer kaddressbook kmail kontact korganizer libreoffice-draw \
 libreoffice-impress libreoffice-math kolourpaint konversation krdc krfb plasma-welcome kcharselect kmag \
@@ -54,27 +35,31 @@ bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cup
 flatpak-libs aajohan-comfortaa-fonts gnome-keyring-pam
 
 
+Instalações de pacotes:
+
+$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
+
+
+$ actualizar-fedora.sh
+
+
 Tipo de letra dejavu e bitstream vera:
 
 $ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts bitstream-vera-fonts-all libreoffice-langpack-pt-PT
 
 
-Duplicados do dnf:
+Letra mais fina:
 
-$ instalar dnf-utils
-$ sudo package-cleanup --cleandupes
+$ sudo nano /etc/profile.d/freetype2.sh
 
+export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
 
-Adicionar repositórios:
-
-=> RPM Fusion
 
 => Proton VPN
 
 => MEGASync
 
-
-Tipo de letra da Microsoft
+=> Tipo de letra da Microsoft
 
 
 NumLock no arranque:
@@ -85,23 +70,13 @@ $ sudo nano /var/lib/sddm/.config/kcminputrc
 NumLock=0
 
 
-Impedir que abra uma janela de autenticação quando executamos git push origin master:
+Impedir que uma janela de autenticação se abra quando executamos git push origin main:
 
 $ desinstalar openssh-askpass ksshaskpass
 
 $ nano ~/.bashrc
 
 unset SSH_ASKPASS
-
-
-Letra mais fina:
-
-$ sudo nano /etc/profile.d/freetype2.sh
-
-export FREETYPE_PROPERTIES="truetype:interpreter-version=35"
-
-
-$ actualizar
 
 
 Remover serviços systemd:

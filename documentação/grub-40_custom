@@ -51,7 +51,7 @@ menuentry "Fedora" {
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
         chainloader /EFI/fedora/grubx64.efi
 }
-menuentry "Opensuse" {
+menuentry "OpenSUSE" {
        insmod fat
         insmod chain
        search --no-floppy --set=root --fs-uuid 51F3-D9B8
