@@ -61,7 +61,7 @@ alias reiniciar='/usr/bin/reboot'
 alias montar="sudo mount"
 alias desmontar="sudo umount"
 
-# Para que o comando sudo beneficie das aliases
+# Para que o comando sudo beneficie das aliases aqui definidas:
 alias sudo='sudo '
 
 alias nano="nano -l"
