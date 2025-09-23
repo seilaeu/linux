@@ -65,6 +65,9 @@ alias ligações-quebradas-remover="ligações-quebradas-procurar -exec sudo rm 
 # Verificar se algum serviço do systemd falhou e procurar erros de alta prioridade no journal do systemd:
 alias erros="echo && systemctl --failed && echo && journalctl -p 3 -b && echo"
 
+# Para que o comando sudo beneficie das aliases aqui definidas:
+alias sudo='sudo '
+
 alias desligar='/usr/bin/poweroff'
 alias reiniciar='/usr/bin/reboot'
 
@@ -76,6 +79,7 @@ alias youtube-dl-mp3='yt-dlp --extract-audio --audio-format mp3 --audio-quality 
 alias nano="nano -l"
 alias mv="mv -iv"
 alias cp="cp -iv"
+alias rm="rm -v"
 
 #GRUB
 alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
@@ -110,7 +114,3 @@ alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
 alias mãe-acesso-terminal-mint="ssh -vv -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52"
 alias mãe-acesso-gráfico-mint="ssh -t -L 55900:localhost:5900 -i ~/.ssh/jribeiro-mint_rsa -p 31970 jribeiro@109.48.239.52 'sudo x11vnc -display :0 -auth /home/kika/.Xauthority -rfbauth /home/kika/.x11vnc/passwd'"
-
-# Necessário para o pacote de xadrez chessx
-
-export QT_QPA_PLATFORM=xcb
