@@ -61,11 +61,15 @@ alias reiniciar='/usr/bin/reboot'
 alias montar="sudo mount"
 alias desmontar="sudo umount"
 
-alias youtube-dl-mp3='yt-dlp --extract-audio --audio-format mp3 --audio-quality 0'
+# Para que o comando sudo beneficie das aliases
+alias sudo='sudo '
 
 alias nano="nano -l"
 alias mv="mv -iv"
 alias cp="cp -iv"
+alias rm="rm -iv"
+
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3 --audio-quality 0'
 
 # GRUB
 alias grub-instalar='sudo /usr/sbin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch'
