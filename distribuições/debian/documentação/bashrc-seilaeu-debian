@@ -51,7 +51,8 @@ alias mãe-acesso-gráfico-arch="ssh -t -L 55900:localhost:5900 -i ~/.ssh/mãe-a
 alias mãe-visualizar-desktop="vncviewer -x11cursor 127.0.0.1:55900"
 
 alias procurar='apt-cache search'
-alias questionar="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2| grep"
+alias questionar-simples="dpkg -l | grep ^ii | sed 's_  _\t_g' | cut -f 2| grep"
+alias questionar-detalhado="apt list --installed | grep"
 alias instalar='sudo apt-get install'
 alias reinstalar='sudo apt-get install --reinstall'
 alias desinstalar='sudo apt-get purge'
