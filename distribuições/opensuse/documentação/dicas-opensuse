@@ -1,3 +1,12 @@
 Comando que cria um atalho para actualizar o sistema:
 
 konsole -e bash -c '/media/dados/linux/distribuições/opensuse/scripts/actualizar-opensuse.sh; echo; read -p "Prima a tecla Enter..."'
+
+Mensagem  de erro: pam_wtmpdb(login:session): Cannot create/open database (/var/lib/wtmpdb/wtmp.db): unable to open database file
+
+Solução:
+
+$ ediroot /etc/pam.d/postlogin-session-pc
+
+session optional pam_wtmpdb.so
+
