@@ -17,6 +17,8 @@ Configurar o dnf:
 
 $ sudo nano /etc/dnf/dnf.conf
 
+[main]
+
 max_parallel_downloads=20
 defaultyes=True
 deltarpm=False
@@ -87,12 +89,3 @@ sudo systemctl mask NetworkManager-wait-online.service
 Pacotes de programação:
 
 $ sudo dnf install binutils gcc make patch libgomp glibc-headers glibc-devel kernel-headers kernel-devel dkms
-
-
-Instalar alguns pacotes multimedia:
-
-instalar gstreamer gstreamer-ffmpeg gstreamer-plugins-bad \
-gstreamer-plugins-bad-free gstreamer-plugins-bad-nonfree gstreamer-plugins-base \
-gstreamer-plugins-good gstreamer-plugins-ugly gstreamer-plugin-crystalhd \
-gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-free \
-gstreamer1-plugins-good gstreamer1-libav ffmpeg
